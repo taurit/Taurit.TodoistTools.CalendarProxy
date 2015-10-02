@@ -1,0 +1,6 @@
+CalendarProxy/node_modules/
+CalendarProxy/obj/
+CalendarProxy/Properties/PublishProfiles/
+CalendarProxy/bin/
+CalendarProxy.Tests/obj/
+CalendarProxy.Tests/bin/

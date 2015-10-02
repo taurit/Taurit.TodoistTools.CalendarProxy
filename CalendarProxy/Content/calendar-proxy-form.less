@@ -1,0 +1,63 @@
+﻿body {
+    // set top padding to match bootstrap's fixed header height
+    padding: 65px 10px 65px 10px;
+}
+
+// increase bottom space for headers
+h3 {
+    padding-bottom: 10px;
+}
+
+// make message easy to see for users that block JS
+noscript p {
+    font-weight: bold;
+    color: #FF4136;
+    border: 3px solid #FF4136;
+    padding: 15px;
+}
+
+// styles for the form containing options and preview panel
+.calendar-generator {
+    @previewPanelWidth: 300px;
+    @optionsWidth: 600px;
+
+    width: @optionsWidth + 2*@previewPanelWidth;
+
+    #preview-options {
+        padding-left: 20px;
+        width: @optionsWidth;
+        vertical-align: top;
+
+        input[type=text], input[type=number] {
+            width: 100px;
+            display: inline-block;
+        }
+    }
+
+    #preview-before-cell, #preview-after-cell {
+        width: @previewPanelWidth;
+        padding: 10px;
+    }
+
+    #preview-before, #preview-after {
+        height: 350px;
+    }
+
+    #calendar-generator-result-url {
+        color: blue;
+        text-decoration: underline;
+    }
+}
+
+// bootstrap's glyphicon
+.glyphicon {
+    position: relative;
+    top: 4px;
+    margin-right: 5px;
+}
+
+// display labels inline
+label {
+    display: inline-block;
+    margin-bottom: 0;
+}
