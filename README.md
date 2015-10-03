@@ -21,4 +21,9 @@ Currently you can:
 
 ## Example
 
-Example instance of this service is deployed under [https://todoistcalendar.azurewebsites.net/](), where you can preview how the filter behaves on an examplary calendar.
+Example instance of this service is deployed under [https://todoistcalendar.azurewebsites.net/](), where you can preview how the filter behaves on an examplary calendar and generate proxified URLs for your own calendars.
+
+
+
+![CalendarProxy example screenshot](https://github.com/taurit/CalendarProxy/blob/master/CalendarProxy/Content/CalendarProxy-example-screenshot.png)
+
