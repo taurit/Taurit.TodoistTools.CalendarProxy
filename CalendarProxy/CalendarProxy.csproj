@@ -97,7 +97,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.css" />
+    <None Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\calendar-proxy-form.min.css" />
     <Content Include="Content\iCalStyles.min.css" />
@@ -105,19 +105,19 @@
     <Content Include="Content\timer.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="gulpfile.js" />
-    <Content Include="Scripts\bootstrap.js" />
+    <None Include="gulpfile.js" />
+    <None Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Content\calendar-proxy-form.less" />
-    <Content Include="Content\texteffects.less" />
+    <None Include="Content\calendar-proxy-form.less" />
+    <None Include="Content\texteffects.less" />
     <Content Include="Content\Demo-2016-01-01.ics" />
     <None Include="Properties\PublishProfiles\TodoistCalendar.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\calendar-proxy-form.js" />
+    <None Include="Scripts\calendar-proxy-form.js" />
     <Content Include="Scripts\calendar-proxy-form.min.js" />
     <Content Include="Scripts\ical.min.js" />
     <Content Include="Scripts\icalrender.min.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
+    <None Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
