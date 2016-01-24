@@ -21,7 +21,7 @@ Currently you can:
 
 ## Example
 
-Example instance of this service is deployed under [https://todoistcalendar.azurewebsites.net/](), where you can preview how the filter behaves on an examplary calendar and generate proxified URLs for your own calendars.
+Example instance of this service is deployed under [https://todoistcalendar.azurewebsites.net/](https://todoistcalendar.azurewebsites.net/), where you can preview how the filter behaves on an examplary calendar and generate proxified URLs for your own calendars.
 
 
 
