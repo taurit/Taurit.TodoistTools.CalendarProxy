@@ -3,9 +3,6 @@ var less = require('gulp-less');
 var jshint = require('gulp-jshint');
 var cssmin = require('gulp-cssmin');
 var rename = require('gulp-rename');
-var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
-var stripDebug = require('gulp-strip-debug');
 var es = require('event-stream');
 
 gulp.task('styles', function () {
@@ -20,8 +17,6 @@ gulp.task('scripts', function () {
     return es.merge(
         gulp.src(['lib/*']).pipe(gulp.dest('./build')),
         gulp.src(['Scripts/calendar-proxy-form.js'])
-          //.pipe(stripDebug())
-          //.pipe(uglify())
           .pipe(rename({ suffix: '.min' }))
           .pipe(gulp.dest('./Scripts/'))
       );
