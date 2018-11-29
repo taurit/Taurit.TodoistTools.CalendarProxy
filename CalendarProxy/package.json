@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/taurit/CalendarProxy#readme",
   "devDependencies": {
-    "event-stream": "^3.3.4",
+    "event-stream": "3.3.4",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
     "gulp-cssmin": "^0.2.0",
