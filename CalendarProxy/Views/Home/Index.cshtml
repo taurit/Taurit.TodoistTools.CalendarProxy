@@ -2,17 +2,11 @@
     ViewBag.Title = "Clean up your calendar view!";
 }
 
-<div class="jumbotron">
-    <h1><span class="glyphicon glyphicon-calendar"></span> Clean up your calendar view!</h1>
+<div class="jumbotron" id="jumbotron-main">
+    <h1>Clean up your calendar view!</h1>
 
     <p>Sometimes you want to subscribe to a calendar, but would like to have <strong>more control of what events are displayed and how</strong>.</p>
     
-    <p>
-        For example, if you use calendar exported from a TODO-list app, what you get is limited by app's data model. For example
-        <strong>
-            <a href="https://todoist.com/">Todoist</a>
-        </strong> exports calendar in a way that all tasks are assumed to take exactly 1 hour, and if the time for the task is not specified, they are listed as all-day events. Another example, when you subscribe to <strong>Facebook events calendar</strong> in your calendar program, you might notice that some events you will receive last weeks or months, and clutter your calendar view even though you are not interested
-    </p>
 </div>
 
 
@@ -21,11 +15,17 @@
 </noscript>
 
 
+<p>
+    For example, if you use calendar exported from a TODO-list app, what you get is limited by app's data model. For example
+    <strong>
+        <a href="https://todoist.com/">Todoist</a>
+    </strong> exports calendar in a way that all tasks are assumed to take exactly 1 hour, and if the time for the task is not specified, they are listed as all-day events. Another example, when you subscribe to <strong>Facebook events calendar</strong> in your calendar program, you might notice that some events you will receive last weeks or months, and clutter your calendar view even though you are not interested
+</p>
 
 
 <p><em>Calendar module</em> was the most voted-for feature in mentioned <strong>Todoist</strong> application, because people want to integrate their TODO lists with calendars. But it fell on deaf ears for years now. This proxy allows to solve many problems in current situation and might act like a calendar extension for this application.</p>
 
-<h3><span class="glyphicon glyphicon-cog"></span> Step #1: choose preferred options</h3>
+<h3>Step #1: choose preferred options</h3>
 
 <form class="calendar-generator">
     <table class="calendar-generator-preview icalrender">
@@ -82,7 +82,7 @@
         </tbody>
     </table>
 
-    <h3><span class="glyphicon glyphicon-filter"></span> Step #2: Transform your calendar the same way</h3>
+    <h3>Step #2: Transform your calendar the same way</h3>
     <div class="form-group">
         <label for="url-calendar">URL of your iCalendar:</label>
         <input id="url-calendar" type="url" class="form-control monitored"/>
@@ -92,7 +92,7 @@
         <pre id="calendar-generator-result-url"></pre>
     </div>
 
-    <h3><span class="glyphicon glyphicon-camera"></span> Note about privacy</h3>
+    <h3>Note about privacy</h3>
 
     <p>Calendars contain private data, and the service that acts like a proxy can technically process this data in any way, including malicious scenarios. If you don't want to entrust some 3rd party service with the sensitive stuff, it's fully understandable.</p>
 

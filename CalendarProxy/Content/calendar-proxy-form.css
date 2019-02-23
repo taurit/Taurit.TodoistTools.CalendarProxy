@@ -1,0 +1,45 @@
+﻿body {
+  padding: 65px 10px 65px 10px;
+}
+h3 {
+  padding-bottom: 10px;
+}
+noscript p {
+  font-weight: bold;
+  color: #FF4136;
+  border: 3px solid #FF4136;
+  padding: 15px;
+}
+.calendar-generator {
+  width: 1200px;
+}
+.calendar-generator #preview-options {
+  padding-left: 20px;
+  width: 600px;
+  vertical-align: top;
+}
+.calendar-generator #preview-options input[type=text],
+.calendar-generator #preview-options input[type=number] {
+  width: 100px;
+  display: inline-block;
+}
+.calendar-generator #preview-before-cell,
+.calendar-generator #preview-after-cell {
+  width: 300px;
+  padding: 10px;
+}
+.calendar-generator #preview-before,
+.calendar-generator #preview-after {
+  height: 350px;
+}
+.calendar-generator #calendar-generator-result-url {
+  color: blue;
+  text-decoration: underline;
+}
+label {
+  display: inline-block;
+  margin-bottom: 0;
+}
+#jumbotron-main {
+  margin-top: 20px;
+}

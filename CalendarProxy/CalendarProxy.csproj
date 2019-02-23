@@ -147,6 +147,9 @@
     <Content Include="Content\bootswatch\united\bootstrap.min.css" />
     <Content Include="Content\bootswatch\yeti\bootstrap.css" />
     <Content Include="Content\bootswatch\yeti\bootstrap.min.css" />
+    <Content Include="Content\calendar-proxy-form.css">
+      <DependentUpon>calendar-proxy-form.less</DependentUpon>
+    </Content>
     <Content Include="Content\calendar-proxy-form.min.css" />
     <Content Include="Content\iCalStyles.min.css" />
     <Content Include="Content\texteffects.min.css" />
@@ -200,6 +203,10 @@
     <Content Include="Content\bootswatch\cosmo\_bootswatch.scss" />
     <Content Include="Content\bootswatch\cerulean\_variables.scss" />
     <Content Include="Content\bootswatch\cerulean\_bootswatch.scss" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="gulpfile.js" />
     <None Include="Content\calendar-proxy-form.less" />
     <None Include="Content\texteffects.less" />
