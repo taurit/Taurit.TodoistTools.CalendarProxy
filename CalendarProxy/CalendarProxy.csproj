@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.3.1.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.3.1.1\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -58,6 +58,9 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.InteropServices" />
+    <Reference Include="System.Threading.Thread" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -103,48 +106,6 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\cerulean\bootstrap.css" />
-    <Content Include="Content\bootswatch\cerulean\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\cosmo\bootstrap.css" />
-    <Content Include="Content\bootswatch\cosmo\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\cyborg\bootstrap.css" />
-    <Content Include="Content\bootswatch\cyborg\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\darkly\bootstrap.css" />
-    <Content Include="Content\bootswatch\darkly\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\flatly\bootstrap.css" />
-    <Content Include="Content\bootswatch\flatly\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\journal\bootstrap.css" />
-    <Content Include="Content\bootswatch\journal\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\litera\bootstrap.css" />
-    <Content Include="Content\bootswatch\litera\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\lumen\bootstrap.css" />
-    <Content Include="Content\bootswatch\lumen\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\lux\bootstrap.css" />
-    <Content Include="Content\bootswatch\lux\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\materia\bootstrap.css" />
-    <Content Include="Content\bootswatch\materia\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\minty\bootstrap.css" />
-    <Content Include="Content\bootswatch\minty\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\pulse\bootstrap.css" />
-    <Content Include="Content\bootswatch\pulse\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\sandstone\bootstrap.css" />
-    <Content Include="Content\bootswatch\sandstone\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\simplex\bootstrap.css" />
-    <Content Include="Content\bootswatch\simplex\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\sketchy\bootstrap.css" />
-    <Content Include="Content\bootswatch\sketchy\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\slate\bootstrap.css" />
-    <Content Include="Content\bootswatch\slate\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\solar\bootstrap.css" />
-    <Content Include="Content\bootswatch\solar\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\spacelab\bootstrap.css" />
-    <Content Include="Content\bootswatch\spacelab\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\superhero\bootstrap.css" />
-    <Content Include="Content\bootswatch\superhero\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\united\bootstrap.css" />
-    <Content Include="Content\bootswatch\united\bootstrap.min.css" />
-    <Content Include="Content\bootswatch\yeti\bootstrap.css" />
-    <Content Include="Content\bootswatch\yeti\bootstrap.min.css" />
     <Content Include="Content\calendar-proxy-form.css">
       <DependentUpon>calendar-proxy-form.less</DependentUpon>
     </Content>
@@ -153,58 +114,16 @@
     <Content Include="Content\texteffects.min.css" />
     <Content Include="Content\timer.min.css" />
     <Content Include="Global.asax" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-reboot.min.css.map" />
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Content\bootswatch\yeti\_variables.scss" />
-    <Content Include="Content\bootswatch\yeti\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\united\_variables.scss" />
-    <Content Include="Content\bootswatch\united\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\superhero\_variables.scss" />
-    <Content Include="Content\bootswatch\superhero\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\spacelab\_variables.scss" />
-    <Content Include="Content\bootswatch\spacelab\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\solar\_variables.scss" />
-    <Content Include="Content\bootswatch\solar\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\slate\_variables.scss" />
-    <Content Include="Content\bootswatch\slate\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\sketchy\_variables.scss" />
-    <Content Include="Content\bootswatch\sketchy\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\simplex\_variables.scss" />
-    <Content Include="Content\bootswatch\simplex\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\sandstone\_variables.scss" />
-    <Content Include="Content\bootswatch\sandstone\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\pulse\_variables.scss" />
-    <Content Include="Content\bootswatch\pulse\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\minty\_variables.scss" />
-    <Content Include="Content\bootswatch\minty\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\materia\_variables.scss" />
-    <Content Include="Content\bootswatch\materia\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\lux\_variables.scss" />
-    <Content Include="Content\bootswatch\lux\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\lumen\_variables.scss" />
-    <Content Include="Content\bootswatch\lumen\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\litera\_variables.scss" />
-    <Content Include="Content\bootswatch\litera\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\journal\_variables.scss" />
-    <Content Include="Content\bootswatch\journal\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\flatly\_variables.scss" />
-    <Content Include="Content\bootswatch\flatly\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\darkly\_variables.scss" />
-    <Content Include="Content\bootswatch\darkly\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\cyborg\_variables.scss" />
-    <Content Include="Content\bootswatch\cyborg\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\cosmo\_variables.scss" />
-    <Content Include="Content\bootswatch\cosmo\_bootswatch.scss" />
-    <Content Include="Content\bootswatch\cerulean\_variables.scss" />
-    <Content Include="Content\bootswatch\cerulean\_bootswatch.scss" />
-    <None Include="compilerconfig.json" />
-    <None Include="compilerconfig.json.defaults">
-      <DependentUpon>compilerconfig.json</DependentUpon>
-    </None>
     <None Include="gulpfile.js" />
     <None Include="Content\calendar-proxy-form.less" />
     <None Include="Content\texteffects.less" />
@@ -215,10 +134,6 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -227,16 +142,20 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\calendar-proxy-form.js" />
     <Content Include="Scripts\calendar-proxy-form.min.js" />
     <Content Include="Scripts\ical.min.js" />
     <Content Include="Scripts\icalrender.min.js" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -278,8 +197,8 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -329,7 +248,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.3.1.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.3.1.1\build\Microsoft.Net.Compilers.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
