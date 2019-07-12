@@ -32,14 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EWSoftware.PDI, Version=2015.1.19.0, Culture=neutral, PublicKeyToken=69a3299ed3c63934, processorArchitecture=MSIL">
-      <HintPath>..\packages\EWSoftware.PDI.2015.1.19.0\lib\net40\EWSoftware.PDI.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EWSoftware.PDI.Data, Version=2015.1.19.0, Culture=neutral, PublicKeyToken=69a3299ed3c63934, processorArchitecture=MSIL">
-      <HintPath>..\packages\EWSoftware.PDI.Data.2015.1.19.0\lib\net40\EWSoftware.PDI.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
       <Private>False</Private>
@@ -70,10 +62,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="SampleCalendar.ics">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EWSoftware.PDI.Data">
+      <Version>2015.1.19</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
