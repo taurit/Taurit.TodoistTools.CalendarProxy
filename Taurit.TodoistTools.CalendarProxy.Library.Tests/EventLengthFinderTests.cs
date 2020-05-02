@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CalendarProxy.Helpers;
+using Taurit.TodoistTools.CalendarProxy.Library.Helpers;
 
-namespace CalendarProxy.Tests
+namespace Taurit.TodoistTools.CalendarProxy.Library.Tests
 {
     [TestClass]
     public class EventLengthFinderTests

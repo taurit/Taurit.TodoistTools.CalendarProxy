@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 
-namespace CalendarProxy.Helpers
+namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
 {
     /// <summary>
     /// Configuration defining operations that should be performed on an input calendar

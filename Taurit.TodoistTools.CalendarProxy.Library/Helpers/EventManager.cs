@@ -1,11 +1,10 @@
-﻿using EWSoftware.PDI.Objects;
-using EWSoftware.PDI.Parser;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using EWSoftware.PDI.Objects;
+using EWSoftware.PDI.Parser;
 
-namespace CalendarProxy.Helpers
+namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
 {
     /// <summary>
     /// Allows to filter calendar events according to user-defined rules

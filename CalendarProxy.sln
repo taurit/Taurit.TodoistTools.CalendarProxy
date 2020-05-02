@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarProxy", "CalendarProxy\CalendarProxy.csproj", "{FF49402E-49F7-4A6A-A4C5-A7975FB6BBB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarProxy.Tests", "CalendarProxy.Tests\CalendarProxy.Tests.csproj", "{BAE7B035-3003-45C0-BC68-11A81FB0F657}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taurit.TodoistTools.CalendarProxy.Library", "Taurit.TodoistTools.CalendarProxy.Library\Taurit.TodoistTools.CalendarProxy.Library.csproj", "{EFE61CD7-414D-4A07-BBCF-E1C2F531744E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taurit.TodoistTools.CalendarProxy.Library.Tests", "Taurit.TodoistTools.CalendarProxy.Library.Tests\Taurit.TodoistTools.CalendarProxy.Library.Tests.csproj", "{39681BB1-9AC9-4DB9-81F4-F34E3673F798}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{FF49402E-49F7-4A6A-A4C5-A7975FB6BBB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF49402E-49F7-4A6A-A4C5-A7975FB6BBB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF49402E-49F7-4A6A-A4C5-A7975FB6BBB2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BAE7B035-3003-45C0-BC68-11A81FB0F657}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BAE7B035-3003-45C0-BC68-11A81FB0F657}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BAE7B035-3003-45C0-BC68-11A81FB0F657}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BAE7B035-3003-45C0-BC68-11A81FB0F657}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EFE61CD7-414D-4A07-BBCF-E1C2F531744E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EFE61CD7-414D-4A07-BBCF-E1C2F531744E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFE61CD7-414D-4A07-BBCF-E1C2F531744E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFE61CD7-414D-4A07-BBCF-E1C2F531744E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39681BB1-9AC9-4DB9-81F4-F34E3673F798}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39681BB1-9AC9-4DB9-81F4-F34E3673F798}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39681BB1-9AC9-4DB9-81F4-F34E3673F798}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39681BB1-9AC9-4DB9-81F4-F34E3673F798}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Web;
 
-namespace CalendarProxy.Helpers
+namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
 {
     /// <summary>
     /// Looks for fragments indicating event length in the string

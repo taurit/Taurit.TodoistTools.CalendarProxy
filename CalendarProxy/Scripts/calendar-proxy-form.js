@@ -2,8 +2,8 @@
   * Simple generator for proxy URL's based on user's input in a form.
   */
 
-/// <reference path="../lib/jquery-2.1.4.min.js" />
-/// <reference path="../lib/icalrender.js" />
+/// <reference path="jquery-3.4.1.min.js" />
+/// <reference path="icalrender.min.js" />
 
 // polyfill for browsers without location.origin, http://stackoverflow.com/a/6167979
 if (!location.origin)

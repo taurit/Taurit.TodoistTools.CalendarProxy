@@ -1,14 +1,11 @@
-﻿using CalendarProxy.Helpers;
+﻿using System;
+using System.Linq;
 using EWSoftware.PDI.Objects;
 using EWSoftware.PDI.Parser;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Taurit.TodoistTools.CalendarProxy.Library.Helpers;
 
-namespace CalendarProxy.Tests
+namespace Taurit.TodoistTools.CalendarProxy.Library.Tests
 {
     [TestClass]
     public class FilteringOptionsTests

@@ -1,11 +1,8 @@
-﻿using EWSoftware.PDI.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Text.RegularExpressions;
-using System.Web;
+using EWSoftware.PDI.Objects;
 
-namespace CalendarProxy.Helpers
+namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
 {
     public static class VEventExtensionMethods
     {

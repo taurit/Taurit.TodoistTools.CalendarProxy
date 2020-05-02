@@ -1,9 +1,8 @@
-﻿using System;
+﻿using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CalendarProxy.Helpers;
-using System.IO;
+using Taurit.TodoistTools.CalendarProxy.Library.Helpers;
 
-namespace CalendarProxy.Tests
+namespace Taurit.TodoistTools.CalendarProxy.Library.Tests
 {
     [TestClass]
     public class iCalendarTests

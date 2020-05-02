@@ -1,53 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace CalendarProxy.Helpers
+namespace Taurit.TodoistTools.CalendarProxy.Library.Models
 {
     public class EventLength
     {
         private decimal hours;
-        public decimal Hours
-        {
-            get
-            {
-                return this.hours;
-            }
-            set
-            {
-                if (value > 0)
-                {
-                    this.hours = value;
-                }
-                else
-                {
-                    throw new ArgumentException("Invalid parameter");
-                }
-            }
-        }
 
         private decimal minutes;
+
+        public decimal Hours
+        {
+            get => hours;
+            set
+            {
+                if (value > 0)
+                    hours = value;
+                else
+                    throw new ArgumentException("Invalid parameter");
+            }
+        }
+
         public decimal Minutes
         {
-            get
-            {
-                return this.minutes;
-            }
+            get => minutes;
 
             set
             {
                 if (value > 0)
-                {
-                    this.minutes = value;
-                }
+                    minutes = value;
                 else
-                {
                     throw new ArgumentException("Invalid parameter");
-                }
             }
         }
-
-
     }
 }
