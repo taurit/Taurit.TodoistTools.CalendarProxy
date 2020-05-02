@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarProxy", "CalendarProxy\CalendarProxy.csproj", "{FF49402E-49F7-4A6A-A4C5-A7975FB6BBB2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taurit.TodoistTools.CalendarProxy.Library", "Taurit.TodoistTools.CalendarProxy.Library\Taurit.TodoistTools.CalendarProxy.Library.csproj", "{EFE61CD7-414D-4A07-BBCF-E1C2F531744E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taurit.TodoistTools.CalendarProxy.Library.Tests", "Taurit.TodoistTools.CalendarProxy.Library.Tests\Taurit.TodoistTools.CalendarProxy.Library.Tests.csproj", "{39681BB1-9AC9-4DB9-81F4-F34E3673F798}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taurit.TodoistTools.CalendarProxy", "Taurit.TodoistTools.CalendarProxy\Taurit.TodoistTools.CalendarProxy.csproj", "{24E85F5C-E2FC-4FEE-8281-37FE9FBDF081}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FF49402E-49F7-4A6A-A4C5-A7975FB6BBB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF49402E-49F7-4A6A-A4C5-A7975FB6BBB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF49402E-49F7-4A6A-A4C5-A7975FB6BBB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF49402E-49F7-4A6A-A4C5-A7975FB6BBB2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EFE61CD7-414D-4A07-BBCF-E1C2F531744E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EFE61CD7-414D-4A07-BBCF-E1C2F531744E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFE61CD7-414D-4A07-BBCF-E1C2F531744E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,12 +23,16 @@ Global
 		{39681BB1-9AC9-4DB9-81F4-F34E3673F798}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39681BB1-9AC9-4DB9-81F4-F34E3673F798}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39681BB1-9AC9-4DB9-81F4-F34E3673F798}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24E85F5C-E2FC-4FEE-8281-37FE9FBDF081}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24E85F5C-E2FC-4FEE-8281-37FE9FBDF081}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24E85F5C-E2FC-4FEE-8281-37FE9FBDF081}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24E85F5C-E2FC-4FEE-8281-37FE9FBDF081}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		LessCompiler = ff49402e-49f7-4a6a-a4c5-a7975fb6bbb2
 		SolutionGuid = {4D882762-C7CD-423D-AB8C-3A43852AB1E6}
+		LessCompiler = ff49402e-49f7-4a6a-a4c5-a7975fb6bbb2
 	EndGlobalSection
 EndGlobal

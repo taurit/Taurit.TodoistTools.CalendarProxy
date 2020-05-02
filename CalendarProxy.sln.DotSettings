@@ -1,4 +1,5 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/Browsers/Browsers/@EntryValue">C81+,FF75+</s:String>
 	<s:Boolean x:Key="/Default/Environment/ExcludedFiles/FilesAndFoldersThirdParty/=FF49402E_002D49F7_002D4A6A_002DA4C5_002DA7975FB6BBB2_002Fd_003AScripts_002Ff_003Abootstrap_002Ebundle_002Ejs/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/ExcludedFiles/FilesAndFoldersThirdParty/=FF49402E_002D49F7_002D4A6A_002DA4C5_002DA7975FB6BBB2_002Fd_003AScripts_002Ff_003Abootstrap_002Ebundle_002Ejs_002Emap/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/ExcludedFiles/FilesAndFoldersThirdParty/=FF49402E_002D49F7_002D4A6A_002DA4C5_002DA7975FB6BBB2_002Fd_003AScripts_002Ff_003Abootstrap_002Ebundle_002Emin_002Ejs/@EntryIndexedValue">True</s:Boolean>
@@ -87,6 +88,7 @@
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=cssmin/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=ical/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=icalendar/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=icalrender/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Taurit/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Todoist/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=vcalendar/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

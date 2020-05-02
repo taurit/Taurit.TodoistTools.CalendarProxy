@@ -1,14 +1,13 @@
-﻿using System.Web.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace CalendarProxy.Controllers
+namespace Taurit.TodoistTools.CalendarProxy.Controllers
 {
     public class HomeController : Controller
     {
         /// <summary>
         ///     Displays the default view, which allows to construct proxified calendar URL based on user-provided options
         /// </summary>
-        /// <returns></returns>
-        public ViewResult Index()
+        public IActionResult Index()
         {
             return View();
         }
