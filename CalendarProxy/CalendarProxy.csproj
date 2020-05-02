@@ -60,12 +60,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EWSoftware.PDI, Version=2018.12.1.0, Culture=neutral, PublicKeyToken=69a3299ed3c63934, processorArchitecture=MSIL">
-      <HintPath>..\packages\EWSoftware.PDI.2018.12.1\lib\net40\EWSoftware.PDI.dll</HintPath>
-    </Reference>
-    <Reference Include="EWSoftware.PDI.Data, Version=2018.12.1.0, Culture=neutral, PublicKeyToken=69a3299ed3c63934, processorArchitecture=MSIL">
-      <HintPath>..\packages\EWSoftware.PDI.Data.2018.12.1\lib\net40\EWSoftware.PDI.Data.dll</HintPath>
-    </Reference>
+    <Reference Include="EWSoftware.PDI.Data, Version=2018.12.1.0, Culture=neutral, PublicKeyToken=69a3299ed3c63934" />
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -187,11 +182,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\EventLengthFinder.cs" />
-    <Compile Include="Helpers\EventManager.cs" />
-    <Compile Include="Helpers\FilteringOptions.cs" />
-    <Compile Include="Helpers\VEventExtensionMethods.cs" />
-    <Compile Include="Models\EventLength.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +219,12 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Taurit.TodoistTools.CalendarProxy.Library\Taurit.TodoistTools.CalendarProxy.Library.csproj">
+      <Project>{efe61cd7-414d-4a07-bbcf-e1c2f531744e}</Project>
+      <Name>Taurit.TodoistTools.CalendarProxy.Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

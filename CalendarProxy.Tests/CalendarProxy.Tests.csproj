@@ -61,16 +61,15 @@
       <Project>{FF49402E-49F7-4A6A-A4C5-A7975FB6BBB2}</Project>
       <Name>CalendarProxy</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Taurit.TodoistTools.CalendarProxy.Library\Taurit.TodoistTools.CalendarProxy.Library.csproj">
+      <Project>{EFE61CD7-414D-4A07-BBCF-E1C2F531744E}</Project>
+      <Name>Taurit.TodoistTools.CalendarProxy.Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="SampleCalendar.ics">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="EWSoftware.PDI.Data">
-      <Version>2015.1.19</Version>
-    </PackageReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
