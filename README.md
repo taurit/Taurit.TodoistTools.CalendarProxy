@@ -1,15 +1,28 @@
 # CalendarProxy
-CalendarProxy is a proxy for calendars in iCalendar format that allows filtering and modification of events. Designed especially to work with Todoist service as an independent extension of its calendar capabilities, but can be also aplied to any calendar in iCal/vCalendar format.
 
-## Description
+CalendarProxy is a proxy for calendars in iCalendar format that allows filtering and modification of events. Designed especially to work with Todoist service as an independent extension of its calendar capabilities, but can be also applied to any calendar in iCal/vCalendar format.
 
-CalendarProxy is a web service written in ASP.NET MVC, that allows you to modify iCalendar file (e.g. the one provided by Todoist, Facebook, Google Calendar, Meetup etc.) on the fly, according to the rules you specify.
+## The goal of the project
 
-It's intention is to give you some control over calendars subscribed from a 3rd-party service, especially filter out the events that you don't want to see and declutter the view of your daily agenda in your organizer program.
+CalendarProxy gives you some control over calendars subscribed from a 3rd-party services.
 
-## Available filters
+It allows you to **filter out the events that you don't want to see** and **declutter the view of your daily agenda** in your organizer program.
+
+Technically, it is a web service that allows you to modify iCalendar file on the fly, according to the rules you specify.
+
+Some examples of calendars you might want to transform before you display it as another overlay on your personal calendar are:
+
+* Todoist calendar
+* Facebook events calendar
+* Google Calendar
+* Meetup calendar
+* your company's Outlook calendar
+* ... and all other calendars in the _ics_ format
+
+## Calendar transformations you can use with CalendarProxy
 
 Currently you can:
+
 * Shorten events that overlap the next event on this day
 * Hide all-day events
 * Predict event duration based on event title
@@ -23,7 +36,4 @@ Currently you can:
 
 Example instance of this service is deployed under [https://todoistcalendar.azurewebsites.net/](https://todoistcalendar.azurewebsites.net/), where you can preview how the filter behaves on an examplary calendar and generate proxified URLs for your own calendars.
 
-
-
 ![CalendarProxy example screenshot](https://github.com/taurit/CalendarProxy/blob/master/CalendarProxy/Content/CalendarProxy-example-screenshot.png)
-
