@@ -7,8 +7,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Taurit.TodoistTools.CalendarProxy.Library\Taurit.TodoistTools.CalendarProxy.Library.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\*" />
-  </ItemGroup>
 </Project>
