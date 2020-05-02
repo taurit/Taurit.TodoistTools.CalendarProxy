@@ -44,15 +44,16 @@
                 </label><br/>
                 <label>
                     <input type="checkbox" id="cb-skip-string" class="monitored"/> Skip events containing this text:
-                </label> <input id="text-to-skip" type="text" placeholder="text to skip" class="monitored form-control"/><br/>
-
+                </label> <input id="text-to-skip" type="text" placeholder="text to skip" class="monitored form-control"/> *<br/>
+                * use ';' to specify multiple blacklisted phrases. Comparison is case-insensitive.<br />
                 <label>
                     <input type="checkbox" id="cb-hide-shorter" class="monitored"/> Hide events shorter than:
                 </label> <input type="number" id="num-hide-shorter-than-min" value="15" class="monitored form-control"/> min.<br/>
 
                 <label>
-                    <input type="checkbox" id="cb-hide-projects" class="monitored"/> Hide events from those projects:
-                </label> <input type="text" id="hide-projects-list" placeholder="comma-separated list" class="monitored form-control"/><br/>
+                    <input type="checkbox" id="cb-hide-projects" class="monitored"/> Hide events from those Todoist projects:
+                </label> <input type="text" id="hide-projects-list" placeholder="comma-separated list" class="monitored form-control"/> * <br/>
+                * Skips events that are connected to any of the given Todoist tasks (based on iCalendar Description field added by Todoist when exporting items to calendar)<br />
 
                 <label>
                     <input type="checkbox" id="cb-shorten" class="monitored"/> Shorten events longer than

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using EWSoftware.PDI.Objects;
 using EWSoftware.PDI.Parser;
@@ -161,10 +163,17 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         /// <param name="stringPart"></param>
         private void HideEventsContainingString(string stringPart)
         {
-            var eventsToRemove = calendar.VCalendar.Events.Where(evnt => evnt.Summary.Value.Contains(stringPart))
-                .ToList();
-            foreach (var evnt in eventsToRemove)
-                calendar.VCalendar.Events.Remove(evnt);
+            var split = stringPart.Split(';').Where(x => !String.IsNullOrWhiteSpace(x));
+
+            foreach (var blacklistedText in split)
+            {
+                var eventsToRemove = calendar.VCalendar.Events
+                    .Where(@event => @event.Summary.Value.ContainsIgnoreCase(blacklistedText))
+                    .ToList();
+
+                foreach (var @event in eventsToRemove)
+                    calendar.VCalendar.Events.Remove(@event);
+            }
         }
 
         /// <summary>

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taurit.TodoistTools.Calenda
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taurit.TodoistTools.CalendarProxy.Library.Tests", "Taurit.TodoistTools.CalendarProxy.Library.Tests\Taurit.TodoistTools.CalendarProxy.Library.Tests.csproj", "{39681BB1-9AC9-4DB9-81F4-F34E3673F798}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taurit.TodoistTools.CalendarProxy", "Taurit.TodoistTools.CalendarProxy\Taurit.TodoistTools.CalendarProxy.csproj", "{24E85F5C-E2FC-4FEE-8281-37FE9FBDF081}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taurit.TodoistTools.CalendarProxy", "Taurit.TodoistTools.CalendarProxy\Taurit.TodoistTools.CalendarProxy.csproj", "{24E85F5C-E2FC-4FEE-8281-37FE9FBDF081}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,7 +32,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		LessCompiler = ff49402e-49f7-4a6a-a4c5-a7975fb6bbb2,24e85f5c-e2fc-4fee-8281-37fe9fbdf081
 		SolutionGuid = {4D882762-C7CD-423D-AB8C-3A43852AB1E6}
-		LessCompiler = ff49402e-49f7-4a6a-a4c5-a7975fb6bbb2
 	EndGlobalSection
 EndGlobal

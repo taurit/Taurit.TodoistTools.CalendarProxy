@@ -1,9 +1,9 @@
-﻿/**
+﻿/// <reference path="jquery-3.4.1.min.js" />
+/// <reference path="icalrender.min.js" />
+
+/**
   * Simple generator for proxy URL's based on user's input in a form.
   */
-
-/// <reference path="../lib/jquery-3.4.1.min.js" />
-/// <reference path="../lib/icalrender.min.js" />
 
 // polyfill for browsers without location.origin, http://stackoverflow.com/a/6167979
 if (!location.origin)
@@ -33,15 +33,15 @@ function updateForm() {
     var shorten = window.$('#cb-shorten').is(':checked') && window.$('#num-longer-than').val() && window.$('#num-shorten-to').val();
 
     // URL recognizes following values (as in FilteringOptions.cs):
-    /// h: HideAllDayEvents,
-    /// s: ShortenEvents,
-    /// p: PredictEventDuration
-    /// r: RemoveEventDurationFromTitle
-    /// st: SkipEventsContainingThisString
-    /// min: HideEventsShorterThanMinutes
-    /// pr: HideEventsFromThoseProjects
-    /// lt: ShortenEventsLongerThanThisMinutes 
-    /// mt: ShortenEventsToThisMinutes 
+    // h: HideAllDayEvents,
+    // s: ShortenEvents,
+    // p: PredictEventDuration
+    // r: RemoveEventDurationFromTitle
+    // st: SkipEventsContainingThisString
+    // min: HideEventsShorterThanMinutes
+    // pr: HideEventsFromThoseProjects
+    // lt: ShortenEventsLongerThanThisMinutes 
+    // mt: ShortenEventsToThisMinutes 
     var getResultUrlForCalendarUrl = function (calendarUrl) {
         /// <summary>Returns proxified calendar URL for a given calendar, applying user-defined rules (which are read directly from the form)</summary>
 
@@ -70,7 +70,7 @@ function updateForm() {
     window.$.get(resultUrlDemo, function (response) {
         var fileContent = response;
 
-        var rendererAfter = new ICalRender.Renderer(fileContent, 7, 12, 52);
+        var rendererAfter = new window.ICalRender.Renderer(fileContent, 7, 12, 52);
         rendererAfter.RenderMultidayView('#preview-after', 2016, 1, 1);
     });
 
