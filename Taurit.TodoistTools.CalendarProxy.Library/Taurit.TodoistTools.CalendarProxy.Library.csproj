@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EWSoftware.PDI" Version="2018.12.1" />
-    <PackageReference Include="EWSoftware.PDI.Data" Version="2018.12.1" />
+    <PackageReference Include="EWSoftware.PDI" Version="2020.1.18" />
+    <PackageReference Include="EWSoftware.PDI.Data" Version="2020.1.18" />
   </ItemGroup>
 
 </Project>

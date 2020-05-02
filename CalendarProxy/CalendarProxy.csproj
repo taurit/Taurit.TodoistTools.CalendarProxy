@@ -60,7 +60,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EWSoftware.PDI.Data, Version=2018.12.1.0, Culture=neutral, PublicKeyToken=69a3299ed3c63934" />
+    <Reference Include="EWSoftware.PDI, Version=2020.1.18.0, Culture=neutral, PublicKeyToken=69a3299ed3c63934, processorArchitecture=MSIL">
+      <HintPath>..\packages\EWSoftware.PDI.2020.1.18\lib\net40\EWSoftware.PDI.dll</HintPath>
+    </Reference>
+    <Reference Include="EWSoftware.PDI.Data, Version=2020.1.18.0, Culture=neutral, PublicKeyToken=69a3299ed3c63934, processorArchitecture=MSIL">
+      <HintPath>..\packages\EWSoftware.PDI.Data.2020.1.18\lib\net40\EWSoftware.PDI.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -139,7 +144,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProxyController.cs" />
     <Compile Include="Global.asax.cs">
