@@ -10,19 +10,19 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Tests
         private const string sampleCalendarFileName = "SampleCalendar.ics";
 
         /// <summary>
-        /// Deserializes and serializes sample iCalendar file, expecting resulting iCalendar string to be the same
+        ///     Deserializes and serializes sample iCalendar file, expecting resulting iCalendar string to be the same
         /// </summary>
         [TestMethod]
         public void Serialization()
         {
             //string sampleCalendarContent = new System.Net.WebClient().DownloadString(sampleCalendarFileUrl);
-            string sampleCalendarContent = File.ReadAllText(sampleCalendarFileName);
+            var sampleCalendarContent = File.ReadAllText(sampleCalendarFileName);
 
-            EventManager eventManager = new EventManager(sampleCalendarContent);
-            string generatedIcal = eventManager.GetIcal();
+            var eventManager = new EventManager(sampleCalendarContent);
+            var generatedIcal = eventManager.GetIcal();
 
-            EventManager eventManager2 = new EventManager(generatedIcal);
-            string generatedIcal2 = eventManager.GetIcal();
+            var eventManager2 = new EventManager(generatedIcal);
+            var generatedIcal2 = eventManager.GetIcal();
 
             Assert.AreEqual(generatedIcal, generatedIcal2);
         }
