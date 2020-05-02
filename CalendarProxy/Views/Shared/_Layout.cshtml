@@ -11,23 +11,12 @@
     <link href="~/Content/texteffects.min.css" rel="stylesheet"/>
 </head>
 <body>
-<div class="navbar fixed-top navbar-dark bg-primary">
-    <div class="container">
-            @Html.ActionLink("Calendar Proxy", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
-    </div>
-</div>
-
-<div>
-    <div class="container">
-        @RenderBody()
-    </div>
+<div class="container">
+    @RenderBody()
 </div>
 
 <script src="~/Scripts/ical.min.js"></script>
-
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
-
 <script src="~/Scripts/icalrender.min.js"></script>
 <script src="~/Scripts/calendar-proxy-form.min.js"></script>
 </body>

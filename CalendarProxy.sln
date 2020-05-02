@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalendarProxy", "CalendarProxy\CalendarProxy.csproj", "{FF49402E-49F7-4A6A-A4C5-A7975FB6BBB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taurit.TodoistTools.CalendarProxy.Library", "Taurit.TodoistTools.CalendarProxy.Library\Taurit.TodoistTools.CalendarProxy.Library.csproj", "{EFE61CD7-414D-4A07-BBCF-E1C2F531744E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taurit.TodoistTools.CalendarProxy.Library", "Taurit.TodoistTools.CalendarProxy.Library\Taurit.TodoistTools.CalendarProxy.Library.csproj", "{EFE61CD7-414D-4A07-BBCF-E1C2F531744E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taurit.TodoistTools.CalendarProxy.Library.Tests", "Taurit.TodoistTools.CalendarProxy.Library.Tests\Taurit.TodoistTools.CalendarProxy.Library.Tests.csproj", "{39681BB1-9AC9-4DB9-81F4-F34E3673F798}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taurit.TodoistTools.CalendarProxy.Library.Tests", "Taurit.TodoistTools.CalendarProxy.Library.Tests\Taurit.TodoistTools.CalendarProxy.Library.Tests.csproj", "{39681BB1-9AC9-4DB9-81F4-F34E3673F798}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +32,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		LessCompiler = ff49402e-49f7-4a6a-a4c5-a7975fb6bbb2
 		SolutionGuid = {4D882762-C7CD-423D-AB8C-3A43852AB1E6}
 	EndGlobalSection
 EndGlobal
