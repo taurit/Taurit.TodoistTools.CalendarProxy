@@ -85,4 +85,25 @@
 
         <p>While this web application does not do anything else than it promises, you don't have to trust it and you can verify all it does. The source code is published on <a href="https://github.com/taurit/CalendarProxy">GItHub's Calendar Proxy project page</a>. If you have <strong>Visual Studio 2019 Community Edition</strong> or newer, you can easily build a project yourself with just a few clicks. If you have access to some IIS server or Azure subscription, you can also easily host your own trusted instance of this code. Also, I recommend to make sure that you access the page via HTTPS.</p>
     </details>
+
+    <details class="pb-4">
+        <summary>Why some filtered calendars can't be imported into Google Calendar?</summary>
+        <p>Google Calendar's implementation seems to have a restriction on the URL's length. See this <a href="https://stackoverflow.com/a/39415467/889779" target="_blank">StackOverflow</a> answer for details.</p>
+
+        <p>If you cannot import your calendar, you might try shortening the URL.</p>
+
+	<p>When I encounter this problem, I normally write and deploy a simple Azure Function which redirects to a real (long) URL, but itself has an acceptably short URL.
+
+	<pre>
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
+
+public static async Task&lt;IActionResult&gt; Run(HttpRequest req, ILogger log)
+{
+    // example. Change URL to point to your calendar.
+    return new RedirectResult("https://todoistcalendar.azurewebsites.net/Proxy/Filter?calendarUrl=https%3A%2F%2Foutlook.office365.com%2Fsomelonglink.ics&st=filterdetails", true);
+}
+	</pre>
+    </details>
 </form>
