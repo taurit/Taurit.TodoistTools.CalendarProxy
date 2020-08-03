@@ -47,6 +47,8 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
 
             if (filter.HideAllDayEvents)
                 HideAllDayEvents(); // should be called before shortenig events
+            if (filter.HidePrivateEvents)
+                this.HidePrivateEvents();
 
             var projectsToSkip = filter.ProjectsToSkip;
             if (projectsToSkip.Count > 0) SkipEventsFromProjects(projectsToSkip);
@@ -90,6 +92,18 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
             var eventsToRemove = new List<VEvent>();
             foreach (var evnt in calendar.VCalendar.Events.Where(evnt => evnt.IsAllDayEvent()))
                 eventsToRemove.Add(evnt);
+
+            foreach (var evnt in eventsToRemove)
+                calendar.VCalendar.Events.Remove(evnt);
+        }
+
+        private void HidePrivateEvents()
+        {
+            List<VEvent> eventsToRemove = new List<VEvent>();
+            foreach (VEvent evnt in calendar.VCalendar.Events.Where(evnt => evnt.IsPrivate()))
+            {
+                eventsToRemove.Add(evnt);
+            }
 
             foreach (var evnt in eventsToRemove)
                 calendar.VCalendar.Events.Remove(evnt);

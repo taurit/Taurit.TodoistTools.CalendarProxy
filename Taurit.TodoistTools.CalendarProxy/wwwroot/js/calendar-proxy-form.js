@@ -24,6 +24,7 @@ function updateForm() {
 
     var originalCalendarUrl = window.$('#url-calendar').val();
     var hideAllDayEvents = window.$('#cb-hide-all-day-events').is(':checked');
+    var hidePrivateEvents = window.$('#cb-hide-private-events').is(':checked');
     var shortenOverlapping = window.$('#cb-shorten-overlapping').is(':checked');
     var predictDuration = window.$('#cb-predict-duration').is(':checked');
     var removePredictedDuration = window.$('#cb-remove-duration-from-title').is(':checked');
@@ -34,6 +35,7 @@ function updateForm() {
 
     // URL recognizes following values (as in FilteringOptions.cs):
     // h: HideAllDayEvents,
+    // h: HidePrivateEvents,
     // s: ShortenEvents,
     // p: PredictEventDuration
     // r: RemoveEventDurationFromTitle
@@ -48,6 +50,7 @@ function updateForm() {
         var resultUrl = serviceUrl +
         '?calendarUrl=' + encodeURIComponent(calendarUrl) +
         (hideAllDayEvents ? '&h=1' : '') +
+        (hidePrivateEvents ? '&hp=1' : '') +
         (shortenOverlapping ? '&s=1' : '') +
         (predictDuration ? '&p=1' : '') +
         (removePredictedDuration ? '&r=1' : '') +

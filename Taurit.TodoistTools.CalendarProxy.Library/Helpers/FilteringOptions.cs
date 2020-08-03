@@ -12,6 +12,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
     public class FilteringOptions
     {
         private bool hideAllDayEvents;
+        private bool hidePrivateEvents;
         private bool predictEventDuration;
         private bool removeEventDurationFromTitle;
         private bool shortenEvents;
@@ -23,6 +24,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         public FilteringOptions()
         {
             HideAllDayEvents = false;
+            HidePrivateEvents = false;
             ShortenEvents = false;
             PredictEventDuration = false;
             RemoveEventDurationFromTitle = false;
@@ -45,6 +47,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         /// <param name="queryString">
         ///     Valid HTTP QueryString. Currently the following parameters are recognized:
         ///     h: HideAllDayEvents,
+        ///     hp: HidePrivateEvents,
         ///     s: ShortenEvents,
         ///     p: PredictEventDuration
         ///     r: RemoveEventDurationFromTitle
@@ -81,6 +84,15 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         {
             get => hideAllDayEvents;
             private set => hideAllDayEvents = value;
+        }
+
+        /// <summary>
+        ///     Hide private events in the output
+        /// </summary>
+        public bool HidePrivateEvents
+        {
+            get => hidePrivateEvents;
+            private set => hidePrivateEvents = value;
         }
 
         /// <summary>
@@ -150,6 +162,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
                 CalendarUrl = new Uri(calendarUrl);
 
             TrySetBool(qsParams, "h", ref hideAllDayEvents);
+            TrySetBool(qsParams, "hp", ref hidePrivateEvents);
             TrySetBool(qsParams, "s", ref shortenEvents);
             TrySetBool(qsParams, "p", ref predictEventDuration);
             TrySetBool(qsParams, "r", ref removeEventDurationFromTitle);

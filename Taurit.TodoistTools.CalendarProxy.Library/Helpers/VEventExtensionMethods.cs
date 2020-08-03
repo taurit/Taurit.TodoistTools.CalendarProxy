@@ -41,5 +41,11 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
                 ) && // event takes 0 or 24 hours - both options are used for full-day events
                 startDate.Hour == 0 && startDate.Minute == 0;
         }
+
+        public static bool IsPrivate(this VEvent evnt)
+        {
+            return (evnt.Classification.Value ?? "").ToLowerInvariant() == "private" ||
+                   (evnt.Summary.Value ?? "").ToLowerInvariant() == "private appointment";
+        }
     }
 }
