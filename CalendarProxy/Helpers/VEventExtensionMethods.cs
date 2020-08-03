@@ -44,5 +44,11 @@ namespace CalendarProxy.Helpers
                 startDate.Hour == 0 && startDate.Minute == 0 // and starts at midnight => whole day event
                 );
         }
+
+        public static bool IsPrivate(this VEvent evnt)
+        {
+            return (evnt.Classification.Value ?? "").ToLowerInvariant() == "private" ||
+                   (evnt.Summary.Value ?? "").ToLowerInvariant() == "private appointment";
+        }
     }
 }

@@ -48,6 +48,9 @@ namespace CalendarProxy.Helpers
             if (filter.HideAllDayEvents)
                 this.HideAllDayEvents(); // should be called before shortenig events
 
+            if (filter.HidePrivateEvents)
+                this.HidePrivateEvents();
+
             IList<string> projectsToSkip = filter.ProjectsToSkip;
             if (projectsToSkip.Count > 0)
             {
@@ -93,6 +96,18 @@ namespace CalendarProxy.Helpers
         {
             List<VEvent> eventsToRemove = new List<VEvent>();
             foreach (VEvent evnt in calendar.VCalendar.Events.Where(evnt => evnt.IsAllDayEvent()))
+            {
+                eventsToRemove.Add(evnt);
+            }
+
+            foreach (var evnt in eventsToRemove)
+                calendar.VCalendar.Events.Remove(evnt);
+        }
+
+        private void HidePrivateEvents()
+        {
+            List<VEvent> eventsToRemove = new List<VEvent>();
+            foreach (VEvent evnt in calendar.VCalendar.Events.Where(evnt => evnt.IsPrivate()))
             {
                 eventsToRemove.Add(evnt);
             }

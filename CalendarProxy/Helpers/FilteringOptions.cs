@@ -23,6 +23,12 @@ namespace CalendarProxy.Helpers
         private bool hideAllDayEvents;
 
         /// <summary>
+        /// Hide private events in the output
+        /// </summary>
+        public bool HidePrivateEvents { get { return hidePrivateEvents; } private set { hidePrivateEvents= value; } }
+        private bool hidePrivateEvents;
+
+        /// <summary>
         /// Shorten events, so they never overlap next event in the calendar
         /// </summary>
         public bool ShortenEvents { get { return shortenEvents; } private set { shortenEvents = value; } }
@@ -77,6 +83,7 @@ namespace CalendarProxy.Helpers
         public FilteringOptions()
         {
             this.HideAllDayEvents = false;
+            this.HidePrivateEvents = false;
             this.ShortenEvents = false;
             this.PredictEventDuration = false;
             this.RemoveEventDurationFromTitle = false;
@@ -94,7 +101,7 @@ namespace CalendarProxy.Helpers
         /// is about 2000 characters. Therefore QueryString keys were deliberately chosen to be as short as possible, even though it affects
         /// readability of such URL.
         /// </summary>
-        /// <param name="queryString">Valid HTTP QueryString. Currently the following parameters are recognized:
+        /// <param name="qsParams">Valid HTTP QueryString. Currently the following parameters are recognized:
         /// h: HideAllDayEvents,
         /// s: ShortenEvents,
         /// p: PredictEventDuration
@@ -103,7 +110,8 @@ namespace CalendarProxy.Helpers
         /// min: HideEventsShorterThanMinutes
         /// pr: HideEventsFromThoseProjects
         /// lt: ShortenEventsLongerThanThisMinutes 
-        /// mt: ShortenEventsLongerThanThisMinutes 
+        /// mt: ShortenEventsLongerThanThisMinutes
+        /// hp: hide private events
         /// </param>
         public FilteringOptions(NameValueCollection qsParams)
         {
@@ -131,6 +139,7 @@ namespace CalendarProxy.Helpers
                 this.CalendarUrl = new Uri(calendarUrl);
 
             this.TrySetBool(qsParams, "h", ref hideAllDayEvents);
+            this.TrySetBool(qsParams, "hp", ref hidePrivateEvents);
             this.TrySetBool(qsParams, "s", ref shortenEvents);
             this.TrySetBool(qsParams, "p", ref predictEventDuration);
             this.TrySetBool(qsParams, "r", ref removeEventDurationFromTitle);
@@ -140,16 +149,14 @@ namespace CalendarProxy.Helpers
 
             if (!String.IsNullOrWhiteSpace(qsParams["min"]))
             {
-                int parsedParam = 0;
-                if (Int32.TryParse(qsParams["min"], out parsedParam) && parsedParam > 0)
+                if (Int32.TryParse(qsParams["min"], out var parsedParam) && parsedParam > 0)
                     this.HideEventsShorterThanMinutes = parsedParam;
             }
 
             // those two params are tied
             if (!String.IsNullOrWhiteSpace(qsParams["lt"]) && !String.IsNullOrWhiteSpace(qsParams["mt"]))
             {
-                int parsedParam = 0;
-                if (Int32.TryParse(qsParams["lt"], out parsedParam) && parsedParam > 0)
+                if (Int32.TryParse(qsParams["lt"], out var parsedParam) && parsedParam > 0)
                     this.ShortenEventsLongerThanThisMinutes = parsedParam;
                 if (Int32.TryParse(qsParams["mt"], out parsedParam) && parsedParam > 0)
                     this.ShortenEventsLongerThanToThisMinutes = parsedParam;
@@ -176,7 +183,6 @@ namespace CalendarProxy.Helpers
         /// <param name="prop"></param>
         private void TrySetBool(NameValueCollection qsParams, string param, ref bool prop)
         {
-            bool localBool = false;
             if (qsParams[param] != null)
             {
                 switch (qsParams[param])
@@ -188,7 +194,7 @@ namespace CalendarProxy.Helpers
                         prop = false;
                         break;
                     default:
-                        if (bool.TryParse(qsParams[param], out localBool))
+                        if (bool.TryParse(qsParams[param], out var localBool))
                             prop = localBool;
                         break;
                 }
