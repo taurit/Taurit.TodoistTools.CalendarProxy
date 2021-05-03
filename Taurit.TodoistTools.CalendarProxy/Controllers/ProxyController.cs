@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using EWSoftware.PDI.Parser;
 using Microsoft.AspNetCore.Mvc;
 using Taurit.TodoistTools.CalendarProxy.Library.Helpers;
@@ -13,7 +14,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Controllers
         ///     Parses parameters provided by user in QueryString, downloads calendar, filters events based on known rules
         /// </summary>
         /// <returns></returns>
-        public ActionResult Filter()
+        public async Task<ActionResult> Filter()
         {
             using var webClient = new WebClient();
             try
@@ -29,7 +30,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Controllers
 
                 // download the source iCalendar file content
                 webClient.Encoding = Encoding.UTF8;
-                var icalContent = webClient.DownloadString(options.CalendarUrl);
+                var icalContent = await webClient.DownloadStringTaskAsync(options.CalendarUrl);
 
                 // parse iCalendar and filter according to user-defined options
                 var eventManager = new EventManager(icalContent);
