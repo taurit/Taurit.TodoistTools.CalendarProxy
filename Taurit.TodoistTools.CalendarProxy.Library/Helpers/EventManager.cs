@@ -177,17 +177,19 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         /// <param name="stringPart"></param>
         private void HideEventsContainingString(string stringPart)
         {
-            var split = stringPart.Split(';').Where(x => !String.IsNullOrWhiteSpace(x));
+            var blacklistedPhrases = stringPart.Split(';').Where(x => !String.IsNullOrWhiteSpace(x)).ToList();
 
-            foreach (var blacklistedText in split)
-            {
-                var eventsToRemove = calendar.VCalendar.Events
-                    .Where(@event => @event.Summary.Value.ContainsIgnoreCase(blacklistedText))
-                    .ToList();
+            //calendar.VCalendar.Events.Remove is a hot line, requests take up to 6 seconds ;/
+            // attempt of optimization:
+            HashSet<VEvent> eventsToRemove = new HashSet<VEvent>(
+                calendar.VCalendar.Events.Where(
+                    x => blacklistedPhrases.Any(
+                        phrase => x.Summary.Value.ContainsIgnoreCase(phrase)
+                    )
+                )
+            );
 
-                foreach (var @event in eventsToRemove)
-                    calendar.VCalendar.Events.Remove(@event);
-            }
+            calendar.VCalendar.Events.RemoveAll(x => eventsToRemove.Contains(x));
         }
 
         /// <summary>
