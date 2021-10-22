@@ -1,12 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="EWSoftware.PDI" Version="2020.11.25" />
-    <PackageReference Include="EWSoftware.PDI.Data" Version="2020.11.25" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="EWSoftware.PDI" Version="2020.11.25" />
+		<PackageReference Include="EWSoftware.PDI.Data" Version="2020.11.25" />
+	</ItemGroup>
 
 </Project>
