@@ -1,8 +1,5 @@
 ﻿using EWSoftware.PDI.Objects;
 using EWSoftware.PDI.Parser;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
 {

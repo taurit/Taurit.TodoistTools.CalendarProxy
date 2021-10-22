@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Taurit.TodoistTools.CalendarProxy.Library.Models
+﻿namespace Taurit.TodoistTools.CalendarProxy.Library.Models
 {
     public class EventLength
     {

@@ -1,7 +1,5 @@
 ﻿using EWSoftware.PDI.Parser;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Linq;
 using Taurit.TodoistTools.CalendarProxy.Library.Helpers;
 
 namespace Taurit.TodoistTools.CalendarProxy.Library.Tests

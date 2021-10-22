@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using Taurit.TodoistTools.CalendarProxy.Library.Helpers;
 // ReSharper disable StringLiteralTypo
 

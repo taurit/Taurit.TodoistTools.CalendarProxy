@@ -1,5 +1,4 @@
 ﻿using EWSoftware.PDI.Objects;
-using System;
 using System.Text.RegularExpressions;
 
 namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers

@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
 using Taurit.TodoistTools.CalendarProxy.Library.Helpers;
 
 namespace Taurit.TodoistTools.CalendarProxy.Library.Tests
