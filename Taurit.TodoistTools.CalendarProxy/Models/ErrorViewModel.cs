@@ -1,5 +1,3 @@
-using System;
-
 namespace Taurit.TodoistTools.CalendarProxy.Models
 {
     public class ErrorViewModel

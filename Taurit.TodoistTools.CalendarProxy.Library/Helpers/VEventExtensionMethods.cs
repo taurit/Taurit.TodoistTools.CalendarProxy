@@ -1,6 +1,6 @@
-﻿using System;
+﻿using EWSoftware.PDI.Objects;
+using System;
 using System.Text.RegularExpressions;
-using EWSoftware.PDI.Objects;
 
 namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
 {
@@ -23,7 +23,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         {
             if (evnt.Description.Value != null)
             {
-                var m = regexProjectName.Match(evnt.Description.Value);
+                Match m = regexProjectName.Match(evnt.Description.Value);
                 if (m.Success) return m.Groups[2].Value;
             }
 
@@ -32,8 +32,8 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
 
         public static bool IsAllDayEvent(this VEvent evnt)
         {
-            var startDate = evnt.StartDateTime.DateTimeValue;
-            var endDate = evnt.EndDateTime.DateTimeValue;
+            DateTime startDate = evnt.StartDateTime.DateTimeValue;
+            DateTime endDate = evnt.EndDateTime.DateTimeValue;
 
             return
                 (startDate == endDate ||

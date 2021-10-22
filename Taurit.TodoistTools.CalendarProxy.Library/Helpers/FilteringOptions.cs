@@ -68,7 +68,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         /// <param name="qsParamsRaw"></param>
         public FilteringOptions(string qsParamsRaw)
         {
-            var qsParams = HttpUtility.ParseQueryString(qsParamsRaw);
+            NameValueCollection qsParams = HttpUtility.ParseQueryString(qsParamsRaw);
             ParseParameters(qsParams);
         }
 
@@ -144,7 +144,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         {
             get
             {
-                var projectNames = new List<string>();
+                List<string> projectNames = new List<string>();
                 if (!string.IsNullOrWhiteSpace(HideEventsFromThoseProjects))
                     projectNames = HideEventsFromThoseProjects.Split(',').Select(x => x.Trim()).ToList();
                 return projectNames;
@@ -157,7 +157,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         /// <param name="qsParams"></param>
         private void ParseParameters(NameValueCollection qsParams)
         {
-            var calendarUrl = qsParams["calendarUrl"] == null ? null : qsParams["calendarUrl"];
+            string calendarUrl = qsParams["calendarUrl"] == null ? null : qsParams["calendarUrl"];
             if (calendarUrl != null)
                 CalendarUrl = new Uri(calendarUrl);
 
@@ -172,7 +172,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
 
             if (!string.IsNullOrWhiteSpace(qsParams["min"]))
             {
-                var parsedParam = 0;
+                int parsedParam = 0;
                 if (int.TryParse(qsParams["min"], out parsedParam) && parsedParam > 0)
                     HideEventsShorterThanMinutes = parsedParam;
             }
@@ -180,7 +180,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
             // those two params are tied
             if (!string.IsNullOrWhiteSpace(qsParams["lt"]) && !string.IsNullOrWhiteSpace(qsParams["mt"]))
             {
-                var parsedParam = 0;
+                int parsedParam = 0;
                 if (int.TryParse(qsParams["lt"], out parsedParam) && parsedParam > 0)
                     ShortenEventsLongerThanThisMinutes = parsedParam;
                 if (int.TryParse(qsParams["mt"], out parsedParam) && parsedParam > 0)
@@ -208,7 +208,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         /// <param name="prop"></param>
         private void TrySetBool(NameValueCollection qsParams, string param, ref bool prop)
         {
-            var localBool = false;
+            bool localBool = false;
             if (qsParams[param] != null)
                 switch (qsParams[param])
                 {

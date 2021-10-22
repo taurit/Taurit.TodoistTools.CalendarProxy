@@ -1,5 +1,5 @@
-﻿using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 using Taurit.TodoistTools.CalendarProxy.Library.Helpers;
 
 namespace Taurit.TodoistTools.CalendarProxy.Library.Tests
@@ -16,13 +16,13 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Tests
         public void Serialization()
         {
             //string sampleCalendarContent = new System.Net.WebClient().DownloadString(sampleCalendarFileUrl);
-            var sampleCalendarContent = File.ReadAllText(sampleCalendarFileName);
+            string sampleCalendarContent = File.ReadAllText(sampleCalendarFileName);
 
-            var eventManager = new EventManager(sampleCalendarContent);
-            var generatedIcal = eventManager.GetIcal();
+            EventManager eventManager = new EventManager(sampleCalendarContent);
+            string generatedIcal = eventManager.GetIcal();
 
-            var eventManager2 = new EventManager(generatedIcal);
-            var generatedIcal2 = eventManager.GetIcal();
+            EventManager eventManager2 = new EventManager(generatedIcal);
+            string generatedIcal2 = eventManager.GetIcal();
 
             Assert.AreEqual(generatedIcal, generatedIcal2);
         }

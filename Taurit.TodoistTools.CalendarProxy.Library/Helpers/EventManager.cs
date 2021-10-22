@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using EWSoftware.PDI.Objects;
+﻿using EWSoftware.PDI.Objects;
 using EWSoftware.PDI.Parser;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
 {
@@ -48,9 +47,9 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
             if (filter.HideAllDayEvents)
                 HideAllDayEvents(); // should be called before shortenig events
             if (filter.HidePrivateEvents)
-                this.HidePrivateEvents();
+                HidePrivateEvents();
 
-            var projectsToSkip = filter.ProjectsToSkip;
+            IList<string> projectsToSkip = filter.ProjectsToSkip;
             if (projectsToSkip.Count > 0) SkipEventsFromProjects(projectsToSkip);
 
             if (filter.ShortenEvents)
@@ -89,11 +88,11 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         /// </summary>
         private void HideAllDayEvents()
         {
-            var eventsToRemove = new List<VEvent>();
-            foreach (var evnt in calendar.VCalendar.Events.Where(evnt => evnt.IsAllDayEvent()))
+            List<VEvent> eventsToRemove = new List<VEvent>();
+            foreach (VEvent evnt in calendar.VCalendar.Events.Where(evnt => evnt.IsAllDayEvent()))
                 eventsToRemove.Add(evnt);
 
-            foreach (var evnt in eventsToRemove)
+            foreach (VEvent evnt in eventsToRemove)
                 calendar.VCalendar.Events.Remove(evnt);
         }
 
@@ -105,7 +104,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
                 eventsToRemove.Add(evnt);
             }
 
-            foreach (var evnt in eventsToRemove)
+            foreach (VEvent evnt in eventsToRemove)
                 calendar.VCalendar.Events.Remove(evnt);
         }
 
@@ -117,10 +116,10 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         /// </summary>
         private void PredictEventDuration(bool removeEventDurationFromTitle)
         {
-            foreach (var evnt in calendar.VCalendar.Events)
+            foreach (VEvent evnt in calendar.VCalendar.Events)
             {
                 if (evnt.IsAllDayEvent()) continue;
-                var elf = new EventLengthFinder(evnt.Summary.Value);
+                EventLengthFinder elf = new EventLengthFinder(evnt.Summary.Value);
                 if (elf.PatternFound)
                 {
                     evnt.EndDateTime.DateTimeValue = evnt.StartDateTime.DateTimeValue.AddMinutes(elf.TotalMinutes);
@@ -134,18 +133,18 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         /// </summary>
         private void ShortenEvents()
         {
-            foreach (var evnt in calendar.VCalendar.Events)
+            foreach (VEvent evnt in calendar.VCalendar.Events)
             {
                 if (evnt.IsAllDayEvent())
                     // this is a whole day event. It should not be shortened
                     continue;
 
-                var startDate = evnt.StartDateTime.DateTimeValue;
-                var endDate = evnt.EndDateTime.DateTimeValue;
+                DateTime startDate = evnt.StartDateTime.DateTimeValue;
+                DateTime endDate = evnt.EndDateTime.DateTimeValue;
 
 
                 // see if there are any events starting between those two dates
-                var shorteningEvents = calendar.VCalendar.Events.Where(ev =>
+                List<VEvent> shorteningEvents = calendar.VCalendar.Events.Where(ev =>
                     ev.StartDateTime.DateTimeValue > startDate &&
                     ev.StartDateTime.DateTimeValue < endDate).ToList();
 
@@ -153,7 +152,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
                 {
                     // event needs to be shortened
                     // which of the following events starts first
-                    var newEndDate = shorteningEvents.Min(ev => ev.StartDateTime.DateTimeValue).AddMinutes(-1);
+                    DateTime newEndDate = shorteningEvents.Min(ev => ev.StartDateTime.DateTimeValue).AddMinutes(-1);
                     evnt.EndDateTime.DateTimeValue = newEndDate;
                 }
             }
@@ -166,7 +165,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         /// <param name="toMinutes"></param>
         private void ShortenEvents(int longerThanMinutes, int toMinutes)
         {
-            foreach (var evnt in calendar.VCalendar.Events)
+            foreach (VEvent evnt in calendar.VCalendar.Events)
                 if (!evnt.IsAllDayEvent() && evnt.DurationBasedOnDates().TotalMinutes > longerThanMinutes)
                     evnt.EndDateTime.DateTimeValue = evnt.StartDateTime.DateTimeValue.AddMinutes(toMinutes);
         }
@@ -177,7 +176,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         /// <param name="stringPart"></param>
         private void HideEventsContainingString(string stringPart)
         {
-            var blacklistedPhrases = stringPart.Split(';').Where(x => !String.IsNullOrWhiteSpace(x)).ToList();
+            List<string> blacklistedPhrases = stringPart.Split(';').Where(x => !String.IsNullOrWhiteSpace(x)).ToList();
 
             //calendar.VCalendar.Events.Remove is a hot line, requests take up to 6 seconds ;/
             // attempt of optimization:
@@ -199,9 +198,9 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         /// <param name="minutes"></param>
         private void HideEventsShorterThanMinutes(int minutes)
         {
-            var eventsToRemove = calendar.VCalendar.Events
+            List<VEvent> eventsToRemove = calendar.VCalendar.Events
                 .Where(evnt => evnt.DurationBasedOnDates().TotalMinutes < minutes).ToList();
-            foreach (var evnt in eventsToRemove)
+            foreach (VEvent evnt in eventsToRemove)
                 calendar.VCalendar.Events.Remove(evnt);
         }
 
@@ -212,9 +211,9 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         /// <param name="projectsToSkip"></param>
         private void SkipEventsFromProjects(IList<string> projectsToSkip)
         {
-            var eventsToRemove = calendar.VCalendar.Events.Where(evnt => projectsToSkip.Contains(evnt.ProjectName()))
+            List<VEvent> eventsToRemove = calendar.VCalendar.Events.Where(evnt => projectsToSkip.Contains(evnt.ProjectName()))
                 .ToList();
-            foreach (var evnt in eventsToRemove)
+            foreach (VEvent evnt in eventsToRemove)
                 calendar.VCalendar.Events.Remove(evnt);
         }
     }

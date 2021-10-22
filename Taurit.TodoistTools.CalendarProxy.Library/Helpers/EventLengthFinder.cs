@@ -44,32 +44,32 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         /// <param name="taskSummary">string that may contain some form of event duration</param>
         public EventLengthFinder(string taskSummary)
         {
-            var match = regexFindTime.Match(taskSummary);
+            Match match = regexFindTime.Match(taskSummary);
             PatternFound = match.Success;
             OriginalString = taskSummary;
 
             if (match.Success)
             {
-                var quantity = 0m;
+                decimal quantity = 0m;
                 if (decimal.TryParse(match.Groups[2].Value, NumberStyles.Any, CultureInfo.InvariantCulture,
                     out quantity))
                 {
-                    var unit = match.Groups[4].Value;
+                    string unit = match.Groups[4].Value;
 
                     if (unit.StartsWith("h", StringComparison.InvariantCultureIgnoreCase))
                     {
                         // assume that unit is hours
-                        totalMinutes = (int) (quantity * 60m);
+                        totalMinutes = (int)(quantity * 60m);
 
                         // there might be another part of the string specifying minutes in this case
-                        var quantityMinutesPart = 0m;
+                        decimal quantityMinutesPart = 0m;
                         if (decimal.TryParse(match.Groups[8].Value, NumberStyles.Any, CultureInfo.InvariantCulture,
-                            out quantityMinutesPart)) totalMinutes += (int) quantityMinutesPart;
+                            out quantityMinutesPart)) totalMinutes += (int)quantityMinutesPart;
                     }
                     else
                     {
                         // assume that unit is minutes
-                        totalMinutes = (int) quantity;
+                        totalMinutes = (int)quantity;
                     }
 
                     StringWithoutPattern = OriginalString.Replace(match.Groups[0].Value, "").Replace("()", "")

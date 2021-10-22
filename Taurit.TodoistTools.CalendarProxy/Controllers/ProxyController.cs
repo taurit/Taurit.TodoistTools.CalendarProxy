@@ -1,9 +1,7 @@
-﻿using System;
+﻿using EWSoftware.PDI.Parser;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using EWSoftware.PDI.Parser;
-using Microsoft.AspNetCore.Mvc;
 using Taurit.TodoistTools.CalendarProxy.Library.Helpers;
 
 namespace Taurit.TodoistTools.CalendarProxy.Controllers
@@ -16,11 +14,11 @@ namespace Taurit.TodoistTools.CalendarProxy.Controllers
         /// <returns></returns>
         public async Task<ActionResult> Filter()
         {
-            using var webClient = new WebClient();
+            using WebClient? webClient = new WebClient();
             try
             {
                 // parse request parameters and validate requested action
-                var options = new FilteringOptions(this.Request.QueryString.Value);
+                FilteringOptions? options = new FilteringOptions(Request.QueryString.Value);
                 if (options.CalendarUrl == null)
                     throw new ArgumentException("calendarUrl parameter was not provided by the user");
 
@@ -30,14 +28,14 @@ namespace Taurit.TodoistTools.CalendarProxy.Controllers
 
                 // download the source iCalendar file content
                 webClient.Encoding = Encoding.UTF8;
-                var icalContent = await webClient.DownloadStringTaskAsync(options.CalendarUrl);
+                string? icalContent = await webClient.DownloadStringTaskAsync(options.CalendarUrl);
 
                 // parse iCalendar and filter according to user-defined options
-                var eventManager = new EventManager(icalContent);
+                EventManager? eventManager = new EventManager(icalContent);
                 eventManager.Filter(options);
 
                 // return filtered calendar as a response in iCalendar format
-                var icalResponse = eventManager.GetIcal();
+                string? icalResponse = eventManager.GetIcal();
                 return Content(icalResponse);
             }
             catch (ArgumentException ae)
@@ -58,7 +56,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Controllers
             }
             catch (Exception)
             {
-                return StatusCode((int) HttpStatusCode.InternalServerError, "Application exception");
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Application exception");
             }
         }
     }
