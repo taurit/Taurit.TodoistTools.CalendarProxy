@@ -1,34 +1,33 @@
-﻿namespace Taurit.TodoistTools.CalendarProxy.Library.Models
+﻿namespace Taurit.TodoistTools.CalendarProxy.Library.Models;
+
+public class EventLength
 {
-    public class EventLength
+    private decimal hours;
+
+    private decimal minutes;
+
+    public decimal Hours
     {
-        private decimal hours;
-
-        private decimal minutes;
-
-        public decimal Hours
+        get => hours;
+        set
         {
-            get => hours;
-            set
-            {
-                if (value > 0)
-                    hours = value;
-                else
-                    throw new ArgumentException("Invalid parameter");
-            }
+            if (value > 0)
+                hours = value;
+            else
+                throw new ArgumentException("Invalid parameter");
         }
+    }
 
-        public decimal Minutes
+    public decimal Minutes
+    {
+        get => minutes;
+
+        set
         {
-            get => minutes;
-
-            set
-            {
-                if (value > 0)
-                    minutes = value;
-                else
-                    throw new ArgumentException("Invalid parameter");
-            }
+            if (value > 0)
+                minutes = value;
+            else
+                throw new ArgumentException("Invalid parameter");
         }
     }
 }
