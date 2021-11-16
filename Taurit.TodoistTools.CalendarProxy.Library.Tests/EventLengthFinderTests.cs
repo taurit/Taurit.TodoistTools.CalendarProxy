@@ -11,21 +11,21 @@ public class EventLengthFinderTests
     public void RegexShouldMatch1()
     {
         EventLengthFinder elf = new EventLengthFinder("Review english lesson @home 20m");
-        Assert.AreEqual(elf.PatternFound, true);
+        Assert.IsTrue(elf.PatternFound);
     }
 
     [TestMethod]
     public void CalculateTime1()
     {
         EventLengthFinder elf = new EventLengthFinder("Review english lesson @home 20m");
-        Assert.AreEqual(elf.TotalMinutes, 20);
+        Assert.AreEqual(20, elf.TotalMinutes);
     }
 
     [TestMethod]
     public void CutRegex1()
     {
         EventLengthFinder elf = new EventLengthFinder("Review english lesson @home 20m");
-        Assert.AreEqual(elf.TaskSummaryWithoutPattern, "Review english lesson @home");
+        Assert.AreEqual("Review english lesson @home", elf.TaskSummaryWithoutPattern);
     }
 
 
@@ -33,21 +33,21 @@ public class EventLengthFinderTests
     public void RegexShouldMatch2()
     {
         EventLengthFinder elf = new EventLengthFinder("@home Read for 45 minutes");
-        Assert.AreEqual(elf.PatternFound, true);
+        Assert.IsTrue(elf.PatternFound);
     }
 
     [TestMethod]
     public void CalculateTime2()
     {
         EventLengthFinder elf = new EventLengthFinder("@home Read for 45 minutes");
-        Assert.AreEqual(elf.TotalMinutes, 45);
+        Assert.AreEqual(45, elf.TotalMinutes);
     }
 
     [TestMethod]
     public void CutRegex2()
     {
         EventLengthFinder elf = new EventLengthFinder("@home Read for 45 minutes");
-        Assert.AreEqual(elf.TaskSummaryWithoutPattern, "@home Read for");
+        Assert.AreEqual("@home Read for", elf.TaskSummaryWithoutPattern);
     }
 
 
@@ -55,21 +55,21 @@ public class EventLengthFinderTests
     public void RegexShouldMatch3()
     {
         EventLengthFinder elf = new EventLengthFinder("Exercise @gym 1 H");
-        Assert.AreEqual(elf.PatternFound, true);
+        Assert.IsTrue(elf.PatternFound);
     }
 
     [TestMethod]
     public void CalculateTime3()
     {
         EventLengthFinder elf = new EventLengthFinder("Exercise @gym 1 H");
-        Assert.AreEqual(elf.TotalMinutes, 60);
+        Assert.AreEqual(60, elf.TotalMinutes);
     }
 
     [TestMethod]
     public void CutRegex3()
     {
         EventLengthFinder elf = new EventLengthFinder("Exercise @gym 1 H");
-        Assert.AreEqual(elf.TaskSummaryWithoutPattern, "Exercise @gym");
+        Assert.AreEqual("Exercise @gym", elf.TaskSummaryWithoutPattern);
     }
 
 
@@ -77,70 +77,70 @@ public class EventLengthFinderTests
     public void RegexShouldMatch4()
     {
         EventLengthFinder elf = new EventLengthFinder("Meditate 0.5h @home");
-        Assert.AreEqual(elf.PatternFound, true);
+        Assert.IsTrue(elf.PatternFound);
     }
 
     [TestMethod]
     public void CalculateTime4()
     {
         EventLengthFinder elf = new EventLengthFinder("Meditate 0.5h @home");
-        Assert.AreEqual(elf.TotalMinutes, 30);
+        Assert.AreEqual(30, elf.TotalMinutes);
     }
 
     [TestMethod]
     public void CutRegex4()
     {
         EventLengthFinder elf = new EventLengthFinder("Meditate 0.5h @home");
-        Assert.AreEqual(elf.TaskSummaryWithoutPattern, "Meditate @home");
+        Assert.AreEqual("Meditate @home", elf.TaskSummaryWithoutPattern);
     }
 
     [TestMethod]
     public void RegexShouldMatch5()
     {
         EventLengthFinder elf = new EventLengthFinder("Play drums (2h 30 min) @home");
-        Assert.AreEqual(elf.PatternFound, true);
+        Assert.IsTrue(elf.PatternFound);
     }
 
     [TestMethod]
     public void CalculateTime5()
     {
         EventLengthFinder elf = new EventLengthFinder("Play drums (2h 30 min) @home");
-        Assert.AreEqual(elf.TotalMinutes, 2 * 60 + 30);
+        Assert.AreEqual(2 * 60 + 30, elf.TotalMinutes);
     }
 
     [TestMethod]
     public void CutRegex5()
     {
         EventLengthFinder elf = new EventLengthFinder("Play drums (2h 30 min) @home");
-        Assert.AreEqual(elf.TaskSummaryWithoutPattern, "Play drums @home");
+        Assert.AreEqual("Play drums @home", elf.TaskSummaryWithoutPattern);
     }
 
     [TestMethod]
     public void RegexShouldMatch6()
     {
         EventLengthFinder elf = new EventLengthFinder("Czas po polsku (5 minut) @home");
-        Assert.AreEqual(elf.PatternFound, true);
+        Assert.IsTrue(elf.PatternFound);
     }
 
     [TestMethod]
     public void CalculateTime6()
     {
         EventLengthFinder elf = new EventLengthFinder("Czas po polsku (5 minut) @home");
-        Assert.AreEqual(elf.TotalMinutes, 5);
+        Assert.AreEqual(5, elf.TotalMinutes);
     }
 
     [TestMethod]
     public void CutRegex6()
     {
         EventLengthFinder elf = new EventLengthFinder("Czas po polsku (5 minut) @home");
-        Assert.AreEqual(elf.TaskSummaryWithoutPattern, "Czas po polsku @home");
+        Assert.AreEqual("Czas po polsku @home", elf.TaskSummaryWithoutPattern);
     }
 
     [TestMethod]
     public void RegexShouldMatch7()
     {
         EventLengthFinder elf = new EventLengthFinder("Some short thing (5m)");
-        Assert.AreEqual(elf.PatternFound, true);
+        Assert.IsTrue(elf.PatternFound);
     }
 
     [TestMethod]
@@ -161,7 +161,7 @@ public class EventLengthFinderTests
     public void RegexShouldMatch8()
     {
         EventLengthFinder elf = new EventLengthFinder("Some short thing [5m]");
-        Assert.AreEqual(elf.PatternFound, true);
+        Assert.IsTrue(elf.PatternFound);
     }
 
     [TestMethod]
@@ -183,7 +183,7 @@ public class EventLengthFinderTests
     public void RegexShouldNotMatch1()
     {
         EventLengthFinder elf = new EventLengthFinder("@market Buy a car");
-        Assert.AreEqual(elf.PatternFound, false);
+        Assert.IsFalse(elf.PatternFound);
     }
 
 
@@ -191,21 +191,21 @@ public class EventLengthFinderTests
     public void RegexShouldNotMatch2()
     {
         EventLengthFinder elf = new EventLengthFinder("Buy 3 milk bottles @market");
-        Assert.AreEqual(elf.PatternFound, false);
+        Assert.IsFalse(elf.PatternFound);
     }
 
     [TestMethod]
     public void RegexShouldNotMatch3()
     {
         EventLengthFinder elf = new EventLengthFinder("123 45 6");
-        Assert.AreEqual(elf.PatternFound, false);
+        Assert.IsFalse(elf.PatternFound);
     }
 
     [TestMethod]
     public void RegexShouldNotMatch4()
     {
         EventLengthFinder elf = new EventLengthFinder("Check Philippians 4:11 - 4:12");
-        Assert.AreEqual(elf.PatternFound, false);
+        Assert.IsFalse(elf.PatternFound);
     }
     
     [TestMethod]
