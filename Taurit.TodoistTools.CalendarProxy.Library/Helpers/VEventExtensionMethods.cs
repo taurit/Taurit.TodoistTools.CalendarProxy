@@ -18,7 +18,7 @@ public static class VEventExtensionMethods
     /// </summary>
     /// <param name="evnt"></param>
     /// <returns>user's project assigned to the task or null if not available</returns>
-    public static string ProjectName(this VEvent evnt)
+    public static string? ProjectName(this VEvent evnt)
     {
         if (evnt.Description.Value != null)
         {

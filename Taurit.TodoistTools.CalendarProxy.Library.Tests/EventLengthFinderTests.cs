@@ -207,15 +207,7 @@ public class EventLengthFinderTests
         EventLengthFinder elf = new EventLengthFinder("Check Philippians 4:11 - 4:12");
         Assert.AreEqual(elf.PatternFound, false);
     }
-
-    //[TestMethod]
-    //public void RegexShouldNotMatch5()
-    //{
-    //    // not worth the time to implement
-    //    EventLengthFinder elf = new EventLengthFinder("Stange timespan notation: 20m 3h");
-    //    Assert.AreEqual(elf.PatternFound, false);
-    //}
-
+    
     [TestMethod]
     [ExpectedException(typeof(InvalidOperationException))]
     public void NoTimeSpecified1()
