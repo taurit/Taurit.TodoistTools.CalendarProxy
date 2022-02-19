@@ -24,16 +24,16 @@ public class FilteringOptionsTests
         ev_notallday.EndDateTime.DateTimeValue = ev_notallday.StartDateTime.DateTimeValue.AddDays(1).AddHours(-2);
 
 
-        Assert.AreEqual(calendar.VCalendar.Events.Where(ev => ev.UniqueId == ev_allday.UniqueId).Count(), 1);
-        Assert.AreEqual(calendar.VCalendar.Events.Where(ev => ev.UniqueId == ev_notallday.UniqueId).Count(), 1);
+        Assert.AreEqual(1, calendar.VCalendar.Events.Count(ev => Equals(ev.UniqueId, ev_allday.UniqueId)));
+        Assert.AreEqual(1, calendar.VCalendar.Events.Count(ev => Equals(ev.UniqueId, ev_notallday.UniqueId)));
 
         // filter out all-day events
         EventManager em = new EventManager(calendar);
         em.Filter(new FilteringOptions("h=true"));
-        System.Collections.Generic.IList<EWSoftware.PDI.Objects.VEvent> eventsAfterFiltering = em.GetEventList();
+        IList<EWSoftware.PDI.Objects.VEvent> eventsAfterFiltering = em.GetEventList();
 
-        Assert.AreEqual(eventsAfterFiltering.Where(ev => ev.UniqueId == ev_allday.UniqueId).Count(), 0);
-        Assert.AreEqual(eventsAfterFiltering.Where(ev => ev.UniqueId == ev_notallday.UniqueId).Count(), 1);
+        Assert.AreEqual(0, eventsAfterFiltering.Count(ev => Equals(ev.UniqueId, ev_allday.UniqueId)));
+        Assert.AreEqual(1, eventsAfterFiltering.Count(ev => Equals(ev.UniqueId, ev_notallday.UniqueId)));
     }
 
     [TestMethod]
@@ -64,18 +64,18 @@ public class FilteringOptionsTests
             @"Proyecto: Project\n\nCompletar este elemento: \nhttp://todoist.com/#project/999999999";
 
 
-        Assert.AreEqual(calendar.VCalendar.Events.Where(ev => ev.UniqueId == ev_projectX.UniqueId).Count(), 1);
-        Assert.AreEqual(calendar.VCalendar.Events.Where(ev => ev.UniqueId == ev_projectY.UniqueId).Count(), 1);
-        Assert.AreEqual(calendar.VCalendar.Events.Where(ev => ev.UniqueId == ev_projectZ.UniqueId).Count(), 1);
+        Assert.AreEqual(1, calendar.VCalendar.Events.Count(ev => ev.UniqueId == ev_projectX.UniqueId));
+        Assert.AreEqual(1, calendar.VCalendar.Events.Count(ev => ev.UniqueId == ev_projectY.UniqueId));
+        Assert.AreEqual(1, calendar.VCalendar.Events.Count(ev => ev.UniqueId == ev_projectZ.UniqueId));
 
         // filter out all-day events
         EventManager em = new EventManager(calendar);
         em.Filter(new FilteringOptions("&pr=Project X"));
         System.Collections.Generic.IList<EWSoftware.PDI.Objects.VEvent> eventsAfterFiltering = em.GetEventList();
 
-        Assert.AreEqual(eventsAfterFiltering.Where(ev => ev.UniqueId == ev_projectX.UniqueId).Count(), 0);
-        Assert.AreEqual(eventsAfterFiltering.Where(ev => ev.UniqueId == ev_projectY.UniqueId).Count(), 1);
-        Assert.AreEqual(eventsAfterFiltering.Where(ev => ev.UniqueId == ev_projectZ.UniqueId).Count(), 1);
+        Assert.AreEqual(0, eventsAfterFiltering.Where(ev => ev.UniqueId == ev_projectX.UniqueId).Count());
+        Assert.AreEqual(1, eventsAfterFiltering.Where(ev => ev.UniqueId == ev_projectY.UniqueId).Count());
+        Assert.AreEqual(1, eventsAfterFiltering.Where(ev => ev.UniqueId == ev_projectZ.UniqueId).Count());
     }
 
     [TestMethod]
@@ -99,18 +99,18 @@ public class FilteringOptionsTests
         ev_15minutes.StartDateTime.DateTimeValue = new DateTime(2015, 01, 01).AddHours(2);
         ev_15minutes.EndDateTime.DateTimeValue = ev_15minutes.StartDateTime.DateTimeValue.AddMinutes(15);
 
-        Assert.AreEqual(calendar.VCalendar.Events.Where(ev => ev.UniqueId == ev_5minutes.UniqueId).Count(), 1);
-        Assert.AreEqual(calendar.VCalendar.Events.Where(ev => ev.UniqueId == ev_10minutes.UniqueId).Count(), 1);
-        Assert.AreEqual(calendar.VCalendar.Events.Where(ev => ev.UniqueId == ev_15minutes.UniqueId).Count(), 1);
+        Assert.AreEqual(1, calendar.VCalendar.Events.Count(ev => ev.UniqueId == ev_5minutes.UniqueId));
+        Assert.AreEqual(1, calendar.VCalendar.Events.Count(ev => ev.UniqueId == ev_10minutes.UniqueId));
+        Assert.AreEqual(1, calendar.VCalendar.Events.Count(ev => ev.UniqueId == ev_15minutes.UniqueId));
 
         // filter out all-day events
         EventManager em = new EventManager(calendar);
         em.Filter(new FilteringOptions("min=10"));
         System.Collections.Generic.IList<EWSoftware.PDI.Objects.VEvent> eventsAfterFiltering = em.GetEventList();
 
-        Assert.AreEqual(eventsAfterFiltering.Where(ev => ev.UniqueId == ev_5minutes.UniqueId).Count(), 0);
-        Assert.AreEqual(eventsAfterFiltering.Where(ev => ev.UniqueId == ev_10minutes.UniqueId).Count(), 1);
-        Assert.AreEqual(eventsAfterFiltering.Where(ev => ev.UniqueId == ev_15minutes.UniqueId).Count(), 1);
+        Assert.AreEqual(0, eventsAfterFiltering.Count(ev => ev.UniqueId == ev_5minutes.UniqueId));
+        Assert.AreEqual(1, eventsAfterFiltering.Count(ev => ev.UniqueId == ev_10minutes.UniqueId));
+        Assert.AreEqual(1, eventsAfterFiltering.Count(ev => ev.UniqueId == ev_15minutes.UniqueId));
     }
 
     [TestMethod]
@@ -137,18 +137,18 @@ public class FilteringOptionsTests
         ev_nostr.EndDateTime.DateTimeValue = ev_nostr.StartDateTime.DateTimeValue.AddDays(1).AddHours(-2);
         ev_nostr.Summary.Value = "this is not hidden";
 
-        Assert.AreEqual(calendar.VCalendar.Events.Where(ev => ev.UniqueId == ev_str1.UniqueId).Count(), 1);
-        Assert.AreEqual(calendar.VCalendar.Events.Where(ev => ev.UniqueId == ev_str2.UniqueId).Count(), 1);
-        Assert.AreEqual(calendar.VCalendar.Events.Where(ev => ev.UniqueId == ev_nostr.UniqueId).Count(), 1);
+        Assert.AreEqual(1, calendar.VCalendar.Events.Count(ev => Equals(ev.UniqueId, ev_str1.UniqueId)));
+        Assert.AreEqual(1, calendar.VCalendar.Events.Count(ev => Equals(ev.UniqueId, ev_str2.UniqueId)));
+        Assert.AreEqual(1, calendar.VCalendar.Events.Count(ev => Equals(ev.UniqueId, ev_nostr.UniqueId)));
 
         // filter out all-day events
         EventManager em = new EventManager(calendar);
         em.Filter(new FilteringOptions("st=[hidden]"));
         System.Collections.Generic.IList<EWSoftware.PDI.Objects.VEvent> eventsAfterFiltering = em.GetEventList();
 
-        Assert.AreEqual(eventsAfterFiltering.Where(ev => ev.UniqueId == ev_str1.UniqueId).Count(), 0);
-        Assert.AreEqual(eventsAfterFiltering.Where(ev => ev.UniqueId == ev_str2.UniqueId).Count(), 0);
-        Assert.AreEqual(eventsAfterFiltering.Where(ev => ev.UniqueId == ev_nostr.UniqueId).Count(), 1);
+        Assert.AreEqual(0, eventsAfterFiltering.Count(ev => ev.UniqueId == ev_str1.UniqueId));
+        Assert.AreEqual(0, eventsAfterFiltering.Count(ev => ev.UniqueId == ev_str2.UniqueId));
+        Assert.AreEqual(1, eventsAfterFiltering.Count(ev => ev.UniqueId == ev_nostr.UniqueId));
     }
 
     [TestMethod]
@@ -172,29 +172,17 @@ public class FilteringOptionsTests
         ev_3h.StartDateTime.DateTimeValue = new DateTime(2015, 01, 01).AddHours(2);
         ev_3h.EndDateTime.DateTimeValue = ev_3h.StartDateTime.DateTimeValue.AddHours(3);
 
-        Assert.AreEqual(
-            calendar.VCalendar.Events.Where(ev => ev.UniqueId == ev_1h.UniqueId).First().DurationBasedOnDates()
-                .TotalHours, 1);
-        Assert.AreEqual(
-            calendar.VCalendar.Events.Where(ev => ev.UniqueId == ev_2h.UniqueId).First().DurationBasedOnDates()
-                .TotalHours, 2);
-        Assert.AreEqual(
-            calendar.VCalendar.Events.Where(ev => ev.UniqueId == ev_3h.UniqueId).First().DurationBasedOnDates()
-                .TotalHours, 3);
+        Assert.AreEqual(1, calendar.VCalendar.Events.First(ev => ev.UniqueId == ev_1h.UniqueId).DurationBasedOnDates().TotalHours);
+        Assert.AreEqual(2, calendar.VCalendar.Events.First(ev => ev.UniqueId == ev_2h.UniqueId).DurationBasedOnDates().TotalHours);
+        Assert.AreEqual(3, calendar.VCalendar.Events.First(ev => ev.UniqueId == ev_3h.UniqueId).DurationBasedOnDates().TotalHours);
 
         // filter out all-day events
         EventManager em = new EventManager(calendar);
         em.Filter(new FilteringOptions("lt=60&mt=60"));
-        System.Collections.Generic.IList<EWSoftware.PDI.Objects.VEvent> eventsAfterFiltering = em.GetEventList();
-
-        Assert.AreEqual(
-            calendar.VCalendar.Events.Where(ev => ev.UniqueId == ev_1h.UniqueId).First().DurationBasedOnDates()
-                .TotalHours, 1);
-        Assert.AreEqual(
-            calendar.VCalendar.Events.Where(ev => ev.UniqueId == ev_2h.UniqueId).First().DurationBasedOnDates()
-                .TotalHours, 1);
-        Assert.AreEqual(
-            calendar.VCalendar.Events.Where(ev => ev.UniqueId == ev_3h.UniqueId).First().DurationBasedOnDates()
-                .TotalHours, 1);
+        IList<EWSoftware.PDI.Objects.VEvent> eventsAfterFiltering = em.GetEventList();
+        
+        Assert.AreEqual(1, eventsAfterFiltering.First(ev => ev.UniqueId == ev_1h.UniqueId).DurationBasedOnDates().TotalHours);
+        Assert.AreEqual(1, eventsAfterFiltering.First(ev => ev.UniqueId == ev_2h.UniqueId).DurationBasedOnDates().TotalHours);
+        Assert.AreEqual(1, eventsAfterFiltering.First(ev => ev.UniqueId == ev_3h.UniqueId).DurationBasedOnDates().TotalHours);
     }
 }
