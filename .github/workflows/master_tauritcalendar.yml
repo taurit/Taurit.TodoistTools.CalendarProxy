@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'tauritcalendar'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_38DC99605FFC498F80869864B55F3652 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DA72EAF1F4B04CD48621642FBA0DD230 }}
           package: .
