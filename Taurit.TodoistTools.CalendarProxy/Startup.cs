@@ -28,6 +28,8 @@ public class Startup
             app.UseExceptionHandler("/Home/Error");
         }
 
+        app.UseResponseCompression();
+
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 
