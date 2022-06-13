@@ -1,9 +1,7 @@
-﻿using System;
-using EWSoftware.PDI.Parser;
+﻿using EWSoftware.PDI.Parser;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Http.Headers;
 using Taurit.TodoistTools.CalendarProxy.Library.Helpers;
 
 namespace Taurit.TodoistTools.CalendarProxy.Controllers;
@@ -14,9 +12,18 @@ public class ProxyController : Controller
     ///     Parses parameters provided by user in QueryString, downloads calendar, filters events based on known rules
     /// </summary>
     /// <returns></returns>
-    public async Task<ActionResult> Filter()
+    public async Task<ActionResult> Filter(CancellationToken ct)
     {
-        using WebClient? webClient = new WebClient();
+        using HttpClient? webClient = new HttpClient()
+        {
+            DefaultRequestVersion = HttpVersion.Version11,
+            DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher,
+            DefaultRequestHeaders =
+            {
+                // Office365 api started to failing with unclear 400 ArgumentNullException if User-Agent header was not present in the request
+                UserAgent = { new ProductInfoHeaderValue("HttpClient", "0.0.1") }
+            }
+        };
         try
         {
             // parse request parameters and validate requested action
@@ -29,11 +36,10 @@ public class ProxyController : Controller
                 return BadRequest("Specified protocol was not recognized. Url should begin with 'http' or 'https'.");
 
             // download the source iCalendar file content
-            webClient.Encoding = Encoding.UTF8;
-            string? icalContent = await webClient.DownloadStringTaskAsync(options.CalendarUrl);
+            string icalContent = await webClient.GetStringAsync(options.CalendarUrl, ct);
 
             // parse iCalendar and filter according to user-defined options
-            EventManager? eventManager = new EventManager(icalContent);
+            EventManager eventManager = new EventManager(icalContent);
             eventManager.Filter(options);
 
             // return filtered calendar as a response in iCalendar format
