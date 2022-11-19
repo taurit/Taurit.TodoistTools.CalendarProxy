@@ -8,6 +8,8 @@ CalendarProxy gives you some control over calendars subscribed from a 3rd-party 
 
 It allows you to **filter out the events that you don't want to see** and **declutter the view of your daily agenda** in your organizer program.
 
+![CalendarProxy example screenshot](https://raw.githubusercontent.com/taurit/Taurit.TodoistTools.CalendarProxy/master/screenshot.png)
+
 Technically, it is a web service that allows you to modify iCalendar file on the fly, according to the rules you specify.
 
 Some examples of calendars you might want to transform before you display it as another overlay on your personal calendar are:
@@ -32,8 +34,6 @@ Currently you can:
 * Hide tasks from particular projects (applies to *Todoist*)
 * Shorten events that are longer than (N) minutes to (M) minutes
 
-## Example
+## Example instance
 
-Example instance of this service is deployed under [https://todoistcalendar.azurewebsites.net/](https://todoistcalendar.azurewebsites.net/), where you can preview how the filter behaves on an examplary calendar and generate proxified URLs for your own calendars.
-
-![CalendarProxy example screenshot](https://raw.githubusercontent.com/taurit/Taurit.TodoistTools.CalendarProxy/master/CalendarProxy/Content/CalendarProxy-example-screenshot.png)
+Example instance of this service is deployed under [https://tauritcalendar.azurewebsites.net/](https://tauritcalendar.azurewebsites.net/), where you can preview how the filter behaves on an examplary calendar and generate proxified URLs for your own calendars.
