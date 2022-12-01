@@ -12,7 +12,7 @@
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
 		<PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
 		<PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.48.0.56517">
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.49.0.57237">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
