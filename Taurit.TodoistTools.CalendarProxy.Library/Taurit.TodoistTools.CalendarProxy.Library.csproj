@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EWSoftware.PDI" Version="2021.11.23" />
+		<PackageReference Include="EWSoftware.PDI" Version="2023.1.2" />
 		<PackageReference Include="EWSoftware.PDI.Data" Version="2021.11.23" />
 		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.51.0.59060">
 		  <PrivateAssets>all</PrivateAssets>
