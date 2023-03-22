@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
@@ -9,7 +9,7 @@
 	<ItemGroup>
 		<PackageReference Include="EWSoftware.PDI" Version="2023.1.2" />
 		<PackageReference Include="EWSoftware.PDI.Data" Version="2023.1.2" />
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.53.0.62665">
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.55.0.65544">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
