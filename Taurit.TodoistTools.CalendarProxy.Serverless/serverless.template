@@ -1,0 +1,39 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Transform": "AWS::Serverless-2016-10-31",
+  "Description": "This template is partially managed by Amazon.Lambda.Annotations (v0.12.0.0).",
+  "Resources": {
+    "TauritTodoistToolsCalendarProxyServerlessFunctionsFilterGenerated": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "RootGet"
+        ]
+      },
+      "Properties": {
+        "Runtime": "dotnet6",
+        "CodeUri": ".",
+        "MemorySize": 512,
+        "Architectures": [
+          "arm64"
+        ],
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Zip",
+        "Handler": "Taurit.TodoistTools.CalendarProxy.Serverless::Taurit.TodoistTools.CalendarProxy.Serverless.Functions_Filter_Generated::Filter",
+        "Events": {
+          "RootGet": {
+            "Type": "HttpApi",
+            "Properties": {
+              "Path": "/filter/{calendarUrl}/{options}",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    }
+  }
+}

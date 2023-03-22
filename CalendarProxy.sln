@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taurit.TodoistTools.Calenda
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taurit.TodoistTools.CalendarProxy", "Taurit.TodoistTools.CalendarProxy\Taurit.TodoistTools.CalendarProxy.csproj", "{24E85F5C-E2FC-4FEE-8281-37FE9FBDF081}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Taurit.TodoistTools.CalendarProxy.Serverless", "Taurit.TodoistTools.CalendarProxy.Serverless\Taurit.TodoistTools.CalendarProxy.Serverless.csproj", "{1139DA0D-C9A3-46BA-9A85-ED592E9A9FD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,12 +29,16 @@ Global
 		{24E85F5C-E2FC-4FEE-8281-37FE9FBDF081}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24E85F5C-E2FC-4FEE-8281-37FE9FBDF081}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24E85F5C-E2FC-4FEE-8281-37FE9FBDF081}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1139DA0D-C9A3-46BA-9A85-ED592E9A9FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1139DA0D-C9A3-46BA-9A85-ED592E9A9FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1139DA0D-C9A3-46BA-9A85-ED592E9A9FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1139DA0D-C9A3-46BA-9A85-ED592E9A9FD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {4D882762-C7CD-423D-AB8C-3A43852AB1E6}
 		LessCompiler = ff49402e-49f7-4a6a-a4c5-a7975fb6bbb2,24e85f5c-e2fc-4fee-8281-37fe9fbdf081
+		SolutionGuid = {4D882762-C7CD-423D-AB8C-3A43852AB1E6}
 	EndGlobalSection
 EndGlobal
