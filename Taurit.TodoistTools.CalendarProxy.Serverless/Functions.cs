@@ -36,7 +36,6 @@ public class Functions
         {
             // parse request parameters and validate requested action
             FilteringOptions? options = new FilteringOptions(request.RawQueryString);
-            //context.Logger.LogInformation($"Received raw query string: {request.RawQueryString}");
 
             if (options.CalendarUrl == null)
                 throw new ArgumentException("calendarUrl parameter was not provided by the user");
