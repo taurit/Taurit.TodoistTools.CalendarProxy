@@ -25,6 +25,9 @@
               "src/assets"
             ],
             "styles": [
+              "src/lib/bootstrap.min.css",
+              "src/lib/iCalStyles.min.css",
+              "src/lib/calendar-proxy-form.less",
               "src/styles.css"
             ],
             "scripts": []

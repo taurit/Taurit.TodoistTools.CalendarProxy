@@ -1,24 +1,134 @@
-﻿<h1 id="tableLabel">Weather forecast</h1>
-
-<p>This component demonstrates fetching data from the server.</p>
+<h1 id="tableLabel">Weather forecast</h1>
 
 <p *ngIf="!forecasts"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
 
 <table *ngIf="forecasts">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Temp. (C)</th>
+      <th>Temp. (F)</th>
+      <th>Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let forecast of forecasts">
+      <td>{{ forecast.date }}</td>
+      <td>{{ forecast.temperatureC }}</td>
+      <td>{{ forecast.temperatureF }}</td>
+      <td>{{ forecast.summary }}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h1>Clean up your calendar view!</h1>
+
+<p class="lead">Sometimes you want to <b>subscribe to a calendar</b>, but would like to have <strong>filter out</strong> irrelevant events and improve how they are displayed.</p>
+
+<noscript>
+  <p>This page requires JavaScript to function properly.</p>
+</noscript>
+
+<h2>Step #1: choose preferred options</h2>
+
+<form class="calendar-generator">
+  <table class="calendar-generator-preview icalrender">
     <thead>
-        <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-        </tr>
+      <tr>
+        <th>Before</th>
+        <th>After</th>
+        <th>Options</th>
+      </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let forecast of forecasts">
-            <td>{{ forecast.date }}</td>
-            <td>{{ forecast.temperatureC }}</td>
-            <td>{{ forecast.temperatureF }}</td>
-            <td>{{ forecast.summary }}</td>
-        </tr>
+      <tr>
+        <td id="preview-before-cell">
+          <div id="preview-before"></div>
+        </td>
+        <td id="preview-after-cell">
+          <div id="preview-after"></div>
+        </td>
+        <td id="preview-options">
+          <label>
+            <input type="checkbox" id="cb-shorten-overlapping" class="monitored" /> Shorten events that overlap the next event
+          </label><br />
+          <label>
+            <input type="checkbox" id="cb-hide-all-day-events" class="monitored" /> Hide all-day events
+          </label><br />
+          <label>
+            <input type="checkbox" id="cb-hide-private-events" class="monitored" /> Hide private events
+          </label><br />
+
+          <label>
+            <input type="checkbox" id="cb-predict-duration" class="monitored" /> Predict event duration based on summary
+          </label><br />
+          <label>
+            <input type="checkbox" class="indent-1 monitored" id="cb-remove-duration-from-title" /> Remove event duration from title
+          </label><br />
+          <label>
+            <input type="checkbox" id="cb-skip-string" class="monitored" /> Skip events containing this text:
+          </label> <input id="text-to-skip" type="text" placeholder="text to skip" class="monitored form-control" /> *<br />
+          * use ';' to specify multiple blacklisted phrases. Comparison is case-insensitive.<br />
+          <label>
+            <input type="checkbox" id="cb-hide-shorter" class="monitored" /> Hide events shorter than:
+          </label> <input type="number" id="num-hide-shorter-than-min" value="15" class="monitored form-control" /> min.<br />
+
+          <label>
+            <input type="checkbox" id="cb-hide-projects" class="monitored" /> Hide events from those Todoist projects:
+          </label> <input type="text" id="hide-projects-list" placeholder="comma-separated list" class="monitored form-control" /> * <br />
+          * Skips events that are connected to any of the given Todoist tasks (based on iCalendar Description field added by Todoist when exporting items to calendar)<br />
+
+          <label>
+            <input type="checkbox" id="cb-shorten" class="monitored" /> Shorten events longer than
+          </label> <input type="number" id="num-longer-than" class="monitored form-control" /> min. to <input type="number" id="num-shorten-to" class="monitored form-control" /> min.
+
+
+
+        </td>
+
+      </tr>
     </tbody>
-</table>
+  </table>
+
+  <h2>Step #2: Transform your calendar the same way</h2>
+  <div class="form-group">
+    <label for="url-calendar">URL of your iCalendar:</label>
+    <input id="url-calendar" type="url" class="form-control monitored" />
+  </div>
+  <div class="calendar-generator-result">
+    <label>Your new URL:</label><br />
+    <pre id="calendar-generator-result-url"></pre>
+  </div>
+
+  <h2>FAQ</h2>
+
+  <details class="pb-4">
+    <summary>What about security and privacy?</summary>
+    <p>Calendars contain private data, and the service that acts like a proxy can technically process this data in any way, including malicious scenarios. If you don't want to entrust some 3rd party service with the sensitive stuff, it's fully understandable.</p>
+
+    <p>While this web application does not do anything else than it promises, you don't have to trust it and you can verify all it does. The source code is published on <a href="https://github.com/taurit/CalendarProxy">GItHub's Calendar Proxy project page</a>. If you have <strong>Visual Studio 2019 Community Edition</strong> or newer, you can easily build a project yourself with just a few clicks. If you have access to some IIS server or Azure subscription, you can also easily host your own trusted instance of this code. Also, I recommend to make sure that you access the page via HTTPS.</p>
+  </details>
+
+  <details class="pb-4">
+    <summary>Why some filtered calendars can't be imported into Google Calendar?</summary>
+    <p>Google Calendar's implementation seems to have a restriction on the URL's length. See this <a href="https://stackoverflow.com/a/39415467/889779" target="_blank">StackOverflow</a> answer for details.</p>
+
+    <p>If you cannot import your calendar, you might try shortening the URL.</p>
+
+    <p>
+      When I encounter this problem, I normally write and deploy a simple Azure Function which redirects to a real (long) URL, but itself has an acceptably short URL.
+
+      <pre>
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
+
+public static async Task&lt;IActionResult&gt; Run(HttpRequest req, ILogger log)
+[
+    // example. Change URL to point to your calendar.
+    return new RedirectResult("https://todoistcalendar.azurewebsites.net/Proxy/Filter?calendarUrl=https%3A%2F%2Foutlook.office365.com%2Fsomelonglink.ics&st=filterdetails", true);
+]
+	</pre>
+  </details>
+</form>
