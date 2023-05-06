@@ -1,12 +1,12 @@
 <h1>Filter calendar events</h1>
 
-<p class="lead">Sometimes you want to <b>subscribe to a calendar</b>, but would like to have <strong>filter out</strong> irrelevant events and improve how they are displayed. This tool is a proof-of-concept solution for that.</p>
+<p class="lead">Sometimes, you may want to subscribe to a calendar but would like to filter out irrelevant events and improve their display. This tool offers a proof-of-concept solution for that purpose.</p>
 
 <noscript>
   <p>This page requires JavaScript to function properly.</p>
 </noscript>
 
-<h2>Step #1: choose preferred options</h2>
+<h2>Step #1: choose your preferences</h2>
 
 <form class="calendar-generator">
   <table class="calendar-generator-preview icalrender">
@@ -79,19 +79,19 @@
 
   <h2>FAQ</h2>
 
-  <details class="pb-4">
+  <details class="pb-2">
     <summary>Is this service free?</summary>
     <p>You can use it for free. I created this tool for myself and I don't mind sharing it. I reserve the right to introduce breaking changes (although I didn't for few years) or shut down the service at any time.</p>
   </details>
 
-  <details class="pb-4">
-    <summary>What about security and privacy?</summary>
+  <details class="pb-2">
+    <summary>How secure and private is it?</summary>
     <p>Calendars contain private data, and the service that acts like a proxy can technically process this data in any way, including malicious scenarios. If you don't want to entrust some 3rd party service with the sensitive stuff, it's fully understandable.</p>
 
     <p>While this web application does not do anything else than it promises, you don't have to trust it and you can verify all it does. The source code is published on <a href="https://github.com/taurit/CalendarProxy">project's GitHub page</a>. If you have Visual Studio 2022 Community Edition or newer, you can build a project yourself with just a few clicks. If you like to tinker, you can host your own trusted instance of this code in AWS.</p>
   </details>
 
-  <details class="pb-4">
+  <details class="pb-2">
     <summary>Why some filtered calendars can't be imported into Google Calendar?</summary>
     <p>Google Calendar's implementation seems to have a restriction on the URL's length. See this <a href="https://stackoverflow.com/a/39415467/889779" target="_blank">StackOverflow</a> answer for details.</p>
 
@@ -111,6 +111,17 @@ public static async Task&lt;IActionResult&gt; Run(HttpRequest req, ILogger log)
     return new RedirectResult("https://filter.calendar.taurit.pl/filter?calendarUrl=https%3A%2F%2Foutlook.office365.com%2Fsomelonglink.ics&st=filterdetails", true);
 &#125;
 	</pre>
+  </details>
+
+  <details class="pb-2">
+    <summary>Where can I send feedback, bug reports or feature requests?</summary>
+    <p>I encourage you to share any feedback, because it shall help me decide if this proof-of-concept is worth turning into a small product with more features. If I don't get any feedback, it will just stay what it is, as it fulfills my needs.</p>
+
+    <p>You can share your feedback by:</p>
+    <ul>
+      <li>Creating an Issue on <a href="https://github.com/taurit/Taurit.TodoistTools.CalendarProxy/issues">project's GitHub page</a></li>
+      <li>Leaving a comment under a <a href="https://taurit.pl/calendar-filter">blog post where I announced the Calendar Filter tool</a></li>
+    </ul>
   </details>
 </form>
 
