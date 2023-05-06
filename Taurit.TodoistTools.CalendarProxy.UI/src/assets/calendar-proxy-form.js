@@ -47,8 +47,8 @@ function updateForm() {
     var getResultUrlForCalendarUrl = function (calendarUrl) {
         /// <summary>Returns proxified calendar URL for a given calendar, applying user-defined rules (which are read directly from the form)</summary>
 
-        //var resultUrl = "https://filter.calendar.taurit.pl/filter" + // waiting for DNS propagation I guess, doesnt work yet
-        var resultUrl = "https://1yp7sgzz91.execute-api.eu-north-1.amazonaws.com/filter" +
+        var resultUrl = "https://filter.calendar.taurit.pl/filter" + // waiting for DNS propagation I guess, doesnt work yet
+        //var resultUrl = "https://1yp7sgzz91.execute-api.eu-north-1.amazonaws.com/filter" +
         '?calendarUrl=' + encodeURIComponent(calendarUrl) +
         (hideAllDayEvents ? '&h=1' : '') +
         (hidePrivateEvents ? '&hp=1' : '') +

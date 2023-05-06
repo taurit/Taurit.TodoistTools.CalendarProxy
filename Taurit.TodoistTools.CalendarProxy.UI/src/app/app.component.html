@@ -1,30 +1,6 @@
-<h1 id="tableLabel">Weather forecast</h1>
+<h1>Filter calendar events</h1>
 
-<p *ngIf="!forecasts"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
-
-<table *ngIf="forecasts">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Temp. (C)</th>
-      <th>Temp. (F)</th>
-      <th>Summary</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let forecast of forecasts">
-      <td>{{ forecast.date }}</td>
-      <td>{{ forecast.temperatureC }}</td>
-      <td>{{ forecast.temperatureF }}</td>
-      <td>{{ forecast.summary }}</td>
-    </tr>
-  </tbody>
-</table>
-
-
-<h1>Clean up your calendar view!</h1>
-
-<p class="lead">Sometimes you want to <b>subscribe to a calendar</b>, but would like to have <strong>filter out</strong> irrelevant events and improve how they are displayed.</p>
+<p class="lead">Sometimes you want to <b>subscribe to a calendar</b>, but would like to have <strong>filter out</strong> irrelevant events and improve how they are displayed. This tool is a proof-of-concept solution for that.</p>
 
 <noscript>
   <p>This page requires JavaScript to function properly.</p>
@@ -104,10 +80,15 @@
   <h2>FAQ</h2>
 
   <details class="pb-4">
+    <summary>Is this service free?</summary>
+    <p>You can use it for free. I created this tool for myself and I don't mind sharing it. I reserve the right to introduce breaking changes (although I didn't for few years) or shut down the service at any time.</p>
+  </details>
+
+  <details class="pb-4">
     <summary>What about security and privacy?</summary>
     <p>Calendars contain private data, and the service that acts like a proxy can technically process this data in any way, including malicious scenarios. If you don't want to entrust some 3rd party service with the sensitive stuff, it's fully understandable.</p>
 
-    <p>While this web application does not do anything else than it promises, you don't have to trust it and you can verify all it does. The source code is published on <a href="https://github.com/taurit/CalendarProxy">GItHub's Calendar Proxy project page</a>. If you have <strong>Visual Studio 2019 Community Edition</strong> or newer, you can easily build a project yourself with just a few clicks. If you have access to some IIS server or Azure subscription, you can also easily host your own trusted instance of this code. Also, I recommend to make sure that you access the page via HTTPS.</p>
+    <p>While this web application does not do anything else than it promises, you don't have to trust it and you can verify all it does. The source code is published on <a href="https://github.com/taurit/CalendarProxy">project's GitHub page</a>. If you have Visual Studio 2022 Community Edition or newer, you can build a project yourself with just a few clicks. If you like to tinker, you can host your own trusted instance of this code in AWS.</p>
   </details>
 
   <details class="pb-4">
@@ -119,16 +100,40 @@
     <p>
       When I encounter this problem, I normally write and deploy a simple Azure Function which redirects to a real (long) URL, but itself has an acceptably short URL.
 
-      <pre>
+      <pre ngNonBindable>
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 
 public static async Task&lt;IActionResult&gt; Run(HttpRequest req, ILogger log)
-[
+&#123;
     // example. Change URL to point to your calendar.
-    return new RedirectResult("https://todoistcalendar.azurewebsites.net/Proxy/Filter?calendarUrl=https%3A%2F%2Foutlook.office365.com%2Fsomelonglink.ics&st=filterdetails", true);
-]
+    return new RedirectResult("https://filter.calendar.taurit.pl/filter?calendarUrl=https%3A%2F%2Foutlook.office365.com%2Fsomelonglink.ics&st=filterdetails", true);
+&#125;
 	</pre>
   </details>
 </form>
+
+
+<!--<h1 id="tableLabel">Weather forecast</h1>
+
+<p *ngIf="!forecasts"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
+
+<table *ngIf="forecasts">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Temp. (C)</th>
+      <th>Temp. (F)</th>
+      <th>Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let forecast of forecasts">
+      <td>{{ forecast.date }}</td>
+      <td>{{ forecast.temperatureC }}</td>
+      <td>{{ forecast.temperatureF }}</td>
+      <td>{{ forecast.summary }}</td>
+    </tr>
+  </tbody>
+</table>-->
