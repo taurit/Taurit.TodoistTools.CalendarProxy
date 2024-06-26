@@ -23,13 +23,13 @@ public class EventLengthFinder
 
     /// <summary>
     ///     The string that was passed by the user without the recognized regex part.
-    ///     If no pattern was faound, it has a null value.
+    ///     If no pattern was found, it has a null value.
     /// </summary>
     private readonly string StringWithoutPattern;
 
     /// <summary>
-    ///     If time pattern was faound in provided string, this value is normalized time that it represents (in minutes).
-    ///     Otherwise 0.
+    ///     If time pattern was found in provided string, this value is normalized time that it represents (in minutes).
+    ///     Otherwise, 0.
     /// </summary>
     private readonly int totalMinutes;
 
@@ -90,7 +90,7 @@ public class EventLengthFinder
     {
         get
         {
-            if (PatternFound == false)
+            if (!PatternFound)
                 throw new InvalidOperationException("Time duration pattern was not found in a given string");
 
             return totalMinutes;
@@ -98,7 +98,7 @@ public class EventLengthFinder
     }
 
     /// <summary>
-    ///     If pattern was foundm returns a string with the found pattern cut. Otherwise returns original string.
+    ///     If pattern was found, returns a string with the found pattern cut. Otherwise, returns original string.
     /// </summary>
     public string TaskSummaryWithoutPattern => StringWithoutPattern;
 }
