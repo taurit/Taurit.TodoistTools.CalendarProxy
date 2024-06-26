@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Taurit.TodoistTools.CalendarProxy.UI:build:production"
+              "buildTarget": "Taurit.TodoistTools.CalendarProxy.UI:build:production"
             },
             "development": {
-              "browserTarget": "Taurit.TodoistTools.CalendarProxy.UI:build:development"
+              "buildTarget": "Taurit.TodoistTools.CalendarProxy.UI:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -78,7 +78,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Taurit.TodoistTools.CalendarProxy.UI:build"
+            "buildTarget": "Taurit.TodoistTools.CalendarProxy.UI:build"
           }
         },
         "test": {
