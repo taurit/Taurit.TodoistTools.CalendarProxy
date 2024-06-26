@@ -180,7 +180,7 @@ public class FilteringOptionsTests
         EventManager em = new EventManager(calendar);
         em.Filter(new FilteringOptions("lt=60&mt=60"));
         IList<EWSoftware.PDI.Objects.VEvent> eventsAfterFiltering = em.GetEventList();
-        
+
         Assert.AreEqual(1, eventsAfterFiltering.First(ev => ev.UniqueId == ev_1h.UniqueId).DurationBasedOnDates().TotalHours);
         Assert.AreEqual(1, eventsAfterFiltering.First(ev => ev.UniqueId == ev_2h.UniqueId).DurationBasedOnDates().TotalHours);
         Assert.AreEqual(1, eventsAfterFiltering.First(ev => ev.UniqueId == ev_3h.UniqueId).DurationBasedOnDates().TotalHours);

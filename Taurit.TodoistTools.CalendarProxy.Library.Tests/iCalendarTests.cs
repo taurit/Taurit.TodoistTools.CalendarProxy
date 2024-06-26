@@ -14,14 +14,13 @@ public class iCalendarTests
     [TestMethod]
     public void Serialization()
     {
-        //string sampleCalendarContent = new System.Net.WebClient().DownloadString(sampleCalendarFileUrl);
         string sampleCalendarContent = File.ReadAllText(sampleCalendarFileName);
 
         EventManager eventManager = new EventManager(sampleCalendarContent);
         string generatedIcal = eventManager.GetIcal();
 
         EventManager eventManager2 = new EventManager(generatedIcal);
-        string generatedIcal2 = eventManager.GetIcal();
+        string generatedIcal2 = eventManager2.GetIcal();
 
         Assert.AreEqual(generatedIcal, generatedIcal2);
     }

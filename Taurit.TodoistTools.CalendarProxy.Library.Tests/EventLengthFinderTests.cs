@@ -147,14 +147,14 @@ public class EventLengthFinderTests
     public void CalculateTime7()
     {
         EventLengthFinder elf = new EventLengthFinder("Some short thing (5m)");
-        Assert.AreEqual(elf.TotalMinutes, 5);
+        Assert.AreEqual(5, elf.TotalMinutes);
     }
 
     [TestMethod]
     public void CutRegex7()
     {
         EventLengthFinder elf = new EventLengthFinder("Some short thing (5m)");
-        Assert.AreEqual(elf.TaskSummaryWithoutPattern, "Some short thing");
+        Assert.AreEqual("Some short thing", elf.TaskSummaryWithoutPattern);
     }
 
     [TestMethod]
@@ -168,14 +168,14 @@ public class EventLengthFinderTests
     public void CalculateTime8()
     {
         EventLengthFinder elf = new EventLengthFinder("Some short thing [5m]");
-        Assert.AreEqual(elf.TotalMinutes, 5);
+        Assert.AreEqual(5, elf.TotalMinutes);
     }
 
     [TestMethod]
     public void CutRegex8()
     {
         EventLengthFinder elf = new EventLengthFinder("Some short thing [5m]");
-        Assert.AreEqual(elf.TaskSummaryWithoutPattern, "Some short thing");
+        Assert.AreEqual("Some short thing", elf.TaskSummaryWithoutPattern);
     }
 
 
@@ -207,7 +207,7 @@ public class EventLengthFinderTests
         EventLengthFinder elf = new EventLengthFinder("Check Philippians 4:11 - 4:12");
         Assert.IsFalse(elf.PatternFound);
     }
-    
+
     [TestMethod]
     [ExpectedException(typeof(InvalidOperationException))]
     public void NoTimeSpecified1()

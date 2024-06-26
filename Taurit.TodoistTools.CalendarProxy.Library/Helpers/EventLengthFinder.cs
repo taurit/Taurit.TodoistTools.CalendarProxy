@@ -17,15 +17,10 @@ public class EventLengthFinder
         RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
 
     /// <summary>
-    ///     The unmodified string that was passed by the user
-    /// </summary>
-    private readonly string OriginalString;
-
-    /// <summary>
     ///     The string that was passed by the user without the recognized regex part.
     ///     If no pattern was found, it has a null value.
     /// </summary>
-    private readonly string StringWithoutPattern;
+    private readonly string stringWithoutPattern;
 
     /// <summary>
     ///     If time pattern was found in provided string, this value is normalized time that it represents (in minutes).
@@ -45,7 +40,6 @@ public class EventLengthFinder
     {
         Match match = regexFindTime.Match(taskSummary);
         PatternFound = match.Success;
-        OriginalString = taskSummary;
 
         if (match.Success)
         {
@@ -71,7 +65,7 @@ public class EventLengthFinder
                     totalMinutes = (int)quantity;
                 }
 
-                StringWithoutPattern = OriginalString.Replace(match.Groups[0].Value, "").Replace("()", "")
+                stringWithoutPattern = taskSummary.Replace(match.Groups[0].Value, "").Replace("()", "")
                     .Replace("[]", "").Replace("  ", " ").Trim();
             }
         }
@@ -100,5 +94,5 @@ public class EventLengthFinder
     /// <summary>
     ///     If pattern was found, returns a string with the found pattern cut. Otherwise, returns original string.
     /// </summary>
-    public string TaskSummaryWithoutPattern => StringWithoutPattern;
+    public string TaskSummaryWithoutPattern => stringWithoutPattern;
 }
