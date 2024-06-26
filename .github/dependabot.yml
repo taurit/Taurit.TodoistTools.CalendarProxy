@@ -29,3 +29,5 @@ updates:
     ignore:
       # ignore angular updates, which are best updated with `ng update`
       - dependency-name: "@angular/*"
+      # tied to angular and often breaks if updated out of sync
+      - dependency-name: "typescript"
