@@ -31,3 +31,5 @@ updates:
       - dependency-name: "@angular/*"
       # tied to angular and often breaks if updated out of sync
       - dependency-name: "typescript"
+      # peer depencdency of angular/core and breaks build if version doesn't match
+      - dependency-name: "zone.js"
