@@ -1,17 +1,16 @@
 /// <reference path="jquery-3.4.1.min.js" />
 /// <reference path="icalrender.min.js" />
 
-/**
-  * Simple generator for proxy URL's based on user's input in a form.
-  */
+/** A simple Web UI for the CalendarProxy. Allows to generate a proxified URL for a given calendar URL. **/
+/** PS. Excuse me for the legacy tech, this project was first written in 2016 I think ;) Still works though. **/
+
+/**** CONFIGURATION ****/
+var backendBaseUrl = "https://filter.calendar.taurit.pl/filter";
+var demoCalendarUrl = 'https://calendar.taurit.pl/assets/Demo-2016-01-01.ics';
 
 // polyfill for browsers without location.origin, http://stackoverflow.com/a/6167979
 if (!location.origin)
     location.origin = location.protocol + '//' + location.host;
-
-// urls used in link generation form
-var serviceUrl = location.origin + '/Proxy/Filter';
-var demoCalendarUrl = 'https://calendar.taurit.pl/assets/Demo-2016-01-01.ics';
 
 function replaceAll(find, replace, str) {
     /// <summary>Replace all occurrences of a pattern in a string with another string</summary>
@@ -47,9 +46,7 @@ function updateForm() {
     var getResultUrlForCalendarUrl = function (calendarUrl) {
         /// <summary>Returns proxified calendar URL for a given calendar, applying user-defined rules (which are read directly from the form)</summary>
 
-        var resultUrl = "https://filter.calendar.taurit.pl/filter" + // waiting for DNS propagation I guess, doesnt work yet
-        //var resultUrl = "https://1yp7sgzz91.execute-api.eu-north-1.amazonaws.com/filter" +
-        '?calendarUrl=' + encodeURIComponent(calendarUrl) +
+        var resultUrl = backendBaseUrl + '?calendarUrl=' + encodeURIComponent(calendarUrl) +
         (hideAllDayEvents ? '&h=1' : '') +
         (hidePrivateEvents ? '&hp=1' : '') +
         (shortenOverlapping ? '&s=1' : '') +

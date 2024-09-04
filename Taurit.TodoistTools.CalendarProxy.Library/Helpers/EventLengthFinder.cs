@@ -12,7 +12,7 @@ public class EventLengthFinder
     ///     Regex to find patterns indicating event's length, for example: (1h 30 min)
     ///     This regular expression is covered by unit tests in EventLengthFinderTests class
     /// </summary>
-    public static Regex regexFindTime = new Regex(
+    private static Regex RegexFindTime = new Regex(
         @"(\[|\()?([\d,\.]+)(\s*?)(h|hour|minute|minut|min|m)([s\s]|\z|\)|\])((\s*?)([\d,\.]+)(\s*?)(minutes|minute|minut|min|m)(\)|\])?)?",
         RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
 
@@ -38,7 +38,7 @@ public class EventLengthFinder
     /// <param name="taskSummary">string that may contain some form of event duration</param>
     public EventLengthFinder(string taskSummary)
     {
-        Match match = regexFindTime.Match(taskSummary);
+        Match match = RegexFindTime.Match(taskSummary);
         PatternFound = match.Success;
 
         if (match.Success)

@@ -16,7 +16,6 @@ public class EventManager
     /// <summary>
     ///     Constructor. Parses given VCalendar string and stores internally as VCalendar object.
     /// </summary>
-    /// <param name="icalContent"></param>
     public EventManager(string icalContent)
     {
         calendar = new VCalendarParser();
@@ -26,7 +25,6 @@ public class EventManager
     /// <summary>
     ///     Alternative constructor that initialises object based on given calendar object, without parsing anything
     /// </summary>
-    /// <param name="calendar"></param>
     public EventManager(VCalendarParser calendar)
     {
         this.calendar = calendar;
@@ -35,14 +33,13 @@ public class EventManager
     /// <summary>
     ///     Filter events in loaded VCalendar based on provided filtering options
     /// </summary>
-    /// <param name="filter"></param>
     public void Filter(FilteringOptions filter)
     {
         if (filter.PredictEventDuration)
             PredictEventDuration(filter.RemoveEventDurationFromTitle);
 
         if (filter.HideAllDayEvents)
-            HideAllDayEvents(); // should be called before shortenig events
+            HideAllDayEvents(); // should be called before shortening events
         if (filter.HidePrivateEvents)
             HidePrivateEvents();
 
@@ -63,9 +60,8 @@ public class EventManager
     }
 
     /// <summary>
-    ///     Returns calendar in iCalendar format, that might be returned to iCal-compatible orgranizer programs
+    ///     Returns calendar in iCalendar format, that might be returned to iCal-compatible organizer programs
     /// </summary>
-    /// <returns></returns>
     public string GetIcal()
     {
         return calendar.VCalendar.ToString();
@@ -74,7 +70,6 @@ public class EventManager
     /// <summary>
     ///     Returns all events in current calendar as a generic list
     /// </summary>
-    /// <returns></returns>
     public IList<VEvent> GetEventList()
     {
         return calendar.VCalendar.Events.OfType<VEvent>().ToList();
@@ -158,8 +153,6 @@ public class EventManager
     /// <summary>
     ///     Shorten events that are longer than X minutes to Y minutes
     /// </summary>
-    /// <param name="longerThanMinutes"></param>
-    /// <param name="toMinutes"></param>
     private void ShortenEvents(int longerThanMinutes, int toMinutes)
     {
         foreach (VEvent evnt in calendar.VCalendar.Events)
@@ -170,7 +163,6 @@ public class EventManager
     /// <summary>
     ///     Removes events that contain a given string in event's title (iCalendar Summary field)
     /// </summary>
-    /// <param name="stringPart"></param>
     private void HideEventsContainingString(string stringPart)
     {
         List<string> blacklistedPhrases = stringPart.Split(';').Where(x => !String.IsNullOrWhiteSpace(x)).ToList();
@@ -192,7 +184,6 @@ public class EventManager
     ///     Removes all events that are shorter than given number of minutes. Events with duration time equal to a given
     ///     parameter will not be removed.
     /// </summary>
-    /// <param name="minutes"></param>
     private void HideEventsShorterThanMinutes(int minutes)
     {
         List<VEvent> eventsToRemove = calendar.VCalendar.Events
@@ -205,7 +196,6 @@ public class EventManager
     ///     Skips events that are connected to any of the given Todoist tasks (based on iCalendar Description field added by
     ///     Todoist when exporting items to calendar)
     /// </summary>
-    /// <param name="projectsToSkip"></param>
     private void SkipEventsFromProjects(IList<string> projectsToSkip)
     {
         List<VEvent> eventsToRemove = calendar.VCalendar.Events.Where(evnt => projectsToSkip.Contains(evnt.ProjectName()))

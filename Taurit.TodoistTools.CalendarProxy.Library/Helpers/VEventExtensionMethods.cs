@@ -5,7 +5,8 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers;
 
 public static class VEventExtensionMethods
 {
-    private static readonly Regex regexProjectName = new Regex(@"([A-Za-z]*): (.*?)\\n", RegexOptions.Multiline);
+
+    private static readonly Regex RegexTodoistProjectName = new Regex(@"([A-Za-z]*): (.*?)\\n", RegexOptions.Multiline);
 
     public static TimeSpan DurationBasedOnDates(this VEvent evnt)
     {
@@ -22,7 +23,7 @@ public static class VEventExtensionMethods
     {
         if (evnt.Description.Value != null)
         {
-            Match m = regexProjectName.Match(evnt.Description.Value);
+            Match m = RegexTodoistProjectName.Match(evnt.Description.Value);
             if (m.Success) return m.Groups[2].Value;
         }
 
@@ -37,7 +38,7 @@ public static class VEventExtensionMethods
         return
             (startDate == endDate ||
              startDate.AddDays(1) == endDate
-            ) && // event takes 0 or 24 hours - both options are used for full-day events
+            ) && // if event takes 0 hours or 24 hours, it's interpreted as a full-day event in calendars
             startDate.Hour == 0 && startDate.Minute == 0;
     }
 
