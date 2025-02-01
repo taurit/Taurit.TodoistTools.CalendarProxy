@@ -5,9 +5,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EWSoftware.PDI" Version="2023.1.2" />
-    <PackageReference Include="EWSoftware.PDI.Data" Version="2023.1.2" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.4.0.108396">
+    <PackageReference Include="EWSoftware.PDI" Version="2025.1.9" />
+    <PackageReference Include="EWSoftware.PDI.Data" Version="2025.1.9" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.6.0.109712">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
