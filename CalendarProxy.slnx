@@ -1,0 +1,12 @@
+<Solution>
+  <Project Path="Taurit.TodoistTools.CalendarProxy.Library.Tests/Taurit.TodoistTools.CalendarProxy.Library.Tests.csproj" />
+  <Project Path="Taurit.TodoistTools.CalendarProxy.Library/Taurit.TodoistTools.CalendarProxy.Library.csproj" />
+  <Project Path="Taurit.TodoistTools.CalendarProxy.Serverless/Taurit.TodoistTools.CalendarProxy.Serverless.csproj" />
+  <Project Path="Taurit.TodoistTools.CalendarProxy.UI/Taurit.TodoistTools.CalendarProxy.UI.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Properties Name="ExtensibilityGlobals" Scope="PostLoad">
+    <Property Name="LessCompiler" Value="ff49402e-49f7-4a6a-a4c5-a7975fb6bbb2,24e85f5c-e2fc-4fee-8281-37fe9fbdf081" />
+  </Properties>
+</Solution>
