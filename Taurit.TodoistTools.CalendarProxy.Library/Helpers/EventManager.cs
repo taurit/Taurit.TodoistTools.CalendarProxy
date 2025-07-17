@@ -43,6 +43,10 @@ public class EventManager
         if (filter.HidePrivateEvents)
             HidePrivateEvents();
 
+        // New filter to remove Teams locations
+        if (filter.RemoveTeamsLocations)
+            RemoveTeamsLocations();
+
         IList<string> projectsToSkip = filter.ProjectsToSkip;
         if (projectsToSkip.Count > 0) SkipEventsFromProjects(projectsToSkip);
 
@@ -202,5 +206,23 @@ public class EventManager
             .ToList();
         foreach (VEvent evnt in eventsToRemove)
             calendar.VCalendar.Events.Remove(evnt);
+    }
+
+    /// <summary>
+    ///     Removes location information from events that contain "Microsoft Teams Meeting" in their location field.
+    ///     The idea is to help declutter the "day" view (or N-day view) in the Fastmail Calendar, Outlook Calendar etc.
+    /// </summary>
+    private void RemoveTeamsLocations()
+    {
+        foreach (var evnt in calendar.VCalendar.Events.OfType<VEvent>())
+        {
+            // Check if the event's location contains "Microsoft Teams Meeting" (case-insensitive)
+            if (!string.IsNullOrEmpty(evnt.Location.Value) &&
+                evnt.Location.Value.IndexOf("Microsoft Teams Meeting", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                // Clear the location field
+                evnt.Location.Value = null;
+            }
+        }
     }
 }

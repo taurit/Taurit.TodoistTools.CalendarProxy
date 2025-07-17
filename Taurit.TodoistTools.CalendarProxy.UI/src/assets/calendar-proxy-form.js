@@ -31,6 +31,7 @@ function updateForm() {
     var hideShorter = window.$('#cb-hide-shorter').is(':checked');
     var hideProjects = window.$('#cb-hide-projects').is(':checked') && window.$('#hide-projects-list').val();
     var shorten = window.$('#cb-shorten').is(':checked') && window.$('#num-longer-than').val() && window.$('#num-shorten-to').val();
+    var removeTeamsLocations = window.$('#cb-remove-teams-locations').is(':checked'); // NEW: Read new checkbox state for Remove Teams location
 
     // URL recognizes following values (as in FilteringOptions.cs):
     // h: HideAllDayEvents,
@@ -43,6 +44,7 @@ function updateForm() {
     // pr: HideEventsFromThoseProjects
     // lt: ShortenEventsLongerThanThisMinutes 
     // mt: ShortenEventsToThisMinutes 
+    // rtl: RemoveTeamsLocations
     var getResultUrlForCalendarUrl = function (calendarUrl) {
         /// <summary>Returns proxified calendar URL for a given calendar, applying user-defined rules (which are read directly from the form)</summary>
 
@@ -55,7 +57,8 @@ function updateForm() {
         (skipText ? '&st=' + encodeURIComponent(window.$('#text-to-skip').val()) : '') +
         (hideShorter ? '&min=' + encodeURIComponent(window.$('#num-hide-shorter-than-min').val()) : '') +
         (hideProjects ? '&pr=' + encodeURIComponent(window.$('#hide-projects-list').val()) : '') + 
-        (shorten ? '&lt=' + encodeURIComponent(window.$('#num-longer-than').val()) + '&mt=' + encodeURIComponent(window.$('#num-shorten-to').val()) : '');
+        (shorten ? '&lt=' + encodeURIComponent(window.$('#num-longer-than').val()) + '&mt=' + encodeURIComponent(window.$('#num-shorten-to').val()) : '') +
+        (removeTeamsLocations ? '&rtl=1' : ''); // NEW: Append parameter for Remove Teams location
         return resultUrl;
     };
 

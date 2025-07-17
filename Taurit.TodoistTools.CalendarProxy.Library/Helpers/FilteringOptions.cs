@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
+﻿using System.Collections.Specialized;
 using System.Web;
 
 namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers;
@@ -16,7 +13,7 @@ public class FilteringOptions
     private bool predictEventDuration;
     private bool removeEventDurationFromTitle;
     private bool shortenEvents;
-
+    private bool removeTeamsLocations;
 
     /// <summary>
     ///     Default constructor, initialize object with default settings, which should not affect input calendar at all
@@ -33,6 +30,7 @@ public class FilteringOptions
         HideEventsFromThoseProjects = null;
         ShortenEventsLongerThanThisMinutes = 0;
         ShortenEventsLongerThanToThisMinutes = 0;
+        RemoveTeamsLocations = false;
     }
 
     /// <summary>
@@ -56,6 +54,7 @@ public class FilteringOptions
     ///     pr: HideEventsFromThoseProjects
     ///     lt: ShortenEventsLongerThanThisMinutes
     ///     mt: ShortenEventsLongerThanThisMinutes
+    ///     rtl: RemoveTeamsLocations
     /// </param>
     public FilteringOptions(NameValueCollection qsParams)
     {
@@ -140,6 +139,15 @@ public class FilteringOptions
     /// </summary>
     public string HideEventsFromThoseProjects { get; private set; }
 
+    /// <summary>
+    ///     Remove Microsoft Teams locations from events without hiding the event
+    /// </summary>
+    public bool RemoveTeamsLocations
+    {
+        get => removeTeamsLocations;
+        private set => removeTeamsLocations = value;
+    }
+
     public IList<string> ProjectsToSkip
     {
         get
@@ -166,6 +174,7 @@ public class FilteringOptions
         TrySetBool(qsParams, "s", ref shortenEvents);
         TrySetBool(qsParams, "p", ref predictEventDuration);
         TrySetBool(qsParams, "r", ref removeEventDurationFromTitle);
+        TrySetBool(qsParams, "rtl", ref removeTeamsLocations);
 
         if (!string.IsNullOrWhiteSpace(qsParams["st"]))
             HideEventsContainingThisString = qsParams["st"].Trim();
