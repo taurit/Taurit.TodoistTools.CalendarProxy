@@ -208,19 +208,46 @@ public class EventManager
             calendar.VCalendar.Events.Remove(evnt);
     }
 
+
     /// <summary>
-    ///     Removes location information from events that contain "Microsoft Teams Meeting" in their location field.
-    ///     The idea is to help declutter the "day" view (or N-day view) in the Fastmail Calendar, Outlook Calendar etc.
+    ///     Removes location information from events if the location matches any of the specified Teams-related patterns.
     /// </summary>
     private void RemoveTeamsLocations()
     {
+        // Patterns that should be matched anywhere in the location string (case-insensitive)
+        string[] containsPatterns = new[]
+        {
+            "Microsoft Teams Meeting",
+            "Spotkanie w aplikacji Microsoft Teams",
+            "Live Event",
+            "Warsaw Kitchen",
+            "Kitchen",
+            "Microsoft Teams" // covers "everything containing Microsoft Teams"
+        };
+
+        // Special cases: remove if location starts with any of these patterns (case-insensitive)
+        string[] startsWithPatterns = new[]
+        {
+            "PL Warsaw",
+            "DK Copenhagen"
+        };
+
         foreach (var evnt in calendar.VCalendar.Events.OfType<VEvent>())
         {
-            // Check if the event's location contains "Microsoft Teams Meeting" (case-insensitive)
-            if (!string.IsNullOrEmpty(evnt.Location.Value) &&
-                evnt.Location.Value.IndexOf("Microsoft Teams Meeting", StringComparison.OrdinalIgnoreCase) >= 0)
+            if (string.IsNullOrEmpty(evnt.Location.Value))
+                continue;
+
+            string location = evnt.Location.Value;
+
+            bool removeLocation =
+                // Check for contains conditions
+                containsPatterns.Any(pattern => location.IndexOf(pattern, StringComparison.OrdinalIgnoreCase) >= 0)
+                ||
+                // Check for starts-with conditions
+                startsWithPatterns.Any(prefix => location.StartsWith(prefix, StringComparison.OrdinalIgnoreCase));
+
+            if (removeLocation)
             {
-                // Clear the location field
                 evnt.Location.Value = null;
             }
         }
