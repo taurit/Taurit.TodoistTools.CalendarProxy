@@ -50,7 +50,8 @@ public class EventManager
 
             // I extended this filter to also:
             CleanUpKnownEventsNames();
-            SkipDailyMeetings10DaysOrMoreAheadOfToday();
+            FilterOutDailyMeetingsInFarFuture();
+            FilterOutEventsOlderThan30Days();
         }
 
         IList<string> projectsToSkip = filter.ProjectsToSkip;
@@ -68,6 +69,7 @@ public class EventManager
         if (filter.HideEventsShorterThanMinutes > 0)
             HideEventsShorterThanMinutes(filter.HideEventsShorterThanMinutes);
     }
+
 
 
     private void CleanUpKnownEventsNames()
@@ -90,37 +92,69 @@ public class EventManager
     }
 
 
-    private void SkipDailyMeetings10DaysOrMoreAheadOfToday()
+    private void FilterOutDailyMeetingsInFarFuture()
     {
-        // Calculate cutoff date: events starting from this date should be removed
-        DateTime cutoffDate = DateTime.Today.AddDays(10);
+        // Allowed recurrence until: end of day, first Saturday AFTER today + 7 days.
+        DateTime baseDate = DateTime.Today.AddDays(10);
+        int daysUntilSaturday = ((int)DayOfWeek.Saturday - (int)baseDate.DayOfWeek + 7) % 7;
+        if (daysUntilSaturday == 0)
+            daysUntilSaturday = 7; // ensures it is strictly after today+10 days if it's already Saturday
+        DateTime allowedUntil = baseDate.AddDays(daysUntilSaturday).Date.AddDays(1).AddSeconds(-1);
 
-        // Gather events to remove
+        // Gather events to remove (for non-recurring meetings)
         List<VEvent> eventsToRemove = new List<VEvent>();
 
         foreach (VEvent evnt in calendar.VCalendar.Events.OfType<VEvent>())
         {
-            if (evnt?.Summary?.Value != null)
+            if (string.IsNullOrEmpty(evnt?.Summary?.Value))
+                continue;
+
+            // Check if the event is a "Web Daily" or "D365 Daily" meeting.
+            if (evnt.Summary.Value.Equals("Web Daily", StringComparison.OrdinalIgnoreCase) ||
+                evnt.Summary.Value.Equals("D365 Daily", StringComparison.OrdinalIgnoreCase))
             {
-                // Check if the event is a Web Daily or D365 Daily meeting.
-                if (evnt.Summary.Value.Equals("Web Daily", StringComparison.OrdinalIgnoreCase) ||
-                    evnt.Summary.Value.Equals("D365 Daily", StringComparison.OrdinalIgnoreCase))
+                var recurrenceRule = evnt.RecurrenceRules.SingleOrDefault();
+                if (recurrenceRule != null)
                 {
-                    // Compare only the date portion to account for time differences.
-                    if (evnt.StartDateTime.DateTimeValue.Date >= cutoffDate)
-                    {
-                        eventsToRemove.Add(evnt);
-                    }
+                    recurrenceRule.Recurrence.RecurUntil = allowedUntil;
                 }
             }
         }
 
-        // Remove the selected events from the calendar.
+        // Remove all non-recurring events that exceed the allowed date range.
         foreach (VEvent eventToRemove in eventsToRemove)
         {
             calendar.VCalendar.Events.Remove(eventToRemove);
         }
     }
+
+    private void FilterOutEventsOlderThan30Days()
+    {
+        DateTime cutoff = DateTime.Now.AddDays(-30);
+
+        // Collect events that are not recurring and ended on or before the cutoff date.
+        List<VEvent> eventsToRemove = new List<VEvent>();
+
+        foreach (VEvent evnt in calendar.VCalendar.Events.OfType<VEvent>())
+        {
+            // Only consider non-recurring events, i.e. no recurrence rule defined.
+            // Using SingleOrDefault() from a similar filter pattern.
+            var recurrenceRule = evnt.RecurrenceRules.SingleOrDefault();
+            if (recurrenceRule != null)
+                continue;
+
+            // Check if the event has ended on or before the cutoff
+            if (evnt.EndDateTime.DateTimeValue <= cutoff)
+            {
+                eventsToRemove.Add(evnt);
+            }
+        }
+
+        // Remove the filtered events from the calendar.
+        foreach (VEvent evnt in eventsToRemove)
+            calendar.VCalendar.Events.Remove(evnt);
+    }
+
 
     /// <summary>
     ///     Returns calendar in iCalendar format, that might be returned to iCal-compatible organizer programs
