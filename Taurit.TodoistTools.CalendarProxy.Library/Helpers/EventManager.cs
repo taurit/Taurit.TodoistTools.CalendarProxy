@@ -112,7 +112,8 @@ public class EventManager
             // Check if the event is a meeting that should be filtered out in far future
             if (evnt.Summary.Value.Equals("Web Daily", StringComparison.InvariantCultureIgnoreCase) ||
                 evnt.Summary.Value.Equals("D365 Daily", StringComparison.InvariantCultureIgnoreCase) ||
-                evnt.Summary.Value.Equals("MitFalck SoS", StringComparison.InvariantCultureIgnoreCase)
+                evnt.Summary.Value.Equals("MitFalck SoS", StringComparison.InvariantCultureIgnoreCase) ||
+                evnt.Summary.Value.Equals("MitFalck+TSA+ELM Refinement", StringComparison.InvariantCultureIgnoreCase) ||
                 )
             {
                 var recurrenceRule = evnt.RecurrenceRules.SingleOrDefault();
