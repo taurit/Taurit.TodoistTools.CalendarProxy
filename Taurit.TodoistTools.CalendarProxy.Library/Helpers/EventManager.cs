@@ -43,9 +43,15 @@ public class EventManager
         if (filter.HidePrivateEvents)
             HidePrivateEvents();
 
-        // New filter to remove Teams locations
+        // A quick, private filter to allow me declutter my corporate calendar
         if (filter.RemoveTeamsLocations)
+        {
             RemoveTeamsLocations();
+
+            // I extended this filter to also:
+            CleanUpKnownEventsNames();
+            SkipDailyMeetings10DaysOrMoreAheadOfToday();
+        }
 
         IList<string> projectsToSkip = filter.ProjectsToSkip;
         if (projectsToSkip.Count > 0) SkipEventsFromProjects(projectsToSkip);
@@ -61,6 +67,59 @@ public class EventManager
 
         if (filter.HideEventsShorterThanMinutes > 0)
             HideEventsShorterThanMinutes(filter.HideEventsShorterThanMinutes);
+    }
+
+
+    private void CleanUpKnownEventsNames()
+    {
+        foreach (VEvent evnt in calendar.VCalendar.Events)
+        {
+            if (evnt?.Summary?.Value != null)
+            {
+                evnt.Summary.Value = evnt.Summary.Value
+                    .Replace("Dynamics 365 Daily Scrum", "D365 Daily", StringComparison.OrdinalIgnoreCase)
+                    .Replace("Web Sprint Retrospective", "Web Retro", StringComparison.OrdinalIgnoreCase)
+                    .Replace("[Web/e-comm] Tech knowledge sharing", "Knowledge sharing", StringComparison.OrdinalIgnoreCase)
+                    .Replace("Web daily", "Web Daily", StringComparison.OrdinalIgnoreCase)
+                    .Replace("Dynamics 365 Sprint Planning", "D365 Sprint Planning", StringComparison.OrdinalIgnoreCase)
+                    .Replace("Team Demo (Internal Show&Tell)", "D365 Internal Demo", StringComparison.OrdinalIgnoreCase)
+                    ;
+
+            }
+        }
+    }
+
+
+    private void SkipDailyMeetings10DaysOrMoreAheadOfToday()
+    {
+        // Calculate cutoff date: events starting from this date should be removed
+        DateTime cutoffDate = DateTime.Today.AddDays(10);
+
+        // Gather events to remove
+        List<VEvent> eventsToRemove = new List<VEvent>();
+
+        foreach (VEvent evnt in calendar.VCalendar.Events.OfType<VEvent>())
+        {
+            if (evnt?.Summary?.Value != null)
+            {
+                // Check if the event is a Web Daily or D365 Daily meeting.
+                if (evnt.Summary.Value.Equals("Web Daily", StringComparison.OrdinalIgnoreCase) ||
+                    evnt.Summary.Value.Equals("D365 Daily", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Compare only the date portion to account for time differences.
+                    if (evnt.StartDateTime.DateTimeValue.Date >= cutoffDate)
+                    {
+                        eventsToRemove.Add(evnt);
+                    }
+                }
+            }
+        }
+
+        // Remove the selected events from the calendar.
+        foreach (VEvent eventToRemove in eventsToRemove)
+        {
+            calendar.VCalendar.Events.Remove(eventToRemove);
+        }
     }
 
     /// <summary>

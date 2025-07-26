@@ -58,7 +58,7 @@ function updateForm() {
         (hideShorter ? '&min=' + encodeURIComponent(window.$('#num-hide-shorter-than-min').val()) : '') +
         (hideProjects ? '&pr=' + encodeURIComponent(window.$('#hide-projects-list').val()) : '') + 
         (shorten ? '&lt=' + encodeURIComponent(window.$('#num-longer-than').val()) + '&mt=' + encodeURIComponent(window.$('#num-shorten-to').val()) : '') +
-        (removeTeamsLocations ? '&rtl=1' : ''); // NEW: Append parameter for Remove Teams location
+        (removeTeamsLocations ? '&rtl=1' : '');
         return resultUrl;
     };
 
