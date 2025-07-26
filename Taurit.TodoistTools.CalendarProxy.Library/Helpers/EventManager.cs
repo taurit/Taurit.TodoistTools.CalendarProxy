@@ -50,7 +50,7 @@ public class EventManager
 
             // I extended this filter to also:
             CleanUpKnownEventsNames();
-            FilterOutDailyMeetingsInFarFuture();
+            FilterOutOptionalRecurringMeetingsInFarFuture();
             FilterOutEventsOlderThan30Days();
         }
 
@@ -92,7 +92,7 @@ public class EventManager
     }
 
 
-    private void FilterOutDailyMeetingsInFarFuture()
+    private void FilterOutOptionalRecurringMeetingsInFarFuture()
     {
         // Allowed recurrence until: end of day, first Saturday AFTER today + 7 days.
         DateTime baseDate = DateTime.Today.AddDays(10);
@@ -109,14 +109,24 @@ public class EventManager
             if (string.IsNullOrEmpty(evnt?.Summary?.Value))
                 continue;
 
-            // Check if the event is a "Web Daily" or "D365 Daily" meeting.
-            if (evnt.Summary.Value.Equals("Web Daily", StringComparison.OrdinalIgnoreCase) ||
-                evnt.Summary.Value.Equals("D365 Daily", StringComparison.OrdinalIgnoreCase))
+            // Check if the event is a meeting that should be filtered out in far future
+            if (evnt.Summary.Value.Equals("Web Daily", StringComparison.InvariantCultureIgnoreCase) ||
+                evnt.Summary.Value.Equals("D365 Daily", StringComparison.InvariantCultureIgnoreCase) ||
+                evnt.Summary.Value.Equals("MitFalck SoS", StringComparison.InvariantCultureIgnoreCase)
+                )
             {
                 var recurrenceRule = evnt.RecurrenceRules.SingleOrDefault();
                 if (recurrenceRule != null)
                 {
                     recurrenceRule.Recurrence.RecurUntil = allowedUntil;
+                }
+                else
+                {
+                    // remove the non-recurring meeting if it exceeds the allowed date range
+                    if (evnt.StartDateTime.DateTimeValue > allowedUntil)
+                    {
+                        eventsToRemove.Add(evnt);
+                    }
                 }
             }
         }
