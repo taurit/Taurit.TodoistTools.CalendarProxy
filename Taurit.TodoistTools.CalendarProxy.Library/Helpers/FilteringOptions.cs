@@ -1,236 +1,150 @@
 ﻿using System.Collections.Specialized;
 using System.Web;
 
-namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers;
-
-/// <summary>
-///     Configuration defining operations that should be performed on an input calendar
-/// </summary>
-public class FilteringOptions
+namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
 {
-    private bool hideAllDayEvents;
-    private bool hidePrivateEvents;
-    private bool predictEventDuration;
-    private bool removeEventDurationFromTitle;
-    private bool shortenEvents;
-    private bool removeTeamsLocations;
-
-    /// <summary>
-    ///     Default constructor, initialize object with default settings, which should not affect input calendar at all
-    /// </summary>
-    public FilteringOptions()
+    // Configuration defining operations that should be performed on an input calendar
+    public class FilteringOptions
     {
-        HideAllDayEvents = false;
-        HidePrivateEvents = false;
-        ShortenEvents = false;
-        PredictEventDuration = false;
-        RemoveEventDurationFromTitle = false;
-        HideEventsContainingThisString = null;
-        HideEventsShorterThanMinutes = 0;
-        HideEventsFromThoseProjects = null;
-        ShortenEventsLongerThanThisMinutes = 0;
-        ShortenEventsLongerThanToThisMinutes = 0;
-        RemoveTeamsLocations = false;
-    }
-
-    /// <summary>
-    ///     Initialize options with settings obtained from URL parameters.
-    ///     For compatibility with most calendar programs, parameters must be encoded in URL's GET parameters.
-    ///     Also, although RFC documents are vague about maximum URL length, currently the practical limit that works in all
-    ///     browsers
-    ///     is about 2000 characters. Therefore QueryString keys were deliberately chosen to be as short as possible, even
-    ///     though it affects
-    ///     readability of such URL.
-    /// </summary>
-    /// <param name="queryString">
-    ///     Valid HTTP QueryString. Currently the following parameters are recognized:
-    ///     h: HideAllDayEvents,
-    ///     hp: HidePrivateEvents,
-    ///     s: ShortenEvents,
-    ///     p: PredictEventDuration
-    ///     r: RemoveEventDurationFromTitle
-    ///     st: SkipEventsContainingThisString
-    ///     min: HideEventsShorterThanMinutes
-    ///     pr: HideEventsFromThoseProjects
-    ///     lt: ShortenEventsLongerThanThisMinutes
-    ///     mt: ShortenEventsLongerThanThisMinutes
-    ///     rtl: RemoveTeamsLocations
-    /// </param>
-    public FilteringOptions(NameValueCollection qsParams)
-    {
-        ParseParameters(qsParams);
-    }
-
-    /// <summary>
-    ///     Constructor overload using raw QueryString instead of NameValueCollection of parameters
-    /// </summary>
-    /// <param name="qsParamsRaw"></param>
-    public FilteringOptions(string qsParamsRaw)
-    {
-        NameValueCollection qsParams = HttpUtility.ParseQueryString(qsParamsRaw);
-        ParseParameters(qsParams);
-    }
-
-    /// <summary>
-    ///     Original calendar URL
-    /// </summary>
-    public Uri CalendarUrl { get; set; }
-
-    /// <summary>
-    ///     Hide all-day events in the output
-    /// </summary>
-    public bool HideAllDayEvents
-    {
-        get => hideAllDayEvents;
-        private set => hideAllDayEvents = value;
-    }
-
-    /// <summary>
-    ///     Hide private events in the output
-    /// </summary>
-    public bool HidePrivateEvents
-    {
-        get => hidePrivateEvents;
-        private set => hidePrivateEvents = value;
-    }
-
-    /// <summary>
-    ///     Shorten events, so they never overlap next event in the calendar
-    /// </summary>
-    public bool ShortenEvents
-    {
-        get => shortenEvents;
-        private set => shortenEvents = value;
-    }
-
-    /// <summary>
-    ///     Predict the duration of the event based on event title, which might contain this information
-    /// </summary>
-    public bool PredictEventDuration
-    {
-        get => predictEventDuration;
-        private set => predictEventDuration = value;
-    }
-
-    /// <summary>
-    ///     If regex containing recognized duration of event is found in the title, remove this fragment
-    /// </summary>
-    public bool RemoveEventDurationFromTitle
-    {
-        get => removeEventDurationFromTitle;
-        private set => removeEventDurationFromTitle = value;
-    }
-
-    /// <summary>
-    ///     If the string is not null or empty, events containing this string will be hidden
-    /// </summary>
-    public string HideEventsContainingThisString { get; private set; }
-
-    /// <summary>
-    ///     If this value is greater than 0, events shorten than this value will be hidden
-    /// </summary>
-    public int HideEventsShorterThanMinutes { get; private set; }
-
-    public int ShortenEventsLongerThanThisMinutes { get; private set; }
-    public int ShortenEventsLongerThanToThisMinutes { get; private set; }
-
-    /// <summary>
-    ///     Comma-delimited list of Todoist projects which should not be displayed in this calendar
-    /// </summary>
-    public string HideEventsFromThoseProjects { get; private set; }
-
-    /// <summary>
-    ///     Remove Microsoft Teams locations from events without hiding the event
-    /// </summary>
-    public bool RemoveTeamsLocations
-    {
-        get => removeTeamsLocations;
-        private set => removeTeamsLocations = value;
-    }
-
-    public IList<string> ProjectsToSkip
-    {
-        get
+        // Default constructor; initializes object with default settings that do not affect the input calendar.
+        public FilteringOptions()
         {
-            List<string> projectNames = new List<string>();
-            if (!string.IsNullOrWhiteSpace(HideEventsFromThoseProjects))
-                projectNames = HideEventsFromThoseProjects.Split(',').Select(x => x.Trim()).ToList();
-            return projectNames;
-        }
-    }
-
-    /// <summary>
-    ///     Parse QueryString parameters collection as a set of filtering options
-    /// </summary>
-    /// <param name="qsParams"></param>
-    private void ParseParameters(NameValueCollection qsParams)
-    {
-        string calendarUrl = qsParams["calendarUrl"] == null ? null : qsParams["calendarUrl"];
-        if (calendarUrl != null)
-            CalendarUrl = new Uri(calendarUrl);
-
-        TrySetBool(qsParams, "h", ref hideAllDayEvents);
-        TrySetBool(qsParams, "hp", ref hidePrivateEvents);
-        TrySetBool(qsParams, "s", ref shortenEvents);
-        TrySetBool(qsParams, "p", ref predictEventDuration);
-        TrySetBool(qsParams, "r", ref removeEventDurationFromTitle);
-        TrySetBool(qsParams, "rtl", ref removeTeamsLocations);
-
-        if (!string.IsNullOrWhiteSpace(qsParams["st"]))
-            HideEventsContainingThisString = qsParams["st"].Trim();
-
-        if (!string.IsNullOrWhiteSpace(qsParams["min"]))
-        {
-            int parsedParam = 0;
-            if (int.TryParse(qsParams["min"], out parsedParam) && parsedParam > 0)
-                HideEventsShorterThanMinutes = parsedParam;
+            HideAllDayEvents = false;
+            HidePrivateEvents = false;
+            ShortenEvents = false;
+            PredictEventDuration = false;
+            RemoveEventDurationFromTitle = false;
+            HideEventsContainingThisString = null;
+            HideEventsShorterThanMinutes = 0;
+            HideEventsFromThoseProjects = null;
+            ShortenEventsLongerThanThisMinutes = 0;
+            ShortenEventsLongerThanToThisMinutes = 0;
+            RemoveTeamsLocations = false;
         }
 
-        // those two params are tied
-        if (!string.IsNullOrWhiteSpace(qsParams["lt"]) && !string.IsNullOrWhiteSpace(qsParams["mt"]))
-        {
-            int parsedParam = 0;
-            if (int.TryParse(qsParams["lt"], out parsedParam) && parsedParam > 0)
-                ShortenEventsLongerThanThisMinutes = parsedParam;
-            if (int.TryParse(qsParams["mt"], out parsedParam) && parsedParam > 0)
-                ShortenEventsLongerThanToThisMinutes = parsedParam;
+        // Initializes options with settings obtained from URL parameters.
+        // Valid HTTP QueryString. Recognized parameters:
+        // h: HideAllDayEvents, hp: HidePrivateEvents, s: ShortenEvents,
+        // p: PredictEventDuration, r: RemoveEventDurationFromTitle,
+        // st: SkipEventsContainingThisString, min: HideEventsShorterThanMinutes,
+        // pr: HideEventsFromThoseProjects, lt: ShortenEventsLongerThanThisMinutes,
+        // mt: ShortenEventsLongerThanThisMinutes, rtl: RemoveTeamsLocations
+        public FilteringOptions(NameValueCollection qsParams) => ParseParameters(qsParams);
 
-            // make sure that both parameters were provided correctly
-            if (ShortenEventsLongerThanThisMinutes == 0 || ShortenEventsLongerThanToThisMinutes == 0
-                                                        || ShortenEventsLongerThanToThisMinutes >
-                                                        ShortenEventsLongerThanThisMinutes)
+        // Constructor overload using raw QueryString parameters.
+        public FilteringOptions(string qsParamsRaw)
+            : this(HttpUtility.ParseQueryString(qsParamsRaw))
+        {
+        }
+
+        // Original calendar URL.
+        public Uri CalendarUrl { get; private set; }
+
+        // Hide all-day events in the output.
+        public bool HideAllDayEvents { get; private set; }
+
+        // Hide private events in the output.
+        public bool HidePrivateEvents { get; private set; }
+
+        // Shorten events so they never overlap with the next event in the calendar.
+        public bool ShortenEvents { get; private set; }
+
+        // Predict the duration of an event based on its title.
+        public bool PredictEventDuration { get; private set; }
+
+        // Remove fragments from the title that contain recognized duration.
+        public bool RemoveEventDurationFromTitle { get; private set; }
+
+        // If not null or empty, events containing this string will be hidden.
+        public string HideEventsContainingThisString { get; private set; }
+
+        // If greater than 0, events shorter than this value will be hidden.
+        public int HideEventsShorterThanMinutes { get; private set; }
+
+        public int ShortenEventsLongerThanThisMinutes { get; private set; }
+        public int ShortenEventsLongerThanToThisMinutes { get; private set; }
+
+        // Comma-delimited list of Todoist projects that should not be displayed.
+        public string HideEventsFromThoseProjects { get; private set; }
+
+        // Remove Microsoft Teams locations from events without hiding them.
+        public bool RemoveTeamsLocations { get; private set; }
+
+        // Returns a list of project names parsed from HideEventsFromThoseProjects.
+        public IList<string> ProjectsToSkip =>
+            string.IsNullOrWhiteSpace(HideEventsFromThoseProjects)
+                ? new List<string>()
+                : HideEventsFromThoseProjects.Split(',').Select(x => x.Trim()).ToList();
+
+        // Parse QueryString parameters as filtering options.
+        private void ParseParameters(NameValueCollection qsParams)
+        {
+            var calendarUrl = qsParams["calendarUrl"];
+            if (!string.IsNullOrWhiteSpace(calendarUrl))
             {
-                ShortenEventsLongerThanThisMinutes = 0;
-                ShortenEventsLongerThanToThisMinutes = 0;
+                CalendarUrl = new Uri(calendarUrl);
+            }
+
+            HideAllDayEvents = ParseBool(qsParams["h"]);
+            HidePrivateEvents = ParseBool(qsParams["hp"]);
+            ShortenEvents = ParseBool(qsParams["s"]);
+            PredictEventDuration = ParseBool(qsParams["p"]);
+            RemoveEventDurationFromTitle = ParseBool(qsParams["r"]);
+            RemoveTeamsLocations = ParseBool(qsParams["rtl"]);
+
+            if (!string.IsNullOrWhiteSpace(qsParams["st"]))
+            {
+                HideEventsContainingThisString = qsParams["st"].Trim();
+            }
+
+            if (!string.IsNullOrWhiteSpace(qsParams["min"]) &&
+                int.TryParse(qsParams["min"], out int parsedMin) && parsedMin > 0)
+            {
+                HideEventsShorterThanMinutes = parsedMin;
+            }
+
+            // Parse tied parameters for shortening events.
+            if (!string.IsNullOrWhiteSpace(qsParams["lt"]) && !string.IsNullOrWhiteSpace(qsParams["mt"]))
+            {
+                if (int.TryParse(qsParams["lt"], out int lt) && lt > 0)
+                {
+                    ShortenEventsLongerThanThisMinutes = lt;
+                }
+                if (int.TryParse(qsParams["mt"], out int mt) && mt > 0)
+                {
+                    ShortenEventsLongerThanToThisMinutes = mt;
+                }
+
+                // Ensure parameter validity.
+                if (ShortenEventsLongerThanThisMinutes == 0 ||
+                    ShortenEventsLongerThanToThisMinutes == 0 ||
+                    ShortenEventsLongerThanToThisMinutes > ShortenEventsLongerThanThisMinutes)
+                {
+                    ShortenEventsLongerThanThisMinutes = 0;
+                    ShortenEventsLongerThanToThisMinutes = 0;
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(qsParams["pr"]))
+            {
+                HideEventsFromThoseProjects = qsParams["pr"].Trim();
             }
         }
 
-        if (!string.IsNullOrWhiteSpace(qsParams["pr"]))
-            HideEventsFromThoseProjects = qsParams["pr"].Trim();
-    }
-
-    /// <summary>
-    ///     Parse user-provided string value as bool
-    /// </summary>
-    /// <param name="qsParams"></param>
-    /// <param name="param"></param>
-    /// <param name="prop"></param>
-    private void TrySetBool(NameValueCollection qsParams, string param, ref bool prop)
-    {
-        bool localBool = false;
-        if (qsParams[param] != null)
-            switch (qsParams[param])
+        // Helper method to parse a string value to a bool.
+        private bool ParseBool(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
             {
-                case "1":
-                    prop = true;
-                    break;
-                case "0":
-                    prop = false;
-                    break;
-                default:
-                    if (bool.TryParse(qsParams[param], out localBool))
-                        prop = localBool;
-                    break;
+                return false;
             }
+
+            return value switch
+            {
+                "1" => true,
+                "0" => false,
+                _ => bool.TryParse(value, out var result) && result
+            };
+        }
     }
 }
