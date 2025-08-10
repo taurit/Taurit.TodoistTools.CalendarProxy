@@ -119,11 +119,16 @@ public class EventManager
                 var recurrenceRule = evnt.RecurrenceRules.SingleOrDefault();
                 if (recurrenceRule != null)
                 {
-                    recurrenceRule.Recurrence.RecurUntil = allowedUntil;
+                    // Only change the "RecurUntil" if it is set to a date in the future.
+                    // Otherwise, we extend events that ended in the past.
+                    if (recurrenceRule.Recurrence.RecurUntil.Date > allowedUntil)
+                    {
+                        recurrenceRule.Recurrence.RecurUntil = allowedUntil;
+                    }
                 }
                 else
                 {
-                    // remove the non-recurring meeting if it exceeds the allowed date range
+                    // hidde the future non-recurring meeting from the list if it exceeds the allowed date range
                     if (evnt.StartDateTime.DateTimeValue > allowedUntil)
                     {
                         eventsToRemove.Add(evnt);
