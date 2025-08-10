@@ -6,21 +6,38 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
     // Configuration defining operations that should be performed on an input calendar
     public class FilteringOptions
     {
-        // Default constructor; initializes object with default settings that do not affect the input calendar.
-        public FilteringOptions()
-        {
-            HideAllDayEvents = false;
-            HidePrivateEvents = false;
-            ShortenEvents = false;
-            PredictEventDuration = false;
-            RemoveEventDurationFromTitle = false;
-            HideEventsContainingThisString = null;
-            HideEventsShorterThanMinutes = 0;
-            HideEventsFromThoseProjects = null;
-            ShortenEventsLongerThanThisMinutes = 0;
-            ShortenEventsLongerThanToThisMinutes = 0;
-            RemoveTeamsLocations = false;
-        }
+        // Original calendar URL.
+        public Uri? CalendarUrl { get; private set; } = null;
+
+        // Hide all-day events in the output.
+        public bool HideAllDayEvents { get; private set; } = false;
+
+        // Hide private events in the output.
+        public bool HidePrivateEvents { get; private set; } = false;
+
+        // Shorten events so they never overlap with the next event in the calendar.
+        public bool ShortenEvents { get; private set; } = false;
+
+        // Predict the duration of an event based on its title.
+        public bool PredictEventDuration { get; private set; } = false;
+
+        // Remove fragments from the title that contain recognized duration.
+        public bool RemoveEventDurationFromTitle { get; private set; } = false;
+
+        // If not null or empty, events containing this string will be hidden.
+        public string? HideEventsContainingThisString { get; private set; } = null;
+
+        // If greater than 0, events shorter than this value will be hidden.
+        public int HideEventsShorterThanMinutes { get; private set; } = 0;
+
+        public int ShortenEventsLongerThanThisMinutes { get; private set; } = 0;
+        public int ShortenEventsLongerThanToThisMinutes { get; private set; } = 0;
+
+        // Comma-delimited list of Todoist projects that should not be displayed.
+        public string? HideEventsFromThoseProjects { get; private set; } = null;
+
+        // Remove Microsoft Teams locations from events without hiding them.
+        public bool RemoveTeamsLocations { get; private set; } = false;
 
         // Initializes options with settings obtained from URL parameters.
         // Valid HTTP QueryString. Recognized parameters:
@@ -36,39 +53,6 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
             : this(HttpUtility.ParseQueryString(qsParamsRaw))
         {
         }
-
-        // Original calendar URL.
-        public Uri CalendarUrl { get; private set; }
-
-        // Hide all-day events in the output.
-        public bool HideAllDayEvents { get; private set; }
-
-        // Hide private events in the output.
-        public bool HidePrivateEvents { get; private set; }
-
-        // Shorten events so they never overlap with the next event in the calendar.
-        public bool ShortenEvents { get; private set; }
-
-        // Predict the duration of an event based on its title.
-        public bool PredictEventDuration { get; private set; }
-
-        // Remove fragments from the title that contain recognized duration.
-        public bool RemoveEventDurationFromTitle { get; private set; }
-
-        // If not null or empty, events containing this string will be hidden.
-        public string HideEventsContainingThisString { get; private set; }
-
-        // If greater than 0, events shorter than this value will be hidden.
-        public int HideEventsShorterThanMinutes { get; private set; }
-
-        public int ShortenEventsLongerThanThisMinutes { get; private set; }
-        public int ShortenEventsLongerThanToThisMinutes { get; private set; }
-
-        // Comma-delimited list of Todoist projects that should not be displayed.
-        public string HideEventsFromThoseProjects { get; private set; }
-
-        // Remove Microsoft Teams locations from events without hiding them.
-        public bool RemoveTeamsLocations { get; private set; }
 
         // Returns a list of project names parsed from HideEventsFromThoseProjects.
         public IList<string> ProjectsToSkip =>
