@@ -52,6 +52,7 @@ public class EventManager
             CleanUpKnownEventsNames();
             FilterOutOptionalRecurringMeetingsInFarFuture();
             FilterOutEventsOlderThan30Days();
+            FilterOutFollowedEvents();
         }
 
         IList<string> projectsToSkip = filter.ProjectsToSkip;
@@ -171,6 +172,16 @@ public class EventManager
             calendar.VCalendar.Events.Remove(evnt);
     }
 
+    // Filter out events which name starts with "Following: ".
+    // This is a convention for events I declined but want to get notified about in case of changes of scope or date.
+    private void FilterOutFollowedEvents()
+    {
+        List<VEvent> eventsToRemove = calendar.VCalendar.Events
+            .Where(evnt => evnt.Summary.Value.StartsWith("Following: ", StringComparison.OrdinalIgnoreCase))
+            .ToList();
+        foreach (VEvent evnt in eventsToRemove)
+            calendar.VCalendar.Events.Remove(evnt);
+    }
 
     /// <summary>
     ///     Returns calendar in iCalendar format, that might be returned to iCal-compatible organizer programs
