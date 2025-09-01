@@ -27,7 +27,7 @@
     "@angular/build": "^20.0.0",
     "@angular/cli": "~20.0.0",
     "@angular/compiler-cli": "^20.0.0",
-    "less": "^4.4.0",
+    "less": "^4.4.1",
     "typescript": "~5.8.3"
   },
   "engines": {
