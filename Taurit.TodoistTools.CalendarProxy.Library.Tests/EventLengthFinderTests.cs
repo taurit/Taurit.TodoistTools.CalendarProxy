@@ -209,10 +209,17 @@ public class EventLengthFinderTests
     }
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidOperationException))]
     public void NoTimeSpecified1()
     {
-        EventLengthFinder elf = new EventLengthFinder("No time specified in this string");
-        int totalMinutes = elf.TotalMinutes;
+        try
+        {
+            EventLengthFinder elf = new EventLengthFinder("No time specified in this string");
+            int totalMinutes = elf.TotalMinutes;
+            Assert.Fail("Expected InvalidOperationException was not thrown.");
+        }
+        catch (InvalidOperationException)
+        {
+            // expected
+        }
     }
 }
