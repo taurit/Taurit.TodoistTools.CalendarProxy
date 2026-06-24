@@ -30,6 +30,11 @@
     "less": "^4.6.4",
     "typescript": "~6.0.3"
   },
+  "overrides": {
+    "esbuild": "0.28.1",
+    "@babel/core": "7.29.7",
+    "js-yaml": "4.2.0"
+  },
   "engines": {
     "node": ">=18.19.1"
   }
