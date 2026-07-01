@@ -27,7 +27,7 @@
     "@angular/build": "^22.0.3",
     "@angular/cli": "~22.0.3",
     "@angular/compiler-cli": "^22.0.2",
-    "less": "^4.6.4",
+    "less": "^4.6.7",
     "typescript": "~6.0.3"
   },
   "overrides": {
