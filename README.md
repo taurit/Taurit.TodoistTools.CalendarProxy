@@ -76,38 +76,41 @@ The **Deploy AWS Lambda** workflow automatically deploys the existing `calendarp
 
 OIDC does not require storing or rotating AWS access keys. The IAM role and trust relationship have no scheduled expiry; GitHub obtains fresh temporary credentials automatically for every run. Their short lifetime limits exposure, not how long the integration works. This avoids a two-year credential renewal deadline, but changes to permissions, repository identity, or provider requirements can still require maintenance. .NET 10 is an LTS release; keep SDK and dependency security updates current.
 
-Before the first deployment:
+Deployment identity setup is complete in account `640775413442`:
 
-1. The GitHub environment `aws-production` has been created via GitHub CLI, allowing only the `master` branch and requiring no manual approval. View it under **Repository Settings > Environments > aws-production**.
-2. Sign in to the AWS console for the account hosting `calendarproxy`. Go to **IAM > Identity providers**. If GitHub is not already listed, choose **Add provider > OpenID Connect**, enter `https://token.actions.githubusercontent.com` and audience `sts.amazonaws.com`, and save.
-3. Go to **IAM > Roles > Create role > Custom trust policy**. Use the policy below, replacing `AWS_ACCOUNT_ID` with your account ID. Name the role `CalendarProxyGitHubDeploy`. The subject shown was verified for this repository; update it if you later enable immutable/custom subjects or rename the repository/environment.
-4. Attach a least-privilege deployment permissions policy to that role. It must allow artifact uploads to `tauritlambdas/Taurit.TodoistTools.CalendarProxy.Serverless/` and updates to `calendarproxy` and its Lambda, API Gateway, IAM execution-role, and logging resources. Include narrowly scoped `iam:PassRole` where required. Inspect **CloudFormation > calendarproxy > Resources** and any existing stack service role to scope the policy correctly; the checked-in template alone cannot establish the full production permission set. Do not use administrator permissions as a shortcut.
-5. Copy the role ARN from AWS. In **Repository Settings > Environments > aws-production > Environment variables**, add `AWS_ROLE_ARN` with that value. It is an identifier, not a credential; no AWS access-key secrets are needed. Alternatively, run the command below with your actual role ARN.
-6. Commit and push to `master`. Both UI and backend pipelines run automatically and independently. Review **Actions > Deploy AWS Lambda** and smoke-test the existing calendar endpoint afterward. Deployment will fail clearly until the AWS role variable and IAM permissions are configured.
+1. The GitHub environment `aws-production` allows only the `master` branch, with no manual approval. View it under **Repository Settings > Environments > aws-production**.
+2. The existing AWS OIDC provider trusts `https://token.actions.githubusercontent.com` with audience `sts.amazonaws.com`.
+3. The role `CalendarProxyGitHubDeploy` uses the exact repository/environment subject in [deployment-trust.json](.github/aws/deployment-trust.json). Update this trust if the repository, environment, or OIDC subject format changes.
+4. Its inline policy `CalendarProxyDeployment` is defined in [deployment-policy.json](.github/aws/deployment-policy.json), using resource IDs discovered from the live stack. The permissions policy passed IAM Access Analyzer validation. IAM simulations confirmed allowed deployment updates and denied access to unrelated stacks, functions, APIs, and artifact prefixes.
+5. The environment variable `AWS_ROLE_ARN` is set to `arn:aws:iam::640775413442:role/CalendarProxyGitHubDeploy`. It is an identifier, not a credential; no AWS access-key secrets are stored in GitHub.
+6. Commit and push to `master` to run both independent pipelines. Review **Actions > Deploy AWS Lambda** and smoke-test the existing calendar endpoint afterward. IAM setup alone does not verify an end-to-end OIDC login or production deployment.
 
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Federated": "arn:aws:iam::AWS_ACCOUNT_ID:oidc-provider/token.actions.githubusercontent.com"
-      },
-      "Action": "sts:AssumeRoleWithWebIdentity",
-      "Condition": {
-        "StringEquals": {
-          "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-          "token.actions.githubusercontent.com:sub": "repo:taurit/Taurit.TodoistTools.CalendarProxy:environment:aws-production"
-        }
-      }
-    }
-  ]
-}
-```
+The deployment policy grants artifact reads/uploads only within the existing S3 prefix, updates/change sets only on the existing stack, updates only to the existing Lambda and HTTP API, and read/tag access to the existing execution role. Managed-policy attachment is limited to `AWSLambdaBasicExecutionRole`; `iam:PassRole` permits only that execution role and only to Lambda. Template validation uses `Resource: "*"` because that action is not resource-scoped. API child resources can be maintained, but the parent API, function, and stack cannot be deleted by this policy. It does not grant IAM inline-policy editing or new stack/function/API creation.
+
+This is an update-only deployment role, not a general infrastructure administrator. Resource replacements, new functions/APIs, layers, or changes to execution-role permissions require a reviewed policy update. No CloudFormation service role is attached to the existing stack, so resource update permissions belong to the GitHub role directly.
+
+To reapply the checked-in policies to the existing role, use an authorized AWS administrator session and run from the repository root. These commands change IAM permissions, not the production stack:
 
 ```sh
-gh variable set AWS_ROLE_ARN --repo taurit/Taurit.TodoistTools.CalendarProxy --env aws-production --body "arn:aws:iam::AWS_ACCOUNT_ID:role/CalendarProxyGitHubDeploy"
+aws iam update-assume-role-policy --role-name CalendarProxyGitHubDeploy --policy-document file://.github/aws/deployment-trust.json
+aws iam put-role-policy --role-name CalendarProxyGitHubDeploy --policy-name CalendarProxyDeployment --policy-document file://.github/aws/deployment-policy.json
 ```
 
-The workflow installs the .NET 10 SDK and a pinned `Amazon.Lambda.Tools` version on an ARM64 Linux runner. It reads the checked-in deployment defaults through a temporary copy with the local named AWS profile removed, so the OIDC credentials are used. Backend application source, deployment defaults, and template are unchanged. The first cloud deployment still needs validation after IAM setup; local build checks do not prove production permissions or absence of stack drift.
+To restore the GitHub role variable if needed:
+
+```sh
+gh variable set AWS_ROLE_ARN --repo taurit/Taurit.TodoistTools.CalendarProxy --env aws-production --body "arn:aws:iam::640775413442:role/CalendarProxyGitHubDeploy"
+```
+
+The workflow installs the .NET 10 SDK and a pinned `Amazon.Lambda.Tools` version on an ARM64 Linux runner. It reads the checked-in deployment defaults through a temporary copy with the local named AWS profile removed, so the OIDC credentials are used. Backend application source, deployment defaults, and template are unchanged. The first cloud deployment still needs validation; local builds and IAM simulations do not prove absence of stack drift or complete CloudFormation resource-provider permissions.
+
+### Identify Deployment Resources
+
+Sign in to the AWS console for the production account, select **Europe (Stockholm)**, and open **CloudShell** from the console toolbar. CloudShell includes AWS CLI and uses your console login; no local installation or access keys are needed. Run:
+
+```sh
+aws cloudformation describe-stacks --stack-name calendarproxy --region eu-north-1 --query 'Stacks[0].{StackId:StackId,ServiceRole:RoleARN}' --output json --no-cli-pager
+aws cloudformation list-stack-resources --stack-name calendarproxy --region eu-north-1 --query 'StackResourceSummaries[].{LogicalId:LogicalResourceId,Type:ResourceType,Id:PhysicalResourceId}' --output json --no-cli-pager
+```
+
+These commands only read metadata. Their output contains resource identifiers, not credentials or calendar data. Use it when reviewing policy updates after infrastructure changes. A non-null `ServiceRole` means CloudFormation uses that role for resource operations, allowing the GitHub role's permissions to focus on artifacts and stack operations rather than direct IAM/Lambda/API management. A null value means deployment must account for those resource operations separately.

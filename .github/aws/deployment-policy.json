@@ -1,0 +1,143 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "LocateArtifactBucket",
+      "Effect": "Allow",
+      "Action": "s3:GetBucketLocation",
+      "Resource": "arn:aws:s3:::tauritlambdas"
+    },
+    {
+      "Sid": "ListArtifactPrefix",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::tauritlambdas",
+      "Condition": {
+        "StringLikeIfExists": {
+          "s3:prefix": "Taurit.TodoistTools.CalendarProxy.Serverless/*"
+        }
+      }
+    },
+    {
+      "Sid": "TransferDeploymentArtifacts",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:AbortMultipartUpload",
+        "s3:ListMultipartUploadParts"
+      ],
+      "Resource": "arn:aws:s3:::tauritlambdas/Taurit.TodoistTools.CalendarProxy.Serverless/*"
+    },
+    {
+      "Sid": "UpdateExistingStack",
+      "Effect": "Allow",
+      "Action": [
+        "cloudformation:DescribeStacks",
+        "cloudformation:DescribeStackEvents",
+        "cloudformation:DescribeStackResources",
+        "cloudformation:ListStackResources",
+        "cloudformation:GetTemplate",
+        "cloudformation:GetTemplateSummary",
+        "cloudformation:UpdateStack",
+        "cloudformation:CreateChangeSet",
+        "cloudformation:DescribeChangeSet",
+        "cloudformation:ExecuteChangeSet",
+        "cloudformation:DeleteChangeSet",
+        "cloudformation:TagResource",
+        "cloudformation:UntagResource"
+      ],
+      "Resource": "arn:aws:cloudformation:eu-north-1:640775413442:stack/calendarproxy/2ceb4460-c8c2-11ed-b844-0eeb3a68a466"
+    },
+    {
+      "Sid": "ValidateDeploymentTemplate",
+      "Effect": "Allow",
+      "Action": "cloudformation:ValidateTemplate",
+      "Resource": "*"
+    },
+    {
+      "Sid": "UpdateExistingFunction",
+      "Effect": "Allow",
+      "Action": [
+        "lambda:GetFunction",
+        "lambda:GetFunctionConfiguration",
+        "lambda:GetPolicy",
+        "lambda:UpdateFunctionCode",
+        "lambda:UpdateFunctionConfiguration",
+        "lambda:AddPermission",
+        "lambda:RemovePermission",
+        "lambda:ListTags",
+        "lambda:TagResource",
+        "lambda:UntagResource",
+        "lambda:GetRuntimeManagementConfig",
+        "lambda:PutRuntimeManagementConfig"
+      ],
+      "Resource": "arn:aws:lambda:eu-north-1:640775413442:function:calendarproxy-TauritTodoistToolsCalendarProxyServe-UL6HTXyk18ue"
+    },
+    {
+      "Sid": "ReadExistingExecutionRole",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetRole",
+        "iam:GetRolePolicy",
+        "iam:ListRolePolicies",
+        "iam:ListAttachedRolePolicies",
+        "iam:TagRole",
+        "iam:UntagRole"
+      ],
+      "Resource": "arn:aws:iam::640775413442:role/calendarproxy-TauritTodoistToolsCalendarProxyServe-1J80TNME0W1XO"
+    },
+    {
+      "Sid": "MaintainBasicExecutionPolicyOnly",
+      "Effect": "Allow",
+      "Action": ["iam:AttachRolePolicy", "iam:DetachRolePolicy"],
+      "Resource": "arn:aws:iam::640775413442:role/calendarproxy-TauritTodoistToolsCalendarProxyServe-1J80TNME0W1XO",
+      "Condition": {
+        "ArnEquals": {
+          "iam:PolicyARN": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        }
+      }
+    },
+    {
+      "Sid": "PassOnlyExistingLambdaExecutionRole",
+      "Effect": "Allow",
+      "Action": "iam:PassRole",
+      "Resource": "arn:aws:iam::640775413442:role/calendarproxy-TauritTodoistToolsCalendarProxyServe-1J80TNME0W1XO",
+      "Condition": {
+        "StringEquals": {
+          "iam:PassedToService": "lambda.amazonaws.com"
+        }
+      }
+    },
+    {
+      "Sid": "UpdateExistingHttpApi",
+      "Effect": "Allow",
+      "Action": ["apigateway:GET", "apigateway:PATCH", "apigateway:PUT"],
+      "Resource": "arn:aws:apigateway:eu-north-1::/apis/1yp7sgzz91"
+    },
+    {
+      "Sid": "MaintainExistingHttpApiChildren",
+      "Effect": "Allow",
+      "Action": [
+        "apigateway:GET",
+        "apigateway:PATCH",
+        "apigateway:PUT",
+        "apigateway:POST",
+        "apigateway:DELETE"
+      ],
+      "Resource": "arn:aws:apigateway:eu-north-1::/apis/1yp7sgzz91/*"
+    },
+    {
+      "Sid": "MaintainExistingHttpApiTags",
+      "Effect": "Allow",
+      "Action": [
+        "apigateway:GET",
+        "apigateway:PATCH",
+        "apigateway:PUT",
+        "apigateway:POST",
+        "apigateway:DELETE"
+      ],
+      "Resource": "arn:aws:apigateway:eu-north-1::/tags/arn%3Aaws%3Aapigateway%3Aeu-north-1%3A%3A%2Fapis%2F1yp7sgzz91"
+    }
+  ]
+}
