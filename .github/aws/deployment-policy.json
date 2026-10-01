@@ -50,6 +50,12 @@
       "Resource": "arn:aws:cloudformation:eu-north-1:640775413442:stack/calendarproxy/2ceb4460-c8c2-11ed-b844-0eeb3a68a466"
     },
     {
+      "Sid": "UseServerlessTransform",
+      "Effect": "Allow",
+      "Action": "cloudformation:CreateChangeSet",
+      "Resource": "arn:aws:cloudformation:eu-north-1:aws:transform/Serverless-2016-10-31"
+    },
+    {
       "Sid": "ValidateDeploymentTemplate",
       "Effect": "Allow",
       "Action": "cloudformation:ValidateTemplate",
