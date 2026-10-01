@@ -1,0 +1,60 @@
+name: Deploy AWS Lambda
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+concurrency:
+  group: calendarproxy-production-deployment
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-24.04-arm
+    environment: aws-production
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      id-token: write
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+      - name: Build solution
+        run: dotnet build CalendarProxy.slnx --configuration Release
+      - name: Test solution
+        run: dotnet test CalendarProxy.slnx --configuration Release --no-build --no-restore
+      - name: Install Lambda deployment tool
+        run: dotnet tool install --global Amazon.Lambda.Tools --version 7.0.0 --allow-roll-forward
+      - name: Check deployment role configuration
+        env:
+          AWS_ROLE_ARN: ${{ vars.AWS_ROLE_ARN }}
+        run: |
+          if [ -z "$AWS_ROLE_ARN" ]; then
+            echo "Configure AWS_ROLE_ARN in the aws-production environment before deploying."
+            exit 1
+          fi
+      - name: Authenticate to AWS using OIDC
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: eu-north-1
+          role-session-name: calendarproxy-${{ github.run_id }}
+      - name: Deploy existing serverless stack
+        working-directory: Taurit.TodoistTools.CalendarProxy.Serverless
+        run: |
+          jq 'del(.profile)' aws-lambda-tools-defaults.json > "$RUNNER_TEMP/lambda-defaults.json"
+          dotnet lambda deploy-serverless \
+            --config-file "$RUNNER_TEMP/lambda-defaults.json" \
+            --disable-interactive true \
+            --stack-wait true

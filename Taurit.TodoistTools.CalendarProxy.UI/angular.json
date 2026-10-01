@@ -17,9 +17,7 @@
               "base": "dist/taurit.todoist-tools.calendar-proxy.ui"
             },
             "index": "src/index.html",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
@@ -29,7 +27,7 @@
             "styles": [
               "src/lib/bootstrap.min.css",
               "src/lib/iCalStyles.min.css",
-              "src/lib/calendar-proxy-form.less",
+              "src/lib/calendar-proxy-form.css",
               "src/styles.css"
             ],
             "scripts": [],
@@ -70,10 +68,7 @@
               "buildTarget": "Taurit.TodoistTools.CalendarProxy.UI:build:development"
             }
           },
-          "defaultConfiguration": "development",
-          "options": {
-            "proxyConfig": "src/proxy.conf.js"
-          }
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n",
