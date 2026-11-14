@@ -22,7 +22,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/staticwebapp.config.json"
+              "src/_headers"
             ],
             "styles": [
               "src/lib/bootstrap.min.css",

@@ -337,4 +337,5 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 desktop.ini
+.cloudflare/
 Taurit.TodoistTools.CalendarProxy/Properties/ServiceDependencies/tauritcalendar - Zip Deploy/profile.arm.json

@@ -66,9 +66,13 @@ dotnet test CalendarProxy.slnx
 
 ## Deployment
 
-### Azure Website
+### Cloudflare website
 
-The Azure Static Web Apps workflow builds and deploys the website automatically on pushes to `master`. It uses npm, not the .NET solution, and does not deploy the AWS backend.
+The **Deploy Cloudflare Pages** workflow builds and deploys the website automatically on pushes to `master`. It runs `npm ci` and `npm run build` with Node.js 24.15.0, then uploads the generated `Taurit.TodoistTools.CalendarProxy.UI/dist/taurit.todoist-tools.calendar-proxy.ui/browser` directory to the `calendarfilter` Pages project. Generated files are not committed. The workflow can also be run manually from GitHub Actions.
+
+The site uses the custom domain `calendar.taurit.pl`. Cloudflare serves only the static frontend; filtering requests go directly to the existing AWS backend at `filter.calendar.taurit.pl`. Response headers are configured in `Taurit.TodoistTools.CalendarProxy.UI/src/_headers`.
+
+GitHub Actions requires the repository variable `CLOUDFLARE_ACCOUNT_ID` and secret `CLOUDFLARE_API_TOKEN`. The token needs only the **Pages Write** permission in the hosting account. This pipeline is independent of the .NET solution and AWS deployment.
 
 ### AWS backend
 
