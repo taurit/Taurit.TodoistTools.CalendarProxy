@@ -42,17 +42,15 @@ Currently, you can:
 
 ### Website
 
-The Angular website is maintained independently from the .NET solution. It requires Node.js 24.15.0 or newer.
+The website is static HTML, CSS, and JavaScript in `Taurit.TodoistTools.CalendarProxy.UI/src`. It can be served directly.
 
-From the repository root, install dependencies and start the local HTTP server:
+From the repository root, start a local HTTP server with Python 3.
 
-```sh
-cd Taurit.TodoistTools.CalendarProxy.UI
-npm ci
-npm start
+```powershell
+python -m http.server 4200 --bind 127.0.0.1 --directory Taurit.TodoistTools.CalendarProxy.UI/src
 ```
 
-The site is available at <http://localhost:4200/>. Create a production build with `npm run build` from the UI directory.
+Open <http://127.0.0.1:4200/>. The **Calendar Filter (Edge)** launch configuration in VS Code also starts the server. The filtered preview uses the live AWS backend.
 
 ### .NET solution
 
@@ -68,7 +66,7 @@ dotnet test CalendarProxy.slnx
 
 ### Cloudflare website
 
-The **Deploy Cloudflare Pages** workflow builds and deploys the website automatically on pushes to `master`. It runs `npm ci` and `npm run build` with Node.js 24.15.0, then uploads the generated `Taurit.TodoistTools.CalendarProxy.UI/dist/taurit.todoist-tools.calendar-proxy.ui/browser` directory to the `calendarfilter` Pages project. Generated files are not committed. The workflow can also be run manually from GitHub Actions.
+The **Deploy Cloudflare Pages** workflow automatically uploads `Taurit.TodoistTools.CalendarProxy.UI/src` to the `calendarfilter` Pages project with Wrangler on pushes to `master`. The workflow can also be run manually from `master` in GitHub Actions. The source directory is the deployable site.
 
 The site uses the custom domain `calendar.taurit.pl`. Cloudflare serves only the static frontend; filtering requests go directly to the existing AWS backend at `filter.calendar.taurit.pl`. Response headers are configured in `Taurit.TodoistTools.CalendarProxy.UI/src/_headers`.
 

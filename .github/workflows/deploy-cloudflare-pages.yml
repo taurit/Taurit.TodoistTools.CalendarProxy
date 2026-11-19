@@ -25,17 +25,10 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 24.15.0
-          cache: npm
-          cache-dependency-path: Taurit.TodoistTools.CalendarProxy.UI/package-lock.json
-      - name: Build Angular application
-        working-directory: Taurit.TodoistTools.CalendarProxy.UI
-        run: |
-          npm ci
-          npm run build
       - name: Deploy website
         uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy Taurit.TodoistTools.CalendarProxy.UI/dist/taurit.todoist-tools.calendar-proxy.ui/browser --project-name=calendarfilter --branch=master
+          command: pages deploy Taurit.TodoistTools.CalendarProxy.UI/src --project-name=calendarfilter --branch=master
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}

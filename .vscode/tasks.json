@@ -3,29 +3,28 @@
   "tasks": [
     {
       "label": "UI: Start",
-      "type": "shell",
-      "command": "npm run start",
+      "type": "process",
+      "command": "python",
+      "args": ["-u", "-m", "http.server", "4200", "--bind", "127.0.0.1"],
       "options": {
-        "cwd": "${workspaceFolder}/Taurit.TodoistTools.CalendarProxy.UI"
+        "cwd": "${workspaceFolder}/Taurit.TodoistTools.CalendarProxy.UI/src"
       },
       "isBackground": true,
       "problemMatcher": {
-        "base": "$tsc-watch",
+        "owner": "calendarproxy-static-server",
+        "fileLocation": "absolute",
+        "pattern": {
+          "regexp": "^\\s*File \"([^\"]+)\", line (\\d+), in (.+)$",
+          "file": 1,
+          "line": 2,
+          "message": 3
+        },
         "background": {
           "activeOnStart": true,
-          "beginsPattern": "^> ng serve$",
-          "endsPattern": "Application bundle generation complete\\."
+          "beginsPattern": "^\\s*\\*\\s+Executing task:.*http\\.server",
+          "endsPattern": "^Serving HTTP on 127\\.0\\.0\\.1 port 4200 "
         }
       }
-    },
-    {
-      "label": "UI: Build",
-      "type": "shell",
-      "command": "npm run build",
-      "options": {
-        "cwd": "${workspaceFolder}/Taurit.TodoistTools.CalendarProxy.UI"
-      },
-      "problemMatcher": []
     }
   ]
 }

@@ -21,21 +21,3 @@ updates:
       github-actions-dependencies:
         patterns:
           - "*"
-
-  - package-ecosystem: "npm"
-    directory: "/Taurit.TodoistTools.CalendarProxy.UI"
-    schedule:
-      interval: "monthly"
-    cooldown:
-      default-days: 30
-    groups:
-      github-actions-dependencies:
-        patterns:
-          - "*"
-    ignore:
-      # ignore angular updates, which are best updated with `ng update`
-      - dependency-name: "@angular/*"
-      # tied to angular and often breaks if updated out of sync
-      - dependency-name: "typescript"
-      # peer depencdency of angular/core and breaks build if version doesn't match
-      - dependency-name: "zone.js"

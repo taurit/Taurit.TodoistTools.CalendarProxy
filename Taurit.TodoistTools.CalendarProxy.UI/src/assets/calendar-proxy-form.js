@@ -6,7 +6,8 @@
 
 /**** CONFIGURATION ****/
 var backendBaseUrl = "https://filter.calendar.taurit.pl/filter";
-var demoCalendarUrl = 'https://calendar.taurit.pl/assets/Demo-2016-01-01.ics';
+var demoCalendarPath = 'assets/Demo-2016-01-01.ics';
+var demoCalendarUrl = 'https://calendar.taurit.pl/' + demoCalendarPath;
 
 // polyfill for browsers without location.origin, http://stackoverflow.com/a/6167979
 if (!location.origin)
@@ -31,7 +32,7 @@ function updateForm() {
     var hideShorter = window.$('#cb-hide-shorter').is(':checked');
     var hideProjects = window.$('#cb-hide-projects').is(':checked') && window.$('#hide-projects-list').val();
     var shorten = window.$('#cb-shorten').is(':checked') && window.$('#num-longer-than').val() && window.$('#num-shorten-to').val();
-    var removeTeamsLocations = window.$('#cb-remove-teams-locations').is(':checked'); // NEW: Read new checkbox state for Remove Teams location
+    var applyCorporateCalendarFilters = window.$('#cb-apply-corporate-calendar-filters').is(':checked');
 
     // URL recognizes following values (as in FilteringOptions.cs):
     // h: HideAllDayEvents,
@@ -44,7 +45,7 @@ function updateForm() {
     // pr: HideEventsFromThoseProjects
     // lt: ShortenEventsLongerThanThisMinutes 
     // mt: ShortenEventsToThisMinutes 
-    // rtl: RemoveTeamsLocations
+    // rtl: ApplyCorporateCalendarFilters
     var getResultUrlForCalendarUrl = function (calendarUrl) {
         /// <summary>Returns proxified calendar URL for a given calendar, applying user-defined rules (which are read directly from the form)</summary>
 
@@ -58,7 +59,7 @@ function updateForm() {
         (hideShorter ? '&min=' + encodeURIComponent(window.$('#num-hide-shorter-than-min').val()) : '') +
         (hideProjects ? '&pr=' + encodeURIComponent(window.$('#hide-projects-list').val()) : '') + 
         (shorten ? '&lt=' + encodeURIComponent(window.$('#num-longer-than').val()) + '&mt=' + encodeURIComponent(window.$('#num-shorten-to').val()) : '') +
-        (removeTeamsLocations ? '&rtl=1' : '');
+        (applyCorporateCalendarFilters ? '&rtl=1' : '');
         return resultUrl;
     };
 
@@ -91,7 +92,7 @@ $(document).ready(function () {
     updateForm();
 
     // show "before" preview
-    $.get(demoCalendarUrl, function (response) {
+    $.get(demoCalendarPath, function (response) {
         var renderer = new ICalRender.Renderer(response, 7, 12, 52);
         renderer.RenderMultidayView('#preview-before', 2016, 1, 1);
     });

@@ -5,8 +5,8 @@
       "type": "msedge",
       "request": "launch",
       "name": "Calendar Filter (Edge)",
-      "url": "http://localhost:4200",
-      "webRoot": "${workspaceFolder}/Taurit.TodoistTools.CalendarProxy.UI",
+      "url": "http://127.0.0.1:4200/",
+      "webRoot": "${workspaceFolder}/Taurit.TodoistTools.CalendarProxy.UI/src",
       "preLaunchTask": "UI: Start"
     }
   ]

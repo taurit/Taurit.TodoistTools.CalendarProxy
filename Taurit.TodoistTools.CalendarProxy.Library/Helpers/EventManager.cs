@@ -43,12 +43,9 @@ public class EventManager
         if (filter.HidePrivateEvents)
             HidePrivateEvents();
 
-        // A quick, private filter to allow me declutter my corporate calendar
-        if (filter.RemoveTeamsLocations)
+        if (filter.ApplyCorporateCalendarFilters)
         {
-            RemoveTeamsLocations();
-
-            // I extended this filter to also:
+            ClearMatchingCorporateLocations();
             CleanUpKnownEventsNames();
             FilterOutOptionalRecurringMeetingsInFarFuture();
             FilterOutEventsOlderThan30Days();
@@ -80,14 +77,8 @@ public class EventManager
             if (evnt?.Summary?.Value != null)
             {
                 evnt.Summary.Value = evnt.Summary.Value
-                    .Replace("Dynamics 365 Daily Scrum", "D365 Daily", StringComparison.OrdinalIgnoreCase)
                     .Replace("Web Sprint Retrospective", "Web Retro", StringComparison.OrdinalIgnoreCase)
-                    .Replace("[Web/e-comm] Tech knowledge sharing", "Knowledge sharing", StringComparison.OrdinalIgnoreCase)
-                    .Replace("Web daily", "Web Daily", StringComparison.OrdinalIgnoreCase)
-                    .Replace("Dynamics 365 Sprint Planning", "D365 Sprint Planning", StringComparison.OrdinalIgnoreCase)
-                    .Replace("Team Demo (Internal Show&Tell)", "D365 Internal Demo", StringComparison.OrdinalIgnoreCase)
-                    ;
-
+                    .Replace("Web daily", "Web Daily", StringComparison.OrdinalIgnoreCase);
             }
         }
     }
@@ -95,7 +86,7 @@ public class EventManager
 
     private void FilterOutOptionalRecurringMeetingsInFarFuture()
     {
-        // Allowed recurrence until: end of day, first Saturday AFTER today + 7 days.
+        // Keep selected meetings through the end of the first Saturday strictly after today + 10 days.
         DateTime baseDate = DateTime.Today.AddDays(10);
         int daysUntilSaturday = ((int)DayOfWeek.Saturday - (int)baseDate.DayOfWeek + 7) % 7;
         if (daysUntilSaturday == 0)
@@ -112,10 +103,7 @@ public class EventManager
 
             // Check if the event is a meeting that should be filtered out in far future
             if (evnt.Summary.Value.Equals("Web Daily", StringComparison.InvariantCultureIgnoreCase) ||
-                evnt.Summary.Value.Equals("D365 Daily", StringComparison.InvariantCultureIgnoreCase) ||
-                evnt.Summary.Value.Equals("MitFalck SoS", StringComparison.InvariantCultureIgnoreCase) ||
-                evnt.Summary.Value.Equals("MitFalck+TSA+ELM Refinement", StringComparison.InvariantCultureIgnoreCase)
-                )
+                evnt.Summary.Value.Equals("MitFalck SoS", StringComparison.InvariantCultureIgnoreCase))
             {
                 var recurrenceRule = evnt.RecurrenceRules.SingleOrDefault();
                 if (recurrenceRule != null)
@@ -330,19 +318,16 @@ public class EventManager
 
 
     /// <summary>
-    ///     Removes location information from events if the location matches any of the specified Teams-related patterns.
+    ///     Clears event locations that match the corporate calendar patterns.
     /// </summary>
-    private void RemoveTeamsLocations()
+    private void ClearMatchingCorporateLocations()
     {
         // Patterns that should be matched anywhere in the location string (case-insensitive)
         string[] containsPatterns = new[]
         {
-            "Microsoft Teams Meeting",
-            "Spotkanie w aplikacji Microsoft Teams",
+            "Microsoft Teams",
             "Live Event",
-            "Warsaw Kitchen",
-            "Kitchen",
-            "Microsoft Teams" // covers "everything containing Microsoft Teams"
+            "Kitchen"
         };
 
         // Special cases: remove if location starts with any of these patterns (case-insensitive)

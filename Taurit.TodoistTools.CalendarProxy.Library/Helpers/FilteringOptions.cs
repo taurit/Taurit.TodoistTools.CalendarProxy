@@ -36,8 +36,8 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         // Comma-delimited list of Todoist projects that should not be displayed.
         public string? HideEventsFromThoseProjects { get; private set; } = null;
 
-        // Remove Microsoft Teams locations from events without hiding them.
-        public bool RemoveTeamsLocations { get; private set; } = false;
+        // Apply the corporate calendar cleanup rules.
+        public bool ApplyCorporateCalendarFilters { get; private set; } = false;
 
         // Initializes options with settings obtained from URL parameters.
         // Valid HTTP QueryString. Recognized parameters:
@@ -45,7 +45,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
         // p: PredictEventDuration, r: RemoveEventDurationFromTitle,
         // st: SkipEventsContainingThisString, min: HideEventsShorterThanMinutes,
         // pr: HideEventsFromThoseProjects, lt: ShortenEventsLongerThanThisMinutes,
-        // mt: ShortenEventsLongerThanThisMinutes, rtl: RemoveTeamsLocations
+        // mt: ShortenEventsLongerThanThisMinutes, rtl: ApplyCorporateCalendarFilters
         public FilteringOptions(NameValueCollection qsParams) => ParseParameters(qsParams);
 
         // Constructor overload using raw QueryString parameters.
@@ -74,7 +74,7 @@ namespace Taurit.TodoistTools.CalendarProxy.Library.Helpers
             ShortenEvents = ParseBool(qsParams["s"]);
             PredictEventDuration = ParseBool(qsParams["p"]);
             RemoveEventDurationFromTitle = ParseBool(qsParams["r"]);
-            RemoveTeamsLocations = ParseBool(qsParams["rtl"]);
+            ApplyCorporateCalendarFilters = ParseBool(qsParams["rtl"]);
 
             if (!string.IsNullOrWhiteSpace(qsParams["st"]))
             {
